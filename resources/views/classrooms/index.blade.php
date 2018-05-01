@@ -79,9 +79,9 @@
                       <td style="text-align: center;">@if(isset($item->grade)) Grade {{ucwords($item->grade->name)}} @else <a href="{{route('classrooms.show', $item->id)}}">Set</a> @endif</td>
                       <td style="text-align: center;">
                         @can('edit_classrooms', $item)
-                          <input type="checkbox" class="statusActive" data-id="{{$item->id}}" @if ($item->statusActive) checked @endif>
+                          <input type="checkbox" class="statusActive" data-id="{{$item->id}}" @if ($item->classroomactive) checked @endif>
                         @else
-                          {{ $item->statusActive == 1 ? 'Yes' : 'No' }}
+                          {{ $item->classroomactive == 1 ? 'Yes' : 'No' }}
                         @endcan
                       </td>
                       <td style="text-align: center;">{{ $item->created_at->format('d M Y - H:i') }}</td>
