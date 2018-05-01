@@ -11,7 +11,7 @@ class CreateGradesTable extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('gradename');
             $table->string('alias')->nullable();
             $table->string('updated_by')->nullable();
             $table->unsignedInteger('user_id');

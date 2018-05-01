@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Month extends Model
 {
     protected $fillable = [
-        'noId', 'name', 'alias'
+        'noId', 'monthname', 'alias'
     ];
 
     public function students()

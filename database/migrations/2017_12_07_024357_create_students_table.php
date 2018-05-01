@@ -17,9 +17,9 @@ class CreateStudentsTable extends Migration
             $table->increments('id');
             $table->string('noId')->unique();
             $table->string('noIdNational')->nullable();
-            $table->string('fullname');
-            $table->string('nickName')->nullable();
-            $table->boolean('statusActive')->default(1);
+            $table->string('studentname');
+            $table->string('studentnick')->nullable();
+            $table->boolean('studentactive')->default(1);
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')->on('users')

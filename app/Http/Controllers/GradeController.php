@@ -12,7 +12,7 @@ class GradeController extends Controller
     public function index(Request $request)
     {
         $query = $request->get('search');
-        $result = Grade::where('name', 'LIKE', '%' . $query . '%')->paginate(20);
+        $result = Grade::where('gradename', 'LIKE', '%' . $query . '%')->paginate(20);
         return view('grades.index', compact('result', 'query'));
     }
 
@@ -35,7 +35,7 @@ class GradeController extends Controller
       $grade = new Grade;
 
       $grade->user_id = Auth::user()->id;
-      $grade->name = $request->name;
+      $grade->gradename = $request->name;
       $grade->alias = $request->alias;
 
       $grade->save();

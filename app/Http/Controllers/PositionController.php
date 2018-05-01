@@ -21,18 +21,18 @@ class PositionController extends Controller
       $query = $request->get('search');
 
       if ($query == 'yes') {
-          $result = Position::where('live', 1)
+          $result = Position::where('positionactive', 1)
                         ->orderBy('created_at', 'desc')
                         ->paginate(20);
       }
      elseif ($query == 'no') {
-          $result = Position::where('live', 0)
+          $result = Position::where('positionactive', 0)
                        ->orderBy('created_at', 'desc')
                        ->paginate(20);
      }
      else {
-          $result = Position::where('name','like','%'.$query.'%')
-                      ->orWhere('live','like','%'.$query.'%')
+          $result = Position::where('positionname','like','%'.$query.'%')
+                      ->orWhere('statusactive','like','%'.$query.'%')
                       ->orderBy('name')
                       ->paginate(20);
       };
@@ -46,7 +46,7 @@ class PositionController extends Controller
 
         $position = Position::findOrFail($id);
 
-        $position->live = !$position->live;
+        $position->positionactive = !$position->positionactive;
         $position->save();
 
         return response()->json($position);
@@ -67,8 +67,8 @@ class PositionController extends Controller
       $position = new Position;
 
       $position->user_id = Auth::user()->id;
-      $position->name = $request->name;
-      $position->live = $request->live;
+      $position->positionname = $request->name;
+      $position->positionactive = $request->active;
 
       $position->save();
 
@@ -106,8 +106,8 @@ class PositionController extends Controller
         'name' => 'required|unique:positions,name,'.$position->id
       ));
 
-      if( !isset($request->live))
-          $position->update(array_merge($request->all(), ['live' => false] ));
+      if( !isset($request->active))
+          $position->update(array_merge($request->all(), ['positionactive' => false] ));
               else
           $position->update($request->all());
 

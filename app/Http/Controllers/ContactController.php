@@ -31,7 +31,7 @@ class ContactController extends Controller
       }
 
       if (isset($request->search)) {
-          $students->where('fullname', 'like',  "%{$request->search}%")->orWhere('nickName', 'like'. "%{$request->search}%")->orWhereHas('studentprofile', function ($q) use ($request) {
+          $students->where('studentname', 'like',  "%{$request->search}%")->orWhere('studentnick', 'like'. "%{$request->search}%")->orWhereHas('studentprofile', function ($q) use ($request) {
             $q->where('email', 'like', "%{$request->search}%")->orWhere('address', 'like', "%{$request->search}%");
           });
       }
@@ -40,7 +40,7 @@ class ContactController extends Controller
 
       $pagination = (isset($request->month_id)) ? $result->appends(['month_id' => $request->month_id]) : '';
       $pagination = (isset($request->user_id)) ? $result->appends(['user_id' => $request->user_id]) : '';
-      $pagination = (isset($request->live)) ? $result->appends(['live' => $request->live]) : '';
+      $pagination = (isset($request->active)) ? $result->appends(['studentactive' => $request->active]) : '';
       $pagination = (isset($request->search)) ? $result->appends(['email' => $request->search, 'address' => $request->search]) : '';
 
       $users = User::all();
@@ -64,19 +64,19 @@ class ContactController extends Controller
       }
 
       if (isset($request->search)) {
-          $employees->where('fullname', 'like',  "%{$request->search}%")->orWhere('phone', 'like'. "%{$request->search}%")->orWhere('address', 'like', "%{$request->search}%")->orWhere('education', 'like', "%{$request->search}%");
+          $employees->where('employeename', 'like',  "%{$request->search}%")->orWhere('phone', 'like'. "%{$request->search}%")->orWhere('address', 'like', "%{$request->search}%")->orWhere('education', 'like', "%{$request->search}%");
       }
 
       if (isset($request->statusActive)) {
-          $employees->where('statusActive', $request->statusActive);
+          $employees->where('employeeactive', $request->statusActive);
       }
 
       $result = $employees->orderBy('updated_at', 'desc')->paginate(20);
 
       $pagination = (isset($request->month_id)) ? $result->appends(['month_id' => $request->month_id]) : '';
       $pagination = (isset($request->user_id)) ? $result->appends(['user_id' => $request->user_id]) : '';
-      $pagination = (isset($request->statusActive)) ? $result->appends(['statusActive' => $request->statusActive]) : '';
-      $pagination = (isset($request->search)) ? $result->appends(['fullname' => $request->search, 'address' => $request->search]) : '';
+      $pagination = (isset($request->statusActive)) ? $result->appends(['employeeactive' => $request->statusActive]) : '';
+      $pagination = (isset($request->search)) ? $result->appends(['employeename' => $request->search, 'address' => $request->search]) : '';
 
       $users = User::all();
       $months = Month::all();

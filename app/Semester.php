@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Semester extends Model
 {
   protected $fillable = [
-      'name','alias', 'user_id'
+      'semestername','alias', 'user_id'
   ];
 
   public function user()

@@ -12,7 +12,7 @@ class SemesterController extends Controller
     public function index(Request $request)
     {
         $query = $request->get('search');
-        $result = Semester::where('name', 'LIKE', '%' . $query . '%')->paginate(20);
+        $result = Semester::where('semestername', 'LIKE', '%' . $query . '%')->paginate(20);
         return view('semesters.index', compact('result', 'query'));
     }
 
@@ -33,7 +33,7 @@ class SemesterController extends Controller
       $semester = new Semester;
 
       $semester->user_id = Auth::user()->id;
-      $semester->name = $request->name;
+      $semester->semestername = $request->name;
       $semester->alias = $request->alias;
 
       $semester->save();

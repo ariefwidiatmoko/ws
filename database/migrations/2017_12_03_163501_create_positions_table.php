@@ -15,9 +15,9 @@ class CreatePositionsTable extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('name');
+          $table->string('positionname');
           $table->string('updated_by')->nullable();
-          $table->boolean('live')->default(0);
+          $table->boolean('positionactive')->default(0);
           $table->timestamps();
           $table->unsignedInteger('user_id');
           $table->foreign('user_id')

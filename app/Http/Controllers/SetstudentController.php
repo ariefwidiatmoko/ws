@@ -21,24 +21,24 @@ class SetstudentController extends Controller
     {
 
         $students = DB::table('students')
-                        ->join('studentyears', 'students.id', '=', 'studentyears.student_id')->select('students.id', 'students.noId', 'students.noIdNational', 'students.fullname', 'studentyears.yearName', 'studentyears.gradeName', 'studentyears.semester_id');
+                        ->join('studentyears', 'students.id', '=', 'studentyears.student_id')->select('students.noId', 'students.noIdNational', 'students.studentname', 'studentyears.year_name', 'studentyears.grade_name', 'studentyears.semester_id');
 
         if (isset($request->search)) {
-            $students->where('fullname', 'like',  "%{$request->search}%");
+            $students->where('studentname', 'like',  "%{$request->search}%");
         }
 
-        if (isset($request->yearName)) {
-            $students->whereNull('yearName');
+        if (isset($request->year_name)) {
+            $students->whereNull('year_name');
 
         }
 
-        if (isset($request->gradeName)) {
-        $students->whereNull('gradeName');
+        if (isset($request->grade_name)) {
+        $students->whereNull('grade_name');
         }
 
-        $result = $students->where('statusActive', 1)->orderBy('noId')->paginate(25);
+        $result = $students->where('studentactive', 1)->orderBy('noId')->paginate(25);
 
-        $pagination = (isset($request->search)) ? $result->appends(['name' => $request->search]) : '';
+        $pagination = (isset($request->search)) ? $result->appends(['studentname' => $request->search]) : '';
 
         $years = Year::all();
         $grades = Grade::all();
@@ -71,11 +71,11 @@ class SetstudentController extends Controller
           $row = array_combine($header, $row);
 
           $students = Student::create([
-                          'noId' => $row['noId'],
-                          'noIdNational' => $row['noIdNational'],
-                          'fullname' => $row['fullname'],
-                          'nickName' => $row['nickName'],
-                          'statusActive' => 1,
+                          'noId' => $row['Id'],
+                          'noIdNational' => $row['IdNational'],
+                          'studentname' => $row['Fullname'],
+                          'studentnick' => $row['NickName'],
+                          'studentactive' => 1,
                           'user_id' => Auth::user()->id,
                           'created_at' => Carbon::now(),
                           'updated_at' => Carbon::now(),
@@ -91,18 +91,18 @@ class SetstudentController extends Controller
 
           $studentyears = Studentyear::insert([
                           'student_id' => $lastStudentIds[$index],
-                          'yearName' => $row['yearName'],
+                          'year_name' => $row['Year'],
                           'semester_id' => 1,
-                          'gradeName' => $row['gradeName'],
+                          'grade_name' => $row['Grade'],
                           'created_at' => Carbon::now(),
                           'updated_at' => Carbon::now(),
                       ]);
 
           $studentyears = Studentyear::insert([
                           'student_id' => $lastStudentIds[$index],
-                          'yearName' => $row['yearName'],
+                          'year_name' => $row['Year'],
                           'semester_id' => 2,
-                          'gradeName' => $row['gradeName'],
+                          'grade_name' => $row['Grade'],
                           'created_at' => Carbon::now(),
                           'updated_at' => Carbon::now(),
                       ]);

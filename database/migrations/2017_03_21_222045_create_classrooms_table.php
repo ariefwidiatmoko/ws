@@ -15,10 +15,10 @@ class CreateClassroomsTable extends Migration
     {
         Schema::create('classrooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('classroomname');
             $table->string('alias')->nullable();
             $table->string('updated_by')->nullable();
-            $table->boolean('statusActive')->default(1);
+            $table->boolean('classroomactive')->default(1);
             $table->unsignedInteger('grade_id')->nullable();
             $table->foreign('grade_id')
                   ->references('id')->on('grades')

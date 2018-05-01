@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
   protected $fillable = [
-      'fullname', 'noId', 'noIdNational', 'nickName', 'user_id'
+      'studentname', 'noId', 'noIdNational', 'studentnick', 'user_id', 'studentactive'
   ];
 
   protected $dates = ['created_at'];
 
-  public function setStatusActiveAttribute($value)
+  public function setStudentActiveAttribute($value)
   {
-    $this->attributes['statusActive'] = (boolean)($value);
+    $this->attributes['studentactive'] = (boolean)($value);
   }
 
   public function user()

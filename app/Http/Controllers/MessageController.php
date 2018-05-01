@@ -10,11 +10,7 @@ use App\Message;
 
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $result = Message::orderBy('created_at', 'desc')->paginate(20);
@@ -32,10 +28,10 @@ class MessageController extends Controller
       $message = new Message;
 
       $message->user_id = 1;
-      $message->name = $request->name;
+      $message->sender = $request->sender;
       $message->email = $request->email;
-      $message->title = $request->title;
-      $message->content = $request->content;
+      $message->messagetitle = $request->title;
+      $message->messagecontent = $request->content;
 
       $message->save();
 
@@ -55,10 +51,10 @@ class MessageController extends Controller
       $message = new Message;
 
       $message->user_id = 1;
-      $message->name = $request->name;
+      $message->sender = $request->sender;
       $message->email = $request->email;
-      $message->title = $request->title;
-      $message->content = $request->content;
+      $message->messagetitle = $request->title;
+      $message->messagecontent = $request->content;
 
       $message->save();
 
@@ -67,46 +63,21 @@ class MessageController extends Controller
       return redirect()->route('welcome');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(Message $message)
     {
         $me = Auth::user();

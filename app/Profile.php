@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class Profile extends Model
 {
   protected $fillable = [
-      'user_id', 'dob', 'fullname', 'phone', 'address', 'education', 'quote', 'about', 'avatar', 'updated_by',
+      'user_id', 'dob', 'profilename', 'phone', 'address', 'education', 'quote', 'about', 'avatar', 'updated_by',
   ];
 
   protected $dates = [

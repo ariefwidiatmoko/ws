@@ -15,7 +15,7 @@ class CreateProfilesTable extends Migration
           $table->foreign('user_id')->references('id')
                 ->on('users')->onDelete('cascade');
           $table->date('dob')->nullable();
-          $table->string('fullname')->nullable();
+          $table->string('profilename')->nullable();
           $table->string('phone')->nullable();
           $table->string('address')->nullable();
           $table->string('education')->nullable();

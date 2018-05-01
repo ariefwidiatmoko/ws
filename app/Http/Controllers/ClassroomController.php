@@ -17,7 +17,7 @@ class ClassroomController extends Controller
     public function index(Request $request)
     {
         $query = $request->get('search');
-        $result = Classroom::where('name', 'LIKE', '%' . $query . '%')->orderBy('name')->paginate(20);
+        $result = Classroom::where('classroomname', 'LIKE', '%' . $query . '%')->orderBy('classroomname')->paginate(20);
         return view('classrooms.index', compact('result', 'query'));
     }
 
@@ -27,7 +27,7 @@ class ClassroomController extends Controller
 
         $classroom = Classroom::findOrFail($id);
 
-        $classroom->statusActive = !$classroom->statusActive;
+        $classroom->classroomactive = !$classroom->classroomactive;
         $classroom->save();
 
         return response()->json($classroom);
@@ -43,14 +43,14 @@ class ClassroomController extends Controller
 
       // Validate the data
       $this->validate($request, array(
-        'name' => 'required|unique:classrooms',
+        'classroomName' => 'required|unique:classrooms',
         'alias' => 'required'
       ));
 
       $classroom = new Classroom;
 
       $classroom->user_id = Auth::user()->id;
-      $classroom->name = $request->name;
+      $classroom->classroomname = $request->classroomname;
       $classroom->alias = $request->alias;
 
       $classroom->save();

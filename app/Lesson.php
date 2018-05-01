@@ -18,7 +18,7 @@ class Lesson extends Model
             ->saveSlugsTo('slug');
     }
 
-    protected $fillable = ['title', 'slug', 'content', 'live', 'published_at', 'updated_by', 'user_id', 'subject_id' ];
+    protected $fillable = ['lessontitle', 'slug', 'lessoncontent', 'lessonactive', 'published_at', 'updated_by', 'user_id', 'subject_id' ];
 
     protected $dates = ['published_at'];
 
@@ -32,8 +32,8 @@ class Lesson extends Model
         return $this->belongsTo(Subject::class);
     }
 
-    public function setLiveAttribute($value)
+    public function setLessonActiveAttribute($value)
     {
-      $this->attributes['live'] = (boolean)($value);
+      $this->attributes['lessonactive'] = (boolean)($value);
     }
 }

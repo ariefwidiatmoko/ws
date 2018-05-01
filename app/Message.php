@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
 
-  protected $fillable = ['name', 'email', 'title', 'content', 'user_id'];
+  protected $fillable = ['sender', 'email', 'messagetitle', 'messagecontent', 'user_id'];
 
 
 

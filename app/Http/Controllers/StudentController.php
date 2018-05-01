@@ -21,22 +21,22 @@ class StudentController extends Controller
         $query = $request->get('search');
 
         if ($query == 'yes') {
-            $result = Student::where('statusActive', 1)
-                             ->orderBy('fullname')
+            $result = Student::where('studentactive', 1)
+                             ->orderBy('studentname')
                              ->paginate(20);
         }
         elseif ($query == 'no') {
-            $result = Student::where('statusActive', 0)
-                             ->orderBy('fullname')
+            $result = Student::where('subjectactive', 0)
+                             ->orderBy('studentname')
                              ->paginate(20);
         }
         else {
 
-            $result = Student::where('fullname','like','%'.$query.'%')
+            $result = Student::where('studentname','like','%'.$query.'%')
                              ->orWhere('noId','like','%'.$query.'%')
-                             ->orWhere('nickName','like','%'.$query.'%')
-                             ->orderBy('statusActive', 1)
-                             ->orderBy('fullname')
+                             ->orWhere('studentnick','like','%'.$query.'%')
+                             ->orderBy('studentactive', 1)
+                             ->orderBy('studentname')
                              ->paginate(20);
 
       }
@@ -51,7 +51,7 @@ class StudentController extends Controller
 
         $student = Student::findOrFail($id);
 
-        $student->statusActive = !$student->statusActive;
+        $student->studentactive = !$student->studentactive;
         $student->save();
 
         return response()->json($student);
@@ -59,7 +59,7 @@ class StudentController extends Controller
 
     public function create()
     {
-          return view('students.create', compact('nowDate'));
+          return view('students.create'));
     }
 
     public function store(Request $request)

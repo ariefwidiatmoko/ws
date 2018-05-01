@@ -75,7 +75,7 @@
                   @forelse ($result as $index => $item)
                     <tr>
                       <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
-                      <td style="text-align: center;"><a href="{{route('classrooms.show', $item->id)}}">{{ ucfirst($item->name) }}</a></td>
+                      <td style="text-align: center;"><a href="{{route('classrooms.show', $item->id)}}">{{ ucfirst($item->classroomName) }}</a></td>
                       <td style="text-align: center;">@if(isset($item->grade)) Grade {{ucwords($item->grade->name)}} @else <a href="{{route('classrooms.show', $item->id)}}">Set</a> @endif</td>
                       <td style="text-align: center;">
                         @can('edit_classrooms', $item)

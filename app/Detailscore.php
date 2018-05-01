@@ -8,7 +8,7 @@ class Detailscore extends Model
 {
 
     protected $fillable = [
-        'studentyear_id', 'name', 'colomn', 'percentage', 'input', 'avg'
+        'studentyear_id', 'detailscorename', 'colomn', 'percentage', 'input', 'avg'
     ];
 
     protected $casts = [

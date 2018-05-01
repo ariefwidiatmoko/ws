@@ -20,9 +20,9 @@ class CreateEmployeesTable extends Migration
                 ->references('id')->on('months');
           $table->string('created_by')->nullable();
           $table->string('updated_by')->nullable();
-          $table->boolean('statusActive')->default(0);
+          $table->boolean('employeeactive')->default(0);
           $table->string('noId')->unique();
-          $table->string('fullname');
+          $table->string('employeename');
           $table->date('dob')->nullable();
           $table->text('phone')->nullable();
           $table->string('email')->nullable();

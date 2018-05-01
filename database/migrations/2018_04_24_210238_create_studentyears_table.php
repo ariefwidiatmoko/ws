@@ -20,9 +20,9 @@ class CreateStudentyearsTable extends Migration
                   ->references('id')->on('users')
                   ->onDelete('cascade');
             $table->integer('student_id');
-            $table->string('yearName')->nullable();
+            $table->string('year_name')->nullable();
             $table->integer('semester_id')->nullable();
-            $table->string('gradeName')->nullable();
+            $table->string('grade_name')->nullable();
             $table->string('classroom_id')->nullable();
             $table->timestamps();
 

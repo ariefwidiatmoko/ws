@@ -15,10 +15,10 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('sender');
             $table->string('email')->unique();
-            $table->string('title');
-            $table->text('content');
+            $table->string('messagetitle');
+            $table->text('messagecontent');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')->on('users')

@@ -17,9 +17,9 @@ class SubjectController extends Controller
     {
         $query = $request->get('search');
 
-        $result = Subject::where('name','like','%'.$query.'%')
+        $result = Subject::where('subjectname','like','%'.$query.'%')
                       ->orWhere('alias', 'like', '%'.$query.'%')
-                      ->orderBy('name')
+                      ->orderBy('subjectname')
                       ->paginate(20);
         return view('subjects.index', compact('result', 'query'));
     }
@@ -30,7 +30,7 @@ class SubjectController extends Controller
 
         $subject = Subject::findOrFail($id);
 
-        $subject->live = !$subject->live;
+        $subject->subjectactive = !$subject->subjectactive;
         $subject->save();
 
         return response()->json($subject);
@@ -52,9 +52,9 @@ class SubjectController extends Controller
       $subject = new Subject;
 
       $subject->user_id = Auth::user()->id;
-      $subject->name = $request->name;
+      $subject->subjectname = $request->name;
       $subject->alias = $request->alias;
-      $subject->live = $request->live;
+      $subject->subjectactive = $request->active;
 
       $subject->save();
 
@@ -90,8 +90,8 @@ class SubjectController extends Controller
         'alias' => 'required'
       ));
 
-      if( !isset($request->live))
-          $subject->update(array_merge($request->all(), ['live' => false] ));
+      if( !isset($request->active))
+          $subject->update(array_merge($request->all(), ['subjectactive' => false] ));
               else
           $subject->update($request->all());
 

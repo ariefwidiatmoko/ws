@@ -12,7 +12,7 @@ class CreateMonthsTable extends Migration
         Schema::create('months', function (Blueprint $table) {
             $table->increments('id');
             $table->string('noId');
-            $table->string('name');
+            $table->string('monthname');
             $table->string('alias')->nullable();
             $table->timestamps();
         });

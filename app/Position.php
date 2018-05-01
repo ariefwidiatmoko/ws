@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Position extends Model
 {
       protected $fillable = [
-          'name', 'live', 'updated_by', 'user_id',
+          'positionname', 'positionactive', 'updated_by', 'user_id',
       ];
 
       public function user()
@@ -15,9 +15,9 @@ class Position extends Model
           return $this->belongsTo(User::class);
       }
 
-      public function setLiveAttribute($value)
+      public function setPositionActiveAttribute($value)
       {
-        $this->attributes['live'] = (boolean)($value);
+        $this->attributes['positionactive'] = (boolean)($value);
       }
 
       public function employees()

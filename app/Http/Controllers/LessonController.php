@@ -26,7 +26,7 @@ class LessonController extends Controller
          $lessons = Lesson::query();
 
          if (isset($request->search)) {
-               $lessons->where('title', 'like', "%{$request->search}%")->orWhere('content', 'like', "%{$request->search}%");
+               $lessons->where('lessontitle', 'like', "%{$request->search}%")->orWhere('lessoncontent', 'like', "%{$request->search}%");
          }
 
          if (isset($request->subject_id)) {
@@ -37,18 +37,18 @@ class LessonController extends Controller
                $lessons->where('user_id', $request->user_id);
          }
 
-         if (isset($request->live)) {
-               $lessons->where('live', $request->live);
+         if (isset($request->active)) {
+               $lessons->where('lessonactive', $request->active);
          }
 
          $result = $lessons->orderBy('updated_at', 'desc')->orderBy('published_at', 'desc')->paginate(20);
 
          $pagination = (isset($request->subject_id)) ? $result->appends(['subject_id' => $request->subject_id]) : '';
          $pagination = (isset($request->user_id)) ? $result->appends(['user_id' => $request->user_id]) : '';
-         $pagination = (isset($request->live)) ? $result->appends(['live' => $request->live]) : '';
-         $pagination = (isset($request->search)) ? $result->appends(['title' => $request->search]) : '';
+         $pagination = (isset($request->active)) ? $result->appends(['lessonactive' => $request->active]) : '';
+         $pagination = (isset($request->search)) ? $result->appends(['lessontitle' => $request->search]) : '';
 
-         $subjects = Subject::where('live', 1)->orderBy('name')->get();
+         $subjects = Subject::where('subjectactive', 1)->orderBy('name')->get();
          $users = User::all();
 
          $request->flash();
@@ -65,7 +65,7 @@ class LessonController extends Controller
 
         $lesson = Lesson::findOrFail($id);
 
-        $lesson->live = !$lesson->live;
+        $lesson->lessonactive = !$lesson->lessonactive;
         $lesson->save();
 
         return response()->json($lesson);
@@ -73,7 +73,7 @@ class LessonController extends Controller
 
     public function create()
     {
-        $subjects = Subject::where('live', 1)->orderBy('name')->get();
+        $subjects = Subject::where('active', 1)->orderBy('subjectname')->get();
 
         return view('lessons.create', compact('subjects'));
     }
@@ -91,9 +91,9 @@ class LessonController extends Controller
 
         $lesson->user_id = Auth::user()->id;
         $lesson->subject_id = $request->subject_id;
-        $lesson->title = $request->title;
-        $lesson->content = $request->content;
-        $lesson->live = $request->live;
+        $lesson->lessontitle = $request->title;
+        $lesson->lessoncontent = $request->content;
+        $lesson->lessonactive = $request->active;
 
         $lesson->save();
 
@@ -112,7 +112,7 @@ class LessonController extends Controller
     public function edit(Lesson $lesson)
     {
         $lesson = Lesson::findOrFail($lesson->id);
-        $subjects = Subject::where('live', 1)->orderBy('name')->get();
+        $subjects = Subject::where('active', 1)->orderBy('name')->get();
 
         return view('lessons.edit', compact('lesson', 'subjects'));
     }
@@ -134,8 +134,8 @@ class LessonController extends Controller
           'content' => 'required'
         ));
 
-        if( !isset($request->live)) {
-          $lesson->update(array_merge($request->all(), ['live' => false] ));
+        if( !isset($request->active)) {
+          $lesson->update(array_merge($request->all(), ['lessonactive' => false] ));
         } else {
           $lesson->update($request->all());
         }

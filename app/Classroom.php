@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Classroom extends Model
 {
   protected $fillable = [
-      'name','alias', 'statusActive', 'grade_id', 'user_id'
+      'classroomname','alias', 'classroomactive', 'grade_id', 'user_id'
   ];
 
   public function setStatusActiveAttribute($value)

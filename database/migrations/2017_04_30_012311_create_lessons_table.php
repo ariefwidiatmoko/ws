@@ -15,10 +15,10 @@ class CreateLessonsTable extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('lessontitle');
             $table->string('slug');
-            $table->text('content');
-            $table->boolean('live')->default(0);
+            $table->text('lessoncontent');
+            $table->boolean('lessonactive')->default(0);
             $table->dateTime('published_at')->nullable();
             $table->string('updated_by')->nullable();
             $table->unsignedInteger('user_id');
@@ -29,7 +29,6 @@ class CreateLessonsTable extends Migration
             $table->foreign('subject_id')
                   ->references('id')->on('subjects')
                   ->onDelete('cascade')->nullable();
-
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'))->nullable();
             $table->timestamp('updated_at')->nullable();
 

@@ -15,7 +15,7 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('eventname');
             $table->string('event_color')->default('#367fa9');
             $table->boolean('allday')->default(1);
             $table->dateTime('event_start');

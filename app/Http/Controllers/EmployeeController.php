@@ -22,19 +22,19 @@ class EmployeeController extends Controller
       $query = $request->get('search');
 
       if ($query == 'yes') {
-          $result = Employee::where('statusActive', 1)
+          $result = Employee::where('employeeactive', 1)
                         ->orderBy('created_at', 'desc')
                         ->paginate(20);
       }
      elseif ($query == 'no') {
-          $result = Employee::where('statusActive', 0)
+          $result = Employee::where('employeeactive', 0)
                        ->orderBy('created_at', 'desc')
                        ->paginate(20);
      }
      else {
-          $result = Employee::where('fullname','like','%'.$query.'%')
-                      ->orderBy('statusActive', 'desc')
-                      ->orderBy('fullname')
+          $result = Employee::where('employeename','like','%'.$query.'%')
+                      ->orderBy('employeeactive', 'desc')
+                      ->orderBy('employeename')
                       ->paginate(20);
 
       }
@@ -48,7 +48,7 @@ class EmployeeController extends Controller
 
         $employee = Employee::findOrFail($id);
 
-        $employee->statusActive = !$employee->statusActive;
+        $employee->employeective = !$employee->employeective;
         $employee->save();
 
         return response()->json($employee);
@@ -75,7 +75,7 @@ class EmployeeController extends Controller
 
         $employee->user_id =  Auth::user()->id;
         $employee->noId = $request->noId;
-        $employee->fullname = $request->fullname;
+        $employee->employeename = $request->fullname;
         $employee->dob = $request->dob;
         $employee->month_id = $request->dob->format('m');
         $employee->phone = $request->phone;
@@ -83,7 +83,7 @@ class EmployeeController extends Controller
         $employee->address = $request->address;
         $employee->quote = $request->quote;
         $employee->about = $request->about;
-        $employee->statusActive = $request->statusActive;
+        $employee->employeeactive = $request->statusActive;
 
         //save Image Avatar
 
@@ -156,7 +156,7 @@ class EmployeeController extends Controller
       }
 
       if( !isset($request->statusActive))
-          $employee->update(array_merge($request->all(), ['statusActive' => false] ));
+          $employee->update(array_merge($request->all(), ['employeeactive' => false] ));
               else
           $employee->update($request->all());
 

@@ -24,7 +24,7 @@ class EventController extends Controller
       foreach ($events as $key => $event) {
 
         $event_list[] = Calendar::event(
-          $event->name,
+          $event->eventname,
           $isAllday[$event->allday],
           new \DateTime($event->event_start),
           new \DateTime($event->event_end),
@@ -62,7 +62,7 @@ class EventController extends Controller
       ];
       $event = new Event;
       $event->user_id = $request->user_id;
-      $event->name = $request->name;
+      $event->eventname = $request->name;
       $event->event_color = $eventColor[$request->event_color];
 
       if($request->has('allday')) {
@@ -101,7 +101,7 @@ class EventController extends Controller
           'event_end' => 'required'
         ));
 
-        $event->name = $request->name;
+        $event->eventname = $request->name;
         $event->allday = $request->allday;
         $event->event_color = $request->event_color;
         $event->event_start = $request->event_start;

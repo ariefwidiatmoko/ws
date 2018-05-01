@@ -70,6 +70,7 @@
                       <td style="text-align: center;">@if(isset($item->semester_id)) Semester {{$item->semester_id}} @else Not Set @endif</td>
                       <td style="text-align: center;">@if(isset($item->gradeName)) Grade {{$item->gradeName}} @else Not Set @endif</td>
                       <td style="text-align: center;">@if(isset($item->gradeName)) Grade {{$item->gradeName}} @else Not Set @endif</td>
+                      <td style="text-align: center;">@if(isset($item->name)) Classroom {{$item->name}} @else Not Set @endif</td>
                     </tr>
                   @empty
                     <tr>

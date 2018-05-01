@@ -37,7 +37,7 @@
         <div class="box-body box-profile" style="margin: 0px 18px 0px 18px;">
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item clearfix"><b>
-              Name</b><a class="pull-right">Classroom {{ $classroom->name }}</a>
+              Name</b><a class="pull-right">Classroom {{ $classroom->classroomName }}</a>
             </li>
             <li class="list-group-item clearfix"><b>
               Alias</b><a class="pull-right">Classroom {{ $classroom->alias != null ? ucwords($classroom->alias) : '-' }}</a>
@@ -150,7 +150,7 @@
               {{ method_field('PUT') }}
               {{ csrf_field() }}
               <div class="form-group">
-                <label for="inputName" class="col-sm-2 control-label">
+                <label class="col-sm-2 control-label">
                   Select Year
                 </label>
                 <div class="col-sm-10">

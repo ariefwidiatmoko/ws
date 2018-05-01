@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Year extends Model
 {
   protected $fillable = [
-      'name','alias', 'user_id'
+      'yearname','alias', 'user_id'
   ];
 
   public function user()

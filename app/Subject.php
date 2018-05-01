@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-  protected $fillable = ['name', 'alias', 'user_id', 'updated_by', 'live'];
+  protected $fillable = ['subjectname', 'alias', 'user_id', 'updated_by', 'subjectactive'];
+
+  public function setSubjectActiveAttribute($value)
+  {
+    $this->attributes['subjectactive'] = (boolean)($value);
+  }
 
   public function lessons()
   {

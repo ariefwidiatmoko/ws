@@ -24,7 +24,7 @@ class CreateSubjectscoresTable extends Migration
                   ->references('id')->on('studentyears')
                   ->onDelete('cascade');
             $table->string('subject_id')->nullable();
-            $table->string('name')->nullable();
+            $table->string('subjectscorename')->nullable();
             $table->decimal('score', 5, 2)->nullable();
             $table->timestamps();
         });

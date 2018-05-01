@@ -25,26 +25,26 @@ class NoteController extends Controller
          $segments = array('Announcement', 'News', 'Event', 'Final Exam', 'Holiday');
 
          if (isset($request->search)) {
-             $notes->where('name', 'like', "%{$request->search}%")->orWhere('description', 'like', "%{$request->search}%");
+             $notes->where('notename', 'like', "%{$request->search}%")->orWhere('description', 'like', "%{$request->search}%");
          }
 
          if (isset($request->name)) {
-               $notes->where('name', $request->name);
+               $notes->where('notename', $request->name);
          }
 
          if (isset($request->user_id)) {
                $notes->where('user_id', $request->user_id);
          }
 
-         if (isset($request->live)) {
-               $notes->where('live', $request->live);
+         if (isset($request->active)) {
+               $notes->where('noteactive', $request->active);
          }
 
         $result = $notes->orderBy('updated_at', 'desc')->paginate(20);
 
         $pagination = (isset($request->user_id)) ? $result->appends(['user_id' => $request->user_id]) : '';
-        $pagination = (isset($request->live)) ? $result->appends(['live' => $request->live]) : '';
-        $pagination = (isset($request->search)) ? $result->appends(['name' => $request->search]) : '';
+        $pagination = (isset($request->active)) ? $result->appends(['noteactive' => $request->active]) : '';
+        $pagination = (isset($request->search)) ? $result->appends(['notename' => $request->search]) : '';
 
         $request->flash();
 
@@ -59,7 +59,7 @@ class NoteController extends Controller
 
         $note = Note::findOrFail($id);
 
-        $note->live = !$note->live;
+        $note->noteactive = !$note->noteactive;
         $note->save();
 
         return response()->json($note);
@@ -67,7 +67,7 @@ class NoteController extends Controller
 
     public function create()
     {
-        return view('notes.create', compact('notes'));
+        return view('notes.create');
     }
 
     public function store(Request $request) {
@@ -83,10 +83,10 @@ class NoteController extends Controller
 
         $note->user_id = Auth::user()->id;
         $segment = array('Announcement', 'News', 'Event', 'Final Exam', 'Holiday');
-        $note->name = $segment[$request->name];
-        $note->title = $request->title;
+        $note->notesegment = $segment[$request->name];
+        $note->notetitle = $request->title;
         $note->description = $request->description;
-        $note->live = $request->live;
+        $note->noteactive = $request->active;
 
         //save Image Avatar
         if (Input::hasFile('note_image')) {
@@ -161,8 +161,8 @@ class NoteController extends Controller
             $note->image = $filename;
         }
 
-        if( !isset($request->live))
-            $note->update(array_merge($request->all(), ['live' => false] ));
+        if( !isset($request->active))
+            $note->update(array_merge($request->all(), ['noteactive' => false] ));
                 else
             $note->update($request->all());
 

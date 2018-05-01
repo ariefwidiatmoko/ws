@@ -20,7 +20,7 @@ class ProfileController extends Controller
     {
       $query = $request->get('search');
 
-      $result = Profile::where('fullname','like','%'.$query.'%')
+      $result = Profile::where('profilename','like','%'.$query.'%')
                     ->orWhere('address','like','%'.$query.'%')
                     ->orWhere('education','like','%'.$query.'%')
                     ->orWhereHas('user', function ($q) use ($query) {
@@ -93,9 +93,9 @@ class ProfileController extends Controller
       return back();
     }
 
-    public function myprofile($name)
+    public function myprofile($profilename)
     {
-        $user = User::whereName($name)->first();
+        $user = User::whereProfilename($profilename)->first();
 
         return view('profiles.myprofile', compact('user'));
     }

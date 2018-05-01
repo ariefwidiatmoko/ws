@@ -11,9 +11,9 @@ use Session;
 class MyprofileController extends Controller
 {
 
-    public function myprofile($name)
+    public function myprofile($profilename)
     {
-        $user = User::whereName($name)->first();
+        $user = User::whereName($profilename)->first();
 
         return view('profiles.myprofile', compact('user'));
     }

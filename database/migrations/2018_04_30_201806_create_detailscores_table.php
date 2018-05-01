@@ -23,7 +23,7 @@ class CreateDetailscoresTable extends Migration
             $table->foreign('subjectscore_id')
                   ->references('id')->on('subjectscores')
                   ->onDelete('cascade');
-            $table->string('name');
+            $table->string('detailscorename');
             $table->integer('colomn')->nullable();
             $table->integer('percentage')->nullable();
             $table->string('input')->nullable();

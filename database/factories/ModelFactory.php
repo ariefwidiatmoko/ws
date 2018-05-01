@@ -14,16 +14,16 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Month::class, function(Faker\Generator $faker) {
    return [
        'noId' => $faker->randomDigit,
-       'name' => $faker->name,
+       'monthname' => $faker->name,
        'alias' => $faker->name
    ];
 });
 
 $factory->define(App\Subject::class, function(Faker\Generator $faker) {
    return [
-       'name' => $faker->name,
+       'subjectname' => $faker->name,
        'alias' => $faker->name,
-       'live' => $faker->boolean(),
+       'subjectactive' => $faker->boolean(),
        'user_id' => function() {
             return \App\User::inRandomOrder()->first()->id;
        },
@@ -32,7 +32,7 @@ $factory->define(App\Subject::class, function(Faker\Generator $faker) {
 
 $factory->define(App\Grade::class, function(Faker\Generator $faker) {
    return [
-       'name' => $faker->name,
+       'gradename' => $faker->name,
        'alias' => $faker->name,
        'user_id' => function() {
             return \App\User::inRandomOrder()->first()->id;
@@ -42,9 +42,9 @@ $factory->define(App\Grade::class, function(Faker\Generator $faker) {
 
 $factory->define(App\Classroom::class, function(Faker\Generator $faker) {
    return [
-       'name' => $faker->name,
+       'classroomname' => $faker->name,
        'alias' => $faker->name,
-       'statusActive' => $faker->boolean(),
+       'classroomactive' => $faker->boolean(),
        'user_id' => function() {
             return \App\User::inRandomOrder()->first()->id;
        },
@@ -54,7 +54,7 @@ $factory->define(App\Classroom::class, function(Faker\Generator $faker) {
 $factory->define(App\Profile::class, function(Faker\Generator $faker) {
    return [
       'user_id' => $faker->randomDigit,
-      'fullname' => $faker->name,
+      'profilename' => $faker->name,
       'dob' => $faker->date($format = 'Y-m-d', $max = 'now'),
       'phone' => $faker->phoneNumber,
       'address' => $faker->address,
@@ -69,8 +69,8 @@ $factory->define(App\Profile::class, function(Faker\Generator $faker) {
 
 $factory->define(App\Position::class, function(Faker\Generator $faker) {
    return [
-       'name' => $faker->name,
-       'live' => $faker->boolean(),
+       'positionname' => $faker->name,
+       'positionactive' => $faker->boolean(),
        'user_id' => function() {
             return \App\User::inRandomOrder()->first()->id;
        },
@@ -79,7 +79,7 @@ $factory->define(App\Position::class, function(Faker\Generator $faker) {
 
 $factory->define(App\Employee::class, function(Faker\Generator $faker) {
    return [
-       'fullname' => $faker->name,
+       'employeename' => $faker->name,
        'month_id' => $faker->numberBetween($min = 1, $max = 12),
        'noId' => $faker->numberBetween($min = 10000, $max = 19999),
        'dob' => $faker->date($format = 'Y-m-d', $max = 'now'),
@@ -89,7 +89,7 @@ $factory->define(App\Employee::class, function(Faker\Generator $faker) {
        'education' => $faker->sentence,
        'quote' => $faker->sentence(random_int(2, 3)),
        'about' => $faker->paragraph(random_int(3, 5)),
-       'statusActive' => $faker->boolean(),
+       'employeeactive' => $faker->boolean(),
        'created_by' => function() {
             return \App\User::inRandomOrder()->first()->name;
        },
@@ -101,11 +101,11 @@ $factory->define(App\Employee::class, function(Faker\Generator $faker) {
 
 $factory->define(App\Lesson::class, function(Faker\Generator $faker) {
    return [
-       'title' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+       'lessontitle' => $faker->sentence($nbWords = 6, $variableNbWords = true),
        'slug' => $faker->slug,
-       'content' => $faker->paragraph(random_int(30, 50)),
+       'lessoncontent' => $faker->paragraph(random_int(30, 50)),
        'published_at' => $faker->dateTimeThisYear($max = 'now'),
-       'live' => $faker->boolean(),
+       'lessonactive' => $faker->boolean(),
        'user_id' => function() {
             return \App\User::inRandomOrder()->first()->id;
        },
@@ -116,21 +116,21 @@ $factory->define(App\Lesson::class, function(Faker\Generator $faker) {
 $factory->define(App\Note::class, function(Faker\Generator $faker) {
    return [
       'user_id' => $faker->randomDigit,
-      'name' => $faker->name,
-      'title' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+      'notesegment' => $faker->name,
+      'notetitle' => $faker->sentence($nbWords = 6, $variableNbWords = true),
       'description' => $faker->paragraph(random_int(8, 12)),
       'image' => $faker->name,
-      'live' => $faker->boolean(),
+      'noteactive' => $faker->boolean(),
    ];
 });
 
 $factory->define(App\Message::class, function(Faker\Generator $faker) {
    return [
       'user_id' => $faker->randomDigit,
-      'name' => $faker->name,
+      'sender' => $faker->name,
       'email' => $faker->unique()->safeEmail,
-      'title' => $faker->sentence,
-      'content' => $faker->paragraph(random_int(8, 12)),
+      'messagetitle' => $faker->sentence,
+      'messagecontent' => $faker->paragraph(random_int(8, 12)),
    ];
 });
 
@@ -139,9 +139,9 @@ $factory->define(App\Student::class, function(Faker\Generator $faker) {
       'noId' => $faker->year('now').$faker->numberBetween($min = 10000, $max = 19999),
       'noIdNational' => $faker->numberBetween($min = 10000, $max = 19999),
       'user_id' => $faker->numberBetween($min = 1, $max = 2),
-      'fullname' => $faker->name,
-      'nickName' => $faker->name,
-      'statusActive' => $faker->boolean(),
+      'studentname' => $faker->name,
+      'studentnick' => $faker->name,
+      'studentactive' => $faker->boolean(),
    ];
 });
 
@@ -159,25 +159,25 @@ $factory->define(App\Studentprofile::class, function(Faker\Generator $faker) {
       'address' => $faker->address,
       'citizenship' => $faker->country,
       'siblings' => $faker->numberBetween($min = 0, $max = 3),
-      'familyStatus' => $faker->name,
-      'childNo' => $faker->numberBetween($min = 1, $max = 4),
-      'healthNote' => $faker->sentence($nbWords = 12, $variableNbWords = true),
-      'achievementNote' => $faker->sentence($nbWords = 20, $variableNbWords = true),
-      'familiyNote' => $faker->sentence($nbWords = 15, $variableNbWords = true),
-      'previousSchool' => $faker->sentence($nbWords = 2, $variableNbWords = true),
-      'prevScNote' => $faker->sentence($nbWords = 12, $variableNbWords = true),
-      'afterScNote' => $faker->sentence($nbWords = 18, $variableNbWords = true),
+      'familystatus' => $faker->name,
+      'childno' => $faker->numberBetween($min = 1, $max = 4),
+      'healthnote' => $faker->sentence($nbWords = 12, $variableNbWords = true),
+      'achievementnote' => $faker->sentence($nbWords = 20, $variableNbWords = true),
+      'familiynote' => $faker->sentence($nbWords = 15, $variableNbWords = true),
+      'prevschool' => $faker->sentence($nbWords = 2, $variableNbWords = true),
+      'prevschoolnote' => $faker->sentence($nbWords = 12, $variableNbWords = true),
+      'afterschoolnote' => $faker->sentence($nbWords = 18, $variableNbWords = true),
       'schoolNote' => $faker->sentence($nbWords = 18, $variableNbWords = true),
       'father' => $faker->name,
-      'fphone' => $faker->phoneNumber,
-      'femail' => $faker->unique()->safeEmail,
+      'fatherphone' => $faker->phoneNumber,
+      'fatheremail' => $faker->unique()->safeEmail,
       'mother' => $faker->name,
-      'mphone' => $faker->phoneNumber,
-      'memail' => $faker->unique()->safeEmail,
+      'motherphone' => $faker->phoneNumber,
+      'motheremail' => $faker->unique()->safeEmail,
       'guardian' => $faker->name,
-      'gphone' => $faker->phoneNumber,
-      'gemail' => $faker->unique()->safeEmail,
-      'paddress' => $faker->address,
+      'guardianphone' => $faker->phoneNumber,
+      'guardianemail' => $faker->unique()->safeEmail,
+      'parentaddress' => $faker->address,
       'parentNote' => $faker->sentence($nbWords = 18, $variableNbWords = true),
    ];
 });
@@ -185,7 +185,7 @@ $factory->define(App\Studentprofile::class, function(Faker\Generator $faker) {
 $factory->define(App\Year::class, function(Faker\Generator $faker) {
    return [
       'user_id' => $faker->randomDigit,
-      'name' => $faker->name,
+      'yearname' => $faker->name,
       'alias' => $faker->name,
    ];
 });
@@ -193,7 +193,7 @@ $factory->define(App\Year::class, function(Faker\Generator $faker) {
 $factory->define(App\Semester::class, function(Faker\Generator $faker) {
    return [
       'user_id' => $faker->randomDigit,
-      'name' => $faker->name,
+      'semestername' => $faker->name,
       'alias' => $faker->name,
    ];
 });

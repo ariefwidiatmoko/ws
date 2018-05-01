@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
   protected $fillable = [
-      'name', 'title', 'description', 'image', 'live', 'updated_by', 'user_id'
+      'notesegment', 'notetitle', 'description', 'image', 'noteactive', 'updated_by', 'user_id'
   ];
 
   public function user()
@@ -15,8 +15,8 @@ class Note extends Model
       return $this->belongsTo(User::class);
   }
 
-  public function setLiveAttribute($value)
+  public function setNoteActiveAttribute($value)
   {
-    $this->attributes['live'] = (boolean)($value);
+    $this->attributes['noteactive'] = (boolean)($value);
   }
 }

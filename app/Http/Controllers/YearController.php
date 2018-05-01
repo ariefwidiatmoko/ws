@@ -12,7 +12,7 @@ class YearController extends Controller
     public function index(Request $request)
     {
         $query = $request->get('search');
-        $result = Year::where('name', 'LIKE', '%' . $query . '%')->paginate(20);
+        $result = Year::where('yearname', 'LIKE', '%' . $query . '%')->paginate(20);
         return view('years.index', compact('result', 'query'));
     }
 
@@ -33,7 +33,7 @@ class YearController extends Controller
       $year = new Year;
 
       $year->user_id = Auth::user()->id;
-      $year->name = $request->name;
+      $year->yearname = $request->name;
       $year->alias = $request->alias;
 
       $year->save();

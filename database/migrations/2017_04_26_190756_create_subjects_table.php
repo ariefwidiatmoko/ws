@@ -16,7 +16,7 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('no_subject')->nullable();
-            $table->string('name');
+            $table->string('subjectname');
             $table->string('alias');
             $table->string('updated_by')->nullable();
             $table->boolean('live')->default(0);
