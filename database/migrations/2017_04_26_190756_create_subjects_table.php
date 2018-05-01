@@ -15,14 +15,9 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('studentyear_id');
-            $table->foreign('studentyear_id')
-                  ->references('id')->on('studentyears')
-                  ->onDelete('cascade');
             $table->integer('no_subject')->nullable();
             $table->string('name');
             $table->string('alias');
-            $table->string('score');
             $table->string('updated_by')->nullable();
             $table->boolean('live')->default(0);
             $table->timestamps();

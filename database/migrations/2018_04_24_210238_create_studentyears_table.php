@@ -15,13 +15,15 @@ class CreateStudentyearsTable extends Migration
     {
         Schema::create('studentyears', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
             $table->integer('student_id');
             $table->string('yearName')->nullable();
             $table->integer('semester_id')->nullable();
             $table->string('gradeName')->nullable();
             $table->string('classroom_id')->nullable();
-            $table->string('subject_id')->nullable();
-            $table->decimal('score', 5, 2)->nullable();
             $table->timestamps();
 
         });

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDetailscoresTable extends Migration
+class CreateSubjectscoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,19 @@ class CreateDetailscoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('detailscores', function (Blueprint $table) {
+        Schema::create('subjectscores', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
-            $table->unsignedInteger('subjectscore_id')->nullable();
-            $table->foreign('subjectscore_id')
-                  ->references('id')->on('subjectscores')
+            $table->unsignedInteger('studentyear_id')->nullable();
+            $table->foreign('studentyear_id')
+                  ->references('id')->on('studentyears')
                   ->onDelete('cascade');
-            $table->string('name');
-            $table->integer('colomn')->nullable();
-            $table->integer('percentage')->nullable();
-            $table->string('input')->nullable();
-            $table->integer('avg')->nullable();
+            $table->string('subject_id')->nullable();
+            $table->string('name')->nullable();
+            $table->decimal('score', 5, 2)->nullable();
             $table->timestamps();
         });
     }
@@ -39,6 +37,6 @@ class CreateDetailscoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detailscores');
+        Schema::dropIfExists('subjectscores');
     }
 }

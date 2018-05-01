@@ -26,8 +26,8 @@ class Studentyear extends Model
         return $this->belongsTo(Classroom::class);
     }
 
-    public function detailscores()
+    public function subjectscores()
     {
-        return $this->hasMany(Detailscore::class);
+        return $this->hasMany(Subjectscore::class);
     }
 }

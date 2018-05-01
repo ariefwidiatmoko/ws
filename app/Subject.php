@@ -13,8 +13,8 @@ class Subject extends Model
       return $this->hasMany(Lesson::class);
   }
 
-  public function studentyears() {
-      return $this->hasMany(Studentyear::class);
+  public function subjectscores() {
+      return $this->hasMany(Subjectscore::class);
   }
 
   public function user()
