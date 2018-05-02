@@ -76,19 +76,19 @@
               @forelse ($result as $index => $item)
                 <tr>
                   <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
-                  <td>{{ ucfirst($item->fullname) }}</td>
+                  <td>{{ ucfirst($item->employeename) }}</td>
                   <td>
                     @foreach ($item->positions as $position)
-                        <span class="badge bg-blue">{{ $position->name }}</span>
+                        <span class="badge bg-blue">{{ $position->positionname }}</span>
                     @endforeach
                   </td>
                   <td>{{ $item->education }}</td>
                   <td>{{ $item->address }}</td>
                   <td style="text-align: center;">
                     @can('edit_employees', $item)
-                      <input type="checkbox" class="statusActive" data-id="{{$item->id}}" @if ($item->statusActive) checked @endif>
+                      <input type="checkbox" class="statusActive" data-id="{{$item->id}}" @if ($item->employeeactive) checked @endif>
                     @else
-                      {{ $item->statusActive == 1 ? 'Yes' : 'No' }}
+                      {{ $item->employeeactive == 1 ? 'Yes' : 'No' }}
                     @endcan
                   </td>
                   <td>

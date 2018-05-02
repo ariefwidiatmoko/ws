@@ -11,7 +11,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-  
+
     public function run()
     {
 
@@ -440,21 +440,21 @@ class DatabaseSeeder extends Seeder
           'image' => 'webtitle_default.jpg',
           'noteactive' => '1',
         ]);
-        // now lets seed some posts for demo
+        // now lets seed some lessons for demo
         factory(\App\Lesson::class)->create([
           'user_id' => '1',
-          'notetitle' => 'Pengenalan Matematika Dasar',
-          'noteactive' => '1',
+          'lessontitle' => 'Pengenalan Matematika Dasar',
+          'lessonactive' => '1',
         ]);
         factory(\App\Lesson::class)->create([
           'user_id' => '1',
-          'notetitle' => 'Belajar Sains Melalui Lingkungan Sekitar',
-          'noteactive' => '1',
+          'lessontitle' => 'Belajar Sains Melalui Lingkungan Sekitar',
+          'lessonactive' => '1',
         ]);
         factory(\App\Lesson::class)->create([
           'user_id' => '1',
-          'notetitle' => 'Mempraktekkan Doa dalam Keseharian',
-          'noteactive' => '1',
+          'lessontitle' => 'Mempraktekkan Doa dalam Keseharian',
+          'lessonactive' => '1',
         ]);
         factory(\App\Lesson::class, 100)->create();
         factory(\App\Student::class, 30)->create();

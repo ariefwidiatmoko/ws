@@ -72,13 +72,13 @@
                 {{ csrf_field() }}
                 <ul class="users-list clearfix hidden-xs hidden-sm">
                   @forelse ($result as $index => $item)
-                    <li><button class="show-modal" style="background-color: #fff; border: none;" data-avatar="{{ isset($item->studentprofile->avatar) ? $item->studentprofile->avatar : ''}}" data-fullname="{{$item->fullname}}" data-phone="{{ isset($item->studentprofile->phone) ? $item->studentprofile->phone : ''}}" data-email="{{ isset($item->studentprofile->email) ? $item->studentprofile->email : ''}}" data-address="{{ isset($item->studentprofile->address) ? $item->studentprofile->address : ''}}">
+                    <li><button class="show-modal" style="background-color: #fff; border: none;" data-avatar="{{ isset($item->studentprofile->avatar) ? $item->studentprofile->avatar : ''}}" data-studentname="{{$item->studentname}}" data-phone="{{ isset($item->studentprofile->phone) ? $item->studentprofile->phone : ''}}" data-email="{{ isset($item->studentprofile->email) ? $item->studentprofile->email : ''}}" data-address="{{ isset($item->studentprofile->address) ? $item->studentprofile->address : ''}}">
                       @if(isset($item->studentprofile->avatar))
                         <img src="/images/users/{{ $item->studentprofile->avatar }}" alt="User Image">
                       @else
                         <img src="{{ asset('images/avatar/default.jpg') }}" alt="User Image">
                       @endif
-                      <a class="users-list-name" href="#">{{$item->fullname}}</a>
+                      <a class="users-list-name" href="#">{{$item->studentname}}</a>
                       <span class="users-list-date"><b>{{isset($item->studentprofile->dob) ? $item->studentprofile->dob->format('d M') : '' }}</b></span>
                       <span class="users-list-date"><b>{{isset($item->studentprofile->phone) ? $item->studentprofile->phone : ''}}</b></span></button>
                     </li>
@@ -100,7 +100,7 @@
                   <tbody>
                     @foreach ($result as $index => $item)
                       <tr>
-                        <td>{{$item->fullname}}</td>
+                        <td>{{$item->studentname}}</td>
                         <td>{{isset($item->studentprofile->phone) ? $item->studentprofile->phone : ''}}</td>
                         <td>{{isset($item->studentprofile->dob) ? $item->studentprofile->dob->format('d M') : ''}}</td>
                         <td>{{isset($item->studentprofile->email) ? $item->studentprofile->email : ''}}</td>
@@ -139,7 +139,7 @@
                       <img class="img-circle" id="avatar_show" alt="User Avatar">
                     </div>
                     <!-- /.widget-user-image -->
-                    <h3 class="widget-user-username"><input style="background-color: #00a7d0; color: white; font-size: 1.1em; border: none;" type="text" class="form-control" id="fullname_show" disabled></h3>
+                    <h3 class="widget-user-username"><input style="background-color: #00a7d0; color: white; font-size: 1.1em; border: none;" type="text" class="form-control" id="studentname_show" disabled></h3>
                     <h5 class="widget-user-desc"><input style="background-color: #00a7d0; color: white; font-size: 1.2em; border: none;" type="text" class="form-control" id="phone_show" disabled></h5>
                   </div>
                 </div>
@@ -174,7 +174,7 @@
   $(document).on('click', '.show-modal', function() {
     $('.modal-title').text('Detail Contact');
     $('#avatar_show').attr('src', $(this).find('img').attr('src'));
-    $('#fullname_show').val($(this).data('fullname'));
+    $('#studentname_show').val($(this).data('studentname'));
     $('#phone_show').val($(this).data('phone'));
     $('#email_show').val($(this).data('email'));
     $('#address_show').val($(this).data('address'));

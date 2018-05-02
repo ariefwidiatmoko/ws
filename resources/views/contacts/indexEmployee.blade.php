@@ -61,24 +61,47 @@
     <!-- /.box-body -->
   </div>
     <div class="box" style="margin-top: -20px;">
-      <div class="box-header" style="margin-left: 16px;">
-        <h3 class="box-title">@yield('button')</h3>
-      </div>
       <!-- /.box-header -->
       <div id="inlist" class="table-responsive box-body">
           <div class="row">
             <div class="col-sm-12">
               <div class="box-body no-padding">
+                @if(isset($birthmonth))
+                  <div class="col-sm-12">
+                    <!-- small box -->
+                    <div class="bg-green" style="padding: 6px 6px 6px 6px;">
+                      <div class="inner">
+                        <h4><b>Have Birthday at this Month</b></h4>
+                      </div>
+                    </div>
+                  </div>
+                  <ul class="users-list clearfix hidden-xs hidden-sm">
+                  @foreach ($birthmonth as $index => $item)
+                      <li>
+                        <button class="show-modal" style="background-color: #fff; border: none;" data-avatar="{{$item->avatar}}" data-employeename="{{$item->employeename}}" data-dob="{{$item->dob}}" data-phone="{{$item->phone}}" data-email="{{$item->email}}" data-address="{{$item->address}}" data-education="{{$item->education}}">
+                        @if(isset($item->avatar))
+                          <img src="/images/employees/{{ $item->avatar }}" alt="User Image">
+                        @else
+                          <img src="{{ asset('images/avatar/default.jpg') }}" alt="User Image">
+                        @endif
+                        <a class="users-list-name" href="#">{{$item->employeename}}</a>
+                        <span class="users-list-date"><b>{{$item->dob->format('d M')}}</b></span>
+                        <span class="users-list-date"><b>{{$item->phone}}</b></span></button>
+                      </li>
+                  @endforeach
+                  </ul>
+                  <hr>
+                @endif
                 {{ csrf_field() }}
                 <ul class="users-list clearfix hidden-xs hidden-sm">
                   @forelse ($result as $index => $item)
-                    <li><button class="show-modal" style="background-color: #fff; border: none;" data-avatar="{{$item->avatar}}" data-fullname="{{$item->fullname}}" data-dob="{{$item->dob}}" data-phone="{{$item->phone}}" data-email="{{$item->email}}" data-address="{{$item->address}}" data-education="{{$item->education}}">
+                    <li><button class="show-modal" style="background-color: #fff; border: none;" data-avatar="{{$item->avatar}}" data-employeename="{{$item->employeename}}" data-dob="{{$item->dob}}" data-phone="{{$item->phone}}" data-email="{{$item->email}}" data-address="{{$item->address}}" data-education="{{$item->education}}">
                       @if(isset($item->avatar))
                         <img src="/images/employees/{{ $item->avatar }}" alt="User Image">
                       @else
                         <img src="{{ asset('images/avatar/default.jpg') }}" alt="User Image">
                       @endif
-                      <a class="users-list-name" href="#">{{$item->fullname}}</a>
+                      <a class="users-list-name" href="#">{{$item->employeename}}</a>
                       <span class="users-list-date"><b>{{$item->dob->format('d M')}}</b></span>
                       <span class="users-list-date"><b>{{$item->phone}}</b></span></button>
                     </li>
@@ -100,7 +123,7 @@
                   <tbody>
                     @foreach ($result as $index => $item)
                       <tr>
-                        <td>{{$item->fullname}}</td>
+                        <td>{{$item->employeename}}</td>
                         <td>{{$item->phone}}</td>
                         <td>{{$item->dob->format('d M')}}</td>
                         <td>{{$item->email}}</td>
@@ -139,7 +162,7 @@
                       <img class="img-circle" id="avatar_show" alt="User Avatar">
                     </div>
                     <!-- /.widget-user-image -->
-                    <h3 class="widget-user-username"><input style="background-color: #00a7d0; color: white; font-size: 1.1em; border: none;" type="text" class="form-control" id="fullname_show" disabled></h3>
+                    <h3 class="widget-user-username"><input style="background-color: #00a7d0; color: white; font-size: 1.1em; border: none;" type="text" class="form-control" id="employeename_show" disabled></h3>
                     <h5 class="widget-user-desc"><input style="background-color: #00a7d0; color: white; font-size: 1.2em; border: none;" type="text" class="form-control" id="phone_show" disabled></h5>
                   </div>
                 </div>
@@ -180,7 +203,7 @@
   $(document).on('click', '.show-modal', function() {
     $('.modal-title').text('Detail Contact');
     $('#avatar_show').attr('src', $(this).find('img').attr('src'));
-    $('#fullname_show').val($(this).data('fullname'));
+    $('#employeename_show').val($(this).data('employeename'));
     $('#phone_show').val($(this).data('phone'));
     $('#email_show').val($(this).data('email'));
     $('#address_show').val($(this).data('address'));

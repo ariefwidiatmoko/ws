@@ -21,8 +21,8 @@ class MessageController extends Controller
     {
       // Validate the data
       $this->validate($request, array(
-        'title' => 'required',
-        'content' => 'required'
+        'messagetitle' => 'required',
+        'messagecontent' => 'required'
       ));
 
       $message = new Message;
@@ -77,7 +77,7 @@ class MessageController extends Controller
     {
         //
     }
-    
+
     public function destroy(Message $message)
     {
         $me = Auth::user();

@@ -59,7 +59,7 @@ class StudentController extends Controller
 
     public function create()
     {
-          return view('students.create'));
+          return view('students.create');
     }
 
     public function store(Request $request)
@@ -67,10 +67,10 @@ class StudentController extends Controller
         // Validate the data
         $validatedData = $request->validate([
             'noId' => 'required|unique:students',
-            'fullname' => 'required',
+            'studentname' => 'required',
         ]);
 
-        if ( $student = Student::create($request->only('user_id', 'noId', 'noIdNational', 'fullname', 'nickName', 'statusActive')) ) {
+        if ( $student = Student::create($request->only('user_id', 'noId', 'noIdNational', 'studentname', 'studentnick', 'studentactive')) ) {
 
             event(new StudentCreated($student));
 
@@ -108,18 +108,35 @@ class StudentController extends Controller
 
     public function update(Request $request, $id)
     {
+        //Validate Input
+        $this->validate($request,[
+          'noId' => 'required|unique:students,noId,'.$id,
+          'studentname' => 'required',
+        ]);
 
         $student = Student::findOrFail($id);
         $studentprofile = Studentprofile::where('student_id', $id)->first();
 
-        // Validate the data
-        $validatedData = $request->validate([
-            'noId' => 'required|unique:students,noId,'.$student->id,
-            'fullname' => 'required',
-        ]);
+        //delete old images
+        if (Input::hasFile('student_img')) {
+
+          //delete old image
+          $oldImage = public_path("images/students/{$student->avatar}"); // get previous image from folder
+          if (File::exists($oldImage)) {
+            File::delete($oldImage);
+          }
+
+          //save new image
+          $avatar = $request->file('student_img');
+          $filename = 'student_avatar_' . $current_time = Carbon::now()->toDateTimeString() . '.' . $avatar->getClientOriginalExtension();
+          $location = public_path('images/students/' . $filename);
+          Image::make($avatar)->fit(160)->save($location);
+
+          $student->avatar = $filename;
+        }
 
         if(isset($request->dob)) {
-          $mm = $request->dob->format('m');
+          $mm = date('m', strtotime($request->dob));
           $studentprofile->month_id = $mm;
         }
 

@@ -19,7 +19,7 @@ class CreateSubjectsTable extends Migration
             $table->string('subjectname');
             $table->string('alias');
             $table->string('updated_by')->nullable();
-            $table->boolean('live')->default(0);
+            $table->boolean('subjectactive')->default(0);
             $table->timestamps();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')

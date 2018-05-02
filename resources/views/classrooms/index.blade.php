@@ -75,8 +75,8 @@
                   @forelse ($result as $index => $item)
                     <tr>
                       <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
-                      <td style="text-align: center;"><a href="{{route('classrooms.show', $item->id)}}">{{ ucfirst($item->classroomName) }}</a></td>
-                      <td style="text-align: center;">@if(isset($item->grade)) Grade {{ucwords($item->grade->name)}} @else <a href="{{route('classrooms.show', $item->id)}}">Set</a> @endif</td>
+                      <td style="text-align: center;"><a href="{{route('classrooms.show', $item->id)}}">{{ ucfirst($item->classroomname) }}</a></td>
+                      <td style="text-align: center;">@if(isset($item->grade)) Grade {{ucwords($item->grade->gradename)}} @else <a href="{{route('classrooms.show', $item->id)}}">Set</a> @endif</td>
                       <td style="text-align: center;">
                         @can('edit_classrooms', $item)
                           <input type="checkbox" class="statusActive" data-id="{{$item->id}}" @if ($item->classroomactive) checked @endif>
@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-xs-1 margin">
                                 @can ('delete_classrooms', $item)
-                                  {!! Form::open( ['method' => 'delete', 'url' => route('classrooms.destroy', $item->id), 'onSubmit' => 'return confirm("Are yous sure wanted to delete it?")']) !!}
+                                  {!! Form::open( ['method' => 'delete', 'url' => route('classrooms.destroy', $item->id), 'onSubmit' => 'return confirm("Are you sure wanted to delete it?")']) !!}
                                     <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                                   {!! Form::close() !!}
                                 @endcan

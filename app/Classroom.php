@@ -10,9 +10,9 @@ class Classroom extends Model
       'classroomname','alias', 'classroomactive', 'grade_id', 'user_id'
   ];
 
-  public function setStatusActiveAttribute($value)
+  public function setClassroomActiveAttribute($value)
   {
-    $this->attributes['statusActive'] = (boolean)($value);
+    $this->attributes['classroomactive'] = (boolean)($value);
   }
 
   public function user()

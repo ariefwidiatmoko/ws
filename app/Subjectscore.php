@@ -8,7 +8,7 @@ class Subjectscore extends Model
 {
 
     protected $fillable = [
-        'studentyear_id', 'subject_id', 'subjectscoren', 'subjectscorename'
+        'studentyear_id', 'subject_id', 'subjectscorename', 'subjectscorefinal'
     ];
 
     public function studentyear()

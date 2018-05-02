@@ -46,6 +46,9 @@
             Employees</a>
           </li>
         @endcan
+          <li id="{{ Request::is('home/contacts/users*') ? 'sub-menu' : '' }}"><a href="{{ route('contacts.indexUser') }}"><i class="fa fa-angle-right fa-fw"></i>
+            Users</a>
+          </li>
         @can('view_messages')
           <li id="{{ Request::is('home/contacts/messages*') ? 'sub-menu' : '' }}"><a href="{{ route('messages.index') }}" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
             Messages</a>

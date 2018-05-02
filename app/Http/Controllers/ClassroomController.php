@@ -43,7 +43,7 @@ class ClassroomController extends Controller
 
       // Validate the data
       $this->validate($request, array(
-        'classroomName' => 'required|unique:classrooms',
+        'classroomname' => 'required|unique:classrooms',
         'alias' => 'required'
       ));
 
@@ -149,7 +149,7 @@ class ClassroomController extends Controller
 
       // Validate the data
       $this->validate($request, array(
-        'name' => 'required|unique:classrooms,name,'.$classroom->id,
+        'classroomname' => 'required|unique:classrooms,classroomname,'.$classroom->id,
         'alias' => 'required'
       ));
 

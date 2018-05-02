@@ -61,10 +61,9 @@
             <thead>
               <tr>
                   <th style="text-align: center;">No</th>
-                  <th style="text-align: center;">Fullname</th>
-                  <th style="text-align: center;">Grade</th>
-                  <th style="text-align: center;">Year</th>
-                  <th style="text-align: center;">Semester</th>
+                  <th>No ID</th>
+                  <th>No ID National</th>
+                  <th>Name</th>
                   <th style="text-align: center;">Active</th>
                   @can('edit_students')
                   <th style="text-align: center;">Actions</th>
@@ -76,15 +75,14 @@
               @forelse ($result as $index => $item)
                 <tr>
                   <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
-                  <td>{{ ucfirst($item->fullname) }}</td>
-                  <td>Grade 7</td>
-                  <td>2018</td>
-                  <td>Semester 1</td>
+                  <td>{{$item->noId}}</td>
+                  <td>{{$item->noIdNational}}</td>
+                  <td>{{ ucfirst($item->studentname) }}</td>
                   <td style="text-align: center;">
                     @can('edit_students', $item)
-                      <input type="checkbox" class="statusActive" data-id="{{$item->id}}" @if ($item->statusActive) checked @endif>
+                      <input type="checkbox" class="statusActive" data-id="{{$item->id}}" @if ($item->studentactive) checked @endif>
                     @else
-                      {{ $item->statusActive == 1 ? 'Yes' : 'No' }}
+                      {{ $item->studentactive == 1 ? 'Yes' : 'No' }}
                     @endcan
                   </td>
                   <td>

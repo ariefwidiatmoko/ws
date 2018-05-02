@@ -52,9 +52,6 @@
     <!-- /.box-header -->
   </div>
     <div class="box" style="margin-top: -20px;">
-      <div class="box-header" style="margin-left: 16px;">
-        <h3 class="box-title">@yield('button')</h3>
-      </div>
       <!-- /.box-header -->
       <div id="inlist" class="table-responsive box-body">
           <div class="row">
@@ -63,12 +60,8 @@
                 {{ csrf_field() }}
                 <ul class="users-list clearfix hidden-xs hidden-sm">
                   @forelse ($result as $index => $item)
-                    <li><button class="show-modal" style="background-color: #fff; border: none;" data-avatar="{{$item->profile->avatar}}" data-name="{{$item->name}}" data-email="{{$item->email}}" data-phone="{{$item->profile->phone}}" data-address="{{$item->profile->address}}">
-                      @if(isset($item->profile->avatar))
-                        <img src="/images/employees/{{ $item->profile->avatar }}" alt="User Image">
-                      @else
+                    <li><button class="show-modal" style="background-color: #fff; border: none;" data-name="{{$item->name}}" data-email="{{$item->email}}" data-phone="{{$item->profile->phone}}" data-address="{{$item->profile->address}}">
                         <img src="{{ asset('images/avatar/default.jpg') }}" alt="User Image">
-                      @endif
                       <a class="users-list-name" href="#">{{$item->name}}</a>
                       <span class="users-list-date"><b>{{$item->phone}}</b></span>
                       <span class="users-list-date"><b>{{$item->email}}</b></span></button>
@@ -132,19 +125,13 @@
                       <img class="img-circle" id="avatar_show" alt="User Avatar">
                     </div>
                     <!-- /.widget-user-image -->
-                    <h3 class="widget-user-username"><input style="background-color: #00a7d0; color: white; font-size: 1.1em; border: none;" type="text" class="form-control" id="fullname_show" disabled></h3>
+                    <h3 class="widget-user-username"><input style="background-color: #00a7d0; color: white; font-size: 1.1em; border: none;" type="text" class="form-control" id="name_show" disabled></h3>
                     <h5 class="widget-user-desc"><input style="background-color: #00a7d0; color: white; font-size: 1.2em; border: none;" type="text" class="form-control" id="phone_show" disabled></h5>
                   </div>
                 </div>
               </div>
               <div class="modal-body">
                   <form class="form-horizontal" role="form">
-                      <div class="form-group">
-                        <label class="control-label col-sm-3" for="dob">Date of Birth</label>
-                        <div class="col-sm-9">
-                          <input style="background-color: #fff; border: none;" type="date" class="form-control" id="dob_show" disabled>
-                        </div>
-                      </div>
                       <div class="form-group">
                         <label class="control-label col-sm-3" for="email">Email</label>
                         <div class="col-sm-9">
@@ -155,12 +142,6 @@
                         <label class="control-label col-sm-3" for="address">Address</label>
                         <div class="col-sm-9">
                           <input style="background-color: #fff; border: none;" type="text" class="form-control" id="address_show" disabled>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-sm-3" for="education">Education</label>
-                        <div class="col-sm-9">
-                          <input style="background-color: #fff; border: none;" type="text" class="form-control" id="education_show" disabled>
                         </div>
                       </div>
                   </form>
@@ -179,12 +160,10 @@
   $(document).on('click', '.show-modal', function() {
     $('.modal-title').text('Detail Contact');
     $('#avatar_show').attr('src', $(this).find('img').attr('src'));
-    $('#fullname_show').val($(this).data('fullname'));
-    $('#dob_show').val($(this).data('dob'));
+    $('#name_show').val($(this).data('name'));
     $('#phone_show').val($(this).data('phone'));
     $('#email_show').val($(this).data('email'));
     $('#address_show').val($(this).data('address'));
-    $('#education_show').val($(this).data('education'));
     $('#showModal').modal('show');
   });
 </script>

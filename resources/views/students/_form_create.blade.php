@@ -13,22 +13,21 @@
   @if ($errors->has('noIdNational')) <p class="help-block">{{ $errors->first('noIdNational') }}</p> @endif
 </div>
 <!-- Fullname -->
-<div class="form-group @if ($errors->has('fullname')) has-error @endif">
+<div class="form-group @if ($errors->has('studentname')) has-error @endif">
   <label>Fullname</label>
-  <input type="text" class="form-control" name="fullname" value="{{ old('fullname') }}">
-  @if ($errors->has('fullname')) <p class="help-block">{{ $errors->first('fullname') }}</p> @endif
+  <input type="text" class="form-control" name="studentname" value="{{ old('studentname') }}">
+  @if ($errors->has('studentname')) <p class="help-block">{{ $errors->first('studentname') }}</p> @endif
 </div>
 <!-- Nick Name -->
-<div class="form-group @if ($errors->has('nickName')) has-error @endif">
+<div class="form-group">
   <label>Nick Name</label>
-  <input type="text" class="form-control" name="nickName" value="{{ old('nickName') }}">
-  @if ($errors->has('nickName')) <p class="help-block">{{ $errors->first('nickName') }}</p> @endif
+  <input type="text" class="form-control" name="studentnick" value="{{ old('studentnick') }}">
 </div>
 <!-- statusActive -->
 <div class="form-group">
   <div class="checkbox">
     <label>
-      <input type="checkbox" name="statusActive" checked>
+      <input type="checkbox" name="studentactive" checked>
       Active
     </label>
   </div>

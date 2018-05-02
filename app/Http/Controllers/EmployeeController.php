@@ -68,14 +68,14 @@ class EmployeeController extends Controller
         // Validate the data
         $this->validate($request, array(
           'noId' => 'required|unique:employees',
-          'fullname' => 'required',
+          'employeename' => 'required',
         ));
 
         $employee = new Employee;
 
         $employee->user_id =  Auth::user()->id;
         $employee->noId = $request->noId;
-        $employee->employeename = $request->fullname;
+        $employee->employeename = $request->employeename;
         $employee->dob = $request->dob;
         $employee->month_id = $request->dob->format('m');
         $employee->phone = $request->phone;
@@ -83,7 +83,7 @@ class EmployeeController extends Controller
         $employee->address = $request->address;
         $employee->quote = $request->quote;
         $employee->about = $request->about;
-        $employee->employeeactive = $request->statusActive;
+        $employee->employeeactive = $request->employeective;
 
         //save Image Avatar
 
@@ -117,48 +117,42 @@ class EmployeeController extends Controller
 
     public function update(Request $request, $id)
     {
-      $me = $request->user();
+      //Validate Input
+      $this->validate($request,[
+        'noId' => 'required|unique:employees,noId,'.$id,
+        'employeename' => 'required',
+      ]);
 
+      $employee = Employee::findOrFail($id);
       $positions = Position::all();
-
-      if( $me->hasRole('Admin') ) {
-          $employee = Employee::findOrFail($id);
-      } else {
-          $employee = $me->employees()->findOrFail($id);
-      }
-
-      // Validate the data
-      $this->validate($request, array(
-        'noId' => 'required|unique:employees,name,'.$employee->id,
-        'fullname' => 'required',
-      ));
 
       //delete old images
       if (Input::hasFile('employee_img')) {
 
-          //delete old image
-          $oldImage = public_path("images/employees/{$employee->avatar}"); // get previous image from folder
-          if (File::exists($oldImage)) {
-            File::delete($oldImage);
-          }
+        //delete old image
+        $oldImage = public_path("images/employees/{$employee->avatar}"); // get previous image from folder
+        if (File::exists($oldImage)) {
+          File::delete($oldImage);
+        }
 
-          //save new image
-          $avatar = $request->file('employee_img');
-          $filename = 'employee_avatar_' . $current_time = Carbon::now()->toDateTimeString() . '.' . $avatar->getClientOriginalExtension();
-          $location = public_path('images/employees/' . $filename);
-          Image::make($avatar)->fit(160)->save($location);
+        //save new image
+        $avatar = $request->file('employee_img');
+        $filename = 'employee_avatar_' . $current_time = Carbon::now()->toDateTimeString() . '.' . $avatar->getClientOriginalExtension();
+        $location = public_path('images/employees/' . $filename);
+        Image::make($avatar)->fit(160)->save($location);
 
-          $employee->avatar = $filename;
+        $employee->avatar = $filename;
       }
 
       if(isset($request->dob)) {
-          $employee->month_id = $request->dob->format('m');
+        $mm = date('m', strtotime($request->dob));
+        $employee->month_id = $mm;
       }
 
-      if( !isset($request->statusActive))
+      if( !isset($request->employeeactive))
           $employee->update(array_merge($request->all(), ['employeeactive' => false] ));
-              else
-          $employee->update($request->all());
+      else
+          $employee->save($request->all());
 
       $employee->positions()->sync($request->positions);
 

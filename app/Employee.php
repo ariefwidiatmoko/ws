@@ -15,14 +15,14 @@ class Employee extends Model
   	];
 
     protected $fillable = [
-        'employeename','dob', 'phone', 'email', 'address', 'education', 'quote', 'about', 'avatar', 'employeective', 'created_by', 'updated_by', 'user_id',
+        'noId', 'employeename','dob', 'phone', 'email', 'address', 'education', 'quote', 'about', 'avatar', 'employeective', 'created_by', 'updated_by', 'user_id',
     ];
 
     protected $dates = ['dob'];
 
     public function setEmployeeActiveAttribute($value)
     {
-      $this->attributes['EmployeeActive'] = (boolean)($value);
+      $this->attributes['employeeactive'] = (boolean)($value);
     }
 
     public function setDobAttribute($value)

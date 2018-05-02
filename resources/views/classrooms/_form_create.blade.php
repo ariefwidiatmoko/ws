@@ -1,10 +1,8 @@
-<!-- User_id -->
-<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 <!-- Name -->
-<div class="form-group @if ($errors->has('name')) has-error @endif">
+<div class="form-group @if ($errors->has('classroomname')) has-error @endif">
     <label>Name</label>
-        <input type="text" class="form-control" name="name" value="" required>
-        @if ($errors->has('name')) <p class="help-block">{{ $errors->first('name') }}</p> @endif
+        <input type="text" class="form-control" name="classroomname" value="" required>
+        @if ($errors->has('classroomname')) <p class="help-block">{{ $errors->first('classroomname') }}</p> @endif
 </div>
 <!-- Alias -->
 <div class="form-group @if ($errors->has('alias')) has-error @endif">

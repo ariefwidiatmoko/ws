@@ -46,7 +46,7 @@
         @else
           <img class="profile-user-img img-responsive img-circle" src="/images/employees/{{ $employee->avatar }}" alt="User profile picture">
         @endif
-        <h3 class="profile-username text-center">{{ ucfirst($employee->fullname) }}</h3>
+        <h3 class="profile-username text-center">{{ ucfirst($employee->employeename) }}</h3>
         <p class="text-muted text-center">
           @php
             use Carbon\Carbon;
@@ -85,7 +85,7 @@
     <!-- About Me Box -->
     <div class="box box-default">
       <div class="box-header with-border">
-        <h3 class="box-title">About {{ucwords($employee->fullname)}}</h3>
+        <h3 class="box-title">About {{ucwords($employee->employeename)}}</h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body"><strong><i class="fa fa-book margin-r-5"></i>
@@ -102,7 +102,7 @@
         Position</strong>
         <p>
           @foreach ($employee->positions as $position)
-            <span class="label label-info">{{$position->name}}</span>
+            <span class="label label-info">{{$position->positionname}}</span>
           @endforeach
         </p>
         <hr>
@@ -129,12 +129,22 @@
           <form enctype="multipart/form-data" class="form-horizontal" action="{{ route('employees.update', $employee->id) }}" method="POST">
             {{ method_field('PUT') }}
             {{ csrf_field() }}
-            <div class="form-group">
+            <div class="form-group @if ($errors->has('noId')) has-error @endif">
+              <label class="col-sm-2 control-label">
+                No ID
+              </label>
+              <div class="col-sm-10">
+                <input value="{{ $employee->noId }}" type="text" class="form-control" name="noId" id="inputId">
+                @if ($errors->has('noId')) <p class="help-block">{{ $errors->first('noId') }}</p> @endif
+              </div>
+            </div>
+            <div class="form-group @if ($errors->has('employeename')) has-error @endif">
               <label for="inputName" class="col-sm-2 control-label">
                 Fullname
               </label>
               <div class="col-sm-10">
-                <input value="{{ $employee->fullname }}" type="text" class="form-control" name="fullname" id="inputName">
+                <input value="{{ $employee->employeename }}" type="text" class="form-control" name="employeename" id="inputName">
+                @if ($errors->has('employeename')) <p class="help-block">{{ $errors->first('employeename') }}</p> @endif
               </div>
             </div>
             <div class="form-group">
@@ -182,7 +192,7 @@
               <div class="checkbox">
                   <div class="col-sm-offset-2 col-sm-10">
                     <label>
-                    <input type="checkbox" name="statusActive" checked>
+                    <input type="checkbox" name="employeeactive" checked>
                     Active
                   </label>
                   </div>
@@ -194,7 +204,7 @@
               <div class="col-sm-9">
                 <select class="form-control select2" name="positions[]" multiple="multiple">
                   @foreach ($positions as $item)
-                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    <option value="{{ $item->id }}">{{ $item->positionname }}</option>
                   @endforeach
                 </select>
               </div>

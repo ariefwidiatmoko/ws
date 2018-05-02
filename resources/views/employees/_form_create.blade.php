@@ -1,10 +1,10 @@
 <!-- User_id -->
 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 <!-- Fullname -->
-<div class="form-group @if ($errors->has('fullname')) has-error @endif">
+<div class="form-group @if ($errors->has('employeename')) has-error @endif">
   <label>Fullname</label>
-  <input type="text" class="form-control" name="fullname" value="">
-  @if ($errors->has('fullname')) <p class="help-block">{{ $errors->first('fullname') }}</p> @endif
+  <input type="text" class="form-control" name="employeename" value="">
+  @if ($errors->has('employeename')) <p class="help-block">{{ $errors->first('employeename') }}</p> @endif
 </div>
 <!-- Date of Birth -->
 <div class="form-group @if ($errors->has('dob')) has-error @endif">
@@ -40,7 +40,7 @@
 <div class="form-group">
   <div class="checkbox">
     <label>
-      <input type="checkbox" name="statusActive" checked>
+      <input type="checkbox" name="employeeactive" checked>
       Active
     </label>
   </div>

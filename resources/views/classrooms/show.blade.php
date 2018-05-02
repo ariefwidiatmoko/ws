@@ -37,16 +37,13 @@
         <div class="box-body box-profile" style="margin: 0px 18px 0px 18px;">
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item clearfix"><b>
-              Name</b><a class="pull-right">Classroom {{ $classroom->classroomName }}</a>
+              Name</b><a class="pull-right">Classroom {{ $classroom->classroomname }}</a>
             </li>
             <li class="list-group-item clearfix"><b>
               Alias</b><a class="pull-right">Classroom {{ $classroom->alias != null ? ucwords($classroom->alias) : '-' }}</a>
             </li>
             <li class="list-group-item clearfix"><b>
               Created By</b><a class="pull-right">{{ $classroom->user->id ? ucwords($classroom->user->name).' - '.$classroom->created_at->format('d M Y - H:i:s') : '-' }}</a>
-            </li>
-            <li class="list-group-item clearfix"><b>
-              Updated By</b><a class="pull-right">{{ $classroom->user->id ? ucwords($classroom->updated_by) : ucwords($classroom->user->name) }}</a>
             </li>
           </ul>
         </div>
@@ -63,7 +60,7 @@
           <table class="table table-hover" style="margin-top: -10px;">
             <tbody>
               <tr>
-                <td>{{ $classroom->grade ? 'Grade '. ucwords($classroom->grade->name) : 'Not Set' }}</td>
+                <td>{{ $classroom->grade ? 'Grade '. ucwords($classroom->grade->gradename) : 'Not Set' }}</td>
               </tr>
             </tbody>
           </table>
@@ -83,9 +80,9 @@
               @forelse ($classroom->classyears as $index => $item)
               <tr>
                 <td>{{$index += 1}}</td>
-                <td>Classroom {{$classroom->name}}</td>
-                <td>{{$item->year ? $item->year->name : ''}}</td>
-                <td>{{$item->semester ? $item->semester->name : ''}}</td>
+                <td>Classroom {{$classroom->classroomname}}</td>
+                <td>{{$item->year ? $item->year->yearname : ''}}</td>
+                <td>{{$item->semester ? $item->semester->semestername : ''}}</td>
                 <td>
                   <form action="{{ route('classrooms.delYear', $item->id) }}" method="post">
                     <button type="submit" role="button" class="btn btn-xs btn-danger">Delete</button>
@@ -122,7 +119,7 @@
                 <div class="col-sm-10">
                   <select class="form-control" name="grade_id" size="5">
                     @foreach ($grades as $item)
-                      <option value="{{ $item->id }}">{{ $item->name }}</option>
+                      <option value="{{ $item->id }}">{{ $item->gradename }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -156,7 +153,7 @@
                 <div class="col-sm-10">
                   <select class="form-control" name="years[]" size="10">
                     @foreach ($years as $item)
-                      <option value="{{ $item->id }}">{{ $item->name }}</option>
+                      <option value="{{ $item->id }}">{{ $item->yearname }}</option>
                     @endforeach
                   </select>
                 </div>

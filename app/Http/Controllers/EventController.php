@@ -42,7 +42,7 @@ class EventController extends Controller
 
     public function store(Request $request) {
       $validator = Validator::make($request->all(), [
-        'name' => 'required|unique:events',
+        'eventname' => 'required|unique:events',
         'event_start' => 'required',
         'event_end' => 'required'
       ]);
@@ -62,7 +62,7 @@ class EventController extends Controller
       ];
       $event = new Event;
       $event->user_id = $request->user_id;
-      $event->eventname = $request->name;
+      $event->eventname = $request->eventname;
       $event->event_color = $eventColor[$request->event_color];
 
       if($request->has('allday')) {
@@ -96,12 +96,12 @@ class EventController extends Controller
 
         // Validate the data
         $this->validate($request, array(
-          'name' => 'required',
+          'eventname' => 'required',
           'event_start' => 'required',
           'event_end' => 'required'
         ));
 
-        $event->eventname = $request->name;
+        $event->eventname = $request->eventname;
         $event->allday = $request->allday;
         $event->event_color = $request->event_color;
         $event->event_start = $request->event_start;

@@ -2,9 +2,9 @@
 <div class="control-group @if ($errors->has('fullname')) has-error @endif">
     <label class="control-label">Fullname</label>
     <div class="controls">
-        <input value="{{ $employee->fullname }}" name="fullname" type="text" class="form-control" placeholder="Fullname">
+        <input value="{{ $student->studentname }}" name="studentname" type="text" class="form-control" placeholder="Fullname">
     </div>
-    @if ($errors->has('fullname')) <p class="help-block">{{ $errors->first('fullname') }}</p> @endif
+    @if ($errors->has('studentname')) <p class="help-block">{{ $errors->first('studentname') }}</p> @endif
 </div>
 <!-- Date of Birth -->
 <div class="control-group @if ($errors->has('dob')) has-error @endif">

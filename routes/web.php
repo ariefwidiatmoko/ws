@@ -34,6 +34,7 @@ Route::group( ['prefix' => 'home', 'middleware' => ['auth', 'web']], function()
     Route::resource('/contacts/contacts', 'ContactController');
     Route::get('/contacts/students', 'ContactController@indexStudent')->name('contacts.indexStudent');
     Route::get('/contacts/employees', 'ContactController@indexEmployee')->name('contacts.indexEmployee');
+    Route::get('/contacts/users', 'ContactController@indexUser')->name('contacts.indexUser');
     Route::resource('/contacts/messages', 'MessageController');
     Route::resource('/events', 'EventController');
     Route::resource('/administration/positions', 'PositionController');

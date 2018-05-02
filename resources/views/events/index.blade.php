@@ -62,7 +62,7 @@
                 <div class="form-group @if ($errors->has('name')) has-error @endif">
                   <label>Add Event</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" name="name" value="" required>
+                    <input type="text" class="form-control" name="eventname" value="" required>
                     <span class="input-group-addon">
                       <input type="checkbox" name="allday" id="checkAllday" onclick="infoAllday()" checked>
                     </span>
@@ -136,7 +136,7 @@
                 @forelse ($table_events as $item)
                   <tr>
                     <td onblur="update({{$item->id}})" id="event_color-{{$item->id}}" contenteditable><i class="fa fa-circle fa-fw" style="color: {{$item->event_color}};"></i></td>
-                    <td onblur="update({{$item->id}})" id="name-{{$item->id}}" contenteditable>{{ ucfirst($item->name) }}</td>
+                    <td onblur="update({{$item->id}})" id="name-{{$item->id}}" contenteditable>{{ ucfirst($item->eventname) }}</td>
                     <td onblur="update({{$item->id}})" id="allday-{{$item->id}}" contenteditable class="text-center">{{$item->allday == 0 ? 'No' : 'Yes'}}</td>
                     <td onblur="update({{$item->id}})" id="event_end-{{$item->id}}" contenteditable class="text-center">
                       {{ $item->event_start->format('D, Y-M-d H:s') }}</td>

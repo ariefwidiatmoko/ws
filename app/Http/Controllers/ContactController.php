@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\User;
 use App\Month;
 use App\Employee;
@@ -14,46 +15,54 @@ class ContactController extends Controller
 
     public function indexStudent(Request $request)
     {
-      $students = Student::query();
+            $students = Student::query();
 
-      if (isset($request->month_id)) {
-          $students->whereHas('studentprofile', function($q) use ($request) {
-            $q->where('month_id', $request->month_id);
-          });
-      }
+            if (isset($request->search)) {
+                $students->where('studentname', 'like',  "%{$request->search}%")->orWhere('studentnick', 'like'. "%{$request->search}%")->orWhereHas('studentprofile', function ($q) use ($request) {
+                  $q->where('email', 'like', "%{$request->search}%")->orWhere('address', 'like', "%{$request->search}%");
+                });
+            }
 
-      if (isset($request->user_id)) {
-          $students->where('user_id', $request->user_id);
-      }
+            if (isset($request->month_id)) {
+                $students->whereHas('studentprofile', function($q) use ($request) {
+                  $q->where('month_id', $request->month_id);
+                });
+            }
 
-      if (isset($request->statusActive)) {
-          $students->where('statusActive', $request->statusActive);
-      }
+            if (isset($request->user_id)) {
+                $students->where('user_id', $request->user_id);
+            }
 
-      if (isset($request->search)) {
-          $students->where('studentname', 'like',  "%{$request->search}%")->orWhere('studentnick', 'like'. "%{$request->search}%")->orWhereHas('studentprofile', function ($q) use ($request) {
-            $q->where('email', 'like', "%{$request->search}%")->orWhere('address', 'like', "%{$request->search}%");
-          });
-      }
+            if (isset($request->studentactive)) {
+                $students->where('studentactive', $request->studentactive);
+            }
 
-      $result = $students->orderBy('updated_at', 'desc')->paginate(20);
+            if (isset($request->studentname)) {
+                $students->where('studentname', 'like',  "%{$request->studentname}%");
+            }
 
-      $pagination = (isset($request->month_id)) ? $result->appends(['month_id' => $request->month_id]) : '';
-      $pagination = (isset($request->user_id)) ? $result->appends(['user_id' => $request->user_id]) : '';
-      $pagination = (isset($request->active)) ? $result->appends(['studentactive' => $request->active]) : '';
-      $pagination = (isset($request->search)) ? $result->appends(['email' => $request->search, 'address' => $request->search]) : '';
+            $result = $students->orderBy('studentname')->paginate(20);
 
-      $users = User::all();
-      $months = Month::all();
+            $pagination = (isset($request->month_id)) ? $result->appends(['month_id' => $request->month_id]) : '';
+            $pagination = (isset($request->user_id)) ? $result->appends(['user_id' => $request->user_id]) : '';
+            $pagination = (isset($request->studentactive)) ? $result->appends(['studentactive' => $request->studentactive]) : '';
+            $pagination = (isset($request->search)) ? $result->appends(['studentname' => $request->search, 'email' => $request->search, 'address' => $request->search]) : '';
 
-      $request->flash();
+            $users = User::all();
+            $months = Month::all();
 
-      return view('contacts.indexStudent', compact('result', 'students', 'query', 'months', 'users', '$pagination', 'request'));
+            $request->flash();
+
+            return view('contacts.indexStudent', compact('result', 'students', 'query', 'months', 'users', '$pagination', 'request'));
     }
 
     public function indexEmployee(Request $request)
     {
       $employees = Employee::query();
+
+      if (isset($request->search)) {
+          $employees->where('employeename', 'like',  "%{$request->search}%")->orWhere('phone', 'like'. "%{$request->search}%")->orWhere('address', 'like', "%{$request->search}%")->orWhere('education', 'like', "%{$request->search}%");
+      }
 
       if (isset($request->month_id)) {
           $employees->where('month_id', $request->month_id);
@@ -63,27 +72,48 @@ class ContactController extends Controller
           $employees->where('user_id', $request->user_id);
       }
 
-      if (isset($request->search)) {
-          $employees->where('employeename', 'like',  "%{$request->search}%")->orWhere('phone', 'like'. "%{$request->search}%")->orWhere('address', 'like', "%{$request->search}%")->orWhere('education', 'like', "%{$request->search}%");
+      if (isset($request->employeeactive)) {
+          $employees->where('employeeactive', $request->employeeactive);
       }
 
-      if (isset($request->statusActive)) {
-          $employees->where('employeeactive', $request->statusActive);
+      if (isset($request->employeename)) {
+          $students->where('employeename', 'like',  "%{$request->employeename}%");
       }
 
-      $result = $employees->orderBy('updated_at', 'desc')->paginate(20);
+      $result = $employees->orderBy('employeename')->paginate(20);
 
       $pagination = (isset($request->month_id)) ? $result->appends(['month_id' => $request->month_id]) : '';
       $pagination = (isset($request->user_id)) ? $result->appends(['user_id' => $request->user_id]) : '';
-      $pagination = (isset($request->statusActive)) ? $result->appends(['employeeactive' => $request->statusActive]) : '';
+      $pagination = (isset($request->statusActive)) ? $result->appends(['employeeactive' => $request->employeeactive]) : '';
       $pagination = (isset($request->search)) ? $result->appends(['employeename' => $request->search, 'address' => $request->search]) : '';
 
       $users = User::all();
       $months = Month::all();
 
+      $monthnow = Carbon::now()->format('m');
+
+      $birthmonth = Employee::where('month_id', '=', $monthnow)->get();
+
       $request->flash();
 
-      return view('contacts.indexEmployee', compact('result', 'query', 'employee', 'months', 'users', 'pagination', 'request'));
+      return view('contacts.indexEmployee', compact('result', 'query', 'employee', 'months', 'users', 'pagination', 'request', 'birthmonth'));
+    }
+
+    public function indexUser(Request $request)
+    {
+      $users = User::query();
+
+      if (isset($request->search)) {
+          $employees->where('name', 'like',  "%{$request->search}%")->orWhere('email', 'like'. "%{$request->search}%");
+      }
+
+      $result = $users->orderBy('name')->paginate(20);
+
+      $pagination = (isset($request->search)) ? $result->appends(['name' => $request->search]) : '';
+
+      $request->flash();
+
+      return view('contacts.indexUser', compact('result', 'query', 'users', 'pagination', 'request'));
     }
 
 

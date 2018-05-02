@@ -15,44 +15,29 @@
         </select>
       </div>
     </div>
-    <div class="col-xs-2 form-group">
-    <!-- User -->
-    <div class="form-group">
-      <select class="form-control input-sm" name="user_id">
-        <option value="">All Users</option>
-        @foreach ($users as $item)
-          @if(old('user_id') == $item->id)
-          <option value="{{ $item->id }}" selected="selected">{{ ucfirst($item->name) }}</option>
-         @else
-           <option value="{{ $item->id }}">{{ ucfirst($item->name) }}</option>
-         @endif
-        @endforeach
-      </select>
-    </div>
-  </div>
   <div class="col-xs-2 form-group">
     <!-- Publish Unpublish -->
     <div class="form-group">
-      <select class="form-control input-sm" name="live">
-        @if(old('live') == 1)
+      <select class="form-control input-sm" name="employeeactive">
+        @if(old('employeeactive') == 1)
           <option value="">All Status</option>
-          <option value="1" selected="selected">Publish</option>
-          <option value="0">Unpublish</option>
-        @elseif(old('live') == null)
+          <option value="1" selected="selected">Active</option>
+          <option value="0">Not Active</option>
+        @elseif(old('employeeactive') == null)
           <option value="" selected="selected">All Status</option>
-          <option value="1">Publish</option>
-          <option value="0">Unpublish</option>
+          <option value="1">Active</option>
+          <option value="0">Not Active</option>
         @else
           <option value="">All Status</option>
-          <option value="1">Publish</option>
-          <option value="0" selected="selected">Unpublish</option>
+          <option value="1">Active</option>
+          <option value="0" selected="selected">Not Active</option>
         @endif
       </select>
     </div>
   </div>
   <div class="col-xs-2 input-group">
     <div class="input-group" style="margin-left: 15px;">
-      <input type="text" name="search" class="form-control input-sm pull-right" placeholder="Search Employee..." value="{{old('search')}}">
+      <input type="text" name="search" class="form-control input-sm pull-right" placeholder="Search Employee Name..." value="{{old('employeename')}}">
       <div class="input-group-btn">
         <button type="submit" class="btn btn-default btn-sm">Search</i></button>
       </div>

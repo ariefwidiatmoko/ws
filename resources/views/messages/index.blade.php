@@ -51,7 +51,7 @@
               <table id="inlist" class="table table-hover">
                 <thead>
                       <th style="text-align: center;">No</th>
-                      <th style="text-align: center;">Name</th>
+                      <th style="text-align: center;">Sender</th>
                       <th style="text-align: center;">Email</th>
                       <th style="text-align: center;">Title</th>
                       <th style="text-align: center;">Content</th>

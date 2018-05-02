@@ -46,7 +46,7 @@
         @else
           <img class="profile-user-img img-responsive img-circle" src="/images/students/{{ $student->studentprofile->avatar }}" alt="User profile picture">
         @endif
-        <h3 class="profile-username text-center">{{ ucfirst($student->fullname) }}</h3>
+        <h3 class="profile-username text-center">{{ ucfirst($student->studentname) }}</h3>
         <p class="text-muted text-center">
           @php
           use Carbon\Carbon;
@@ -110,35 +110,35 @@
         <hr>
         <strong><i class="fa fa-sitemap margin-r-5"></i>
         Family Status / Child No</strong>
-        <p class="text-muted">{{ucfirst($student->studentprofile->familyStatus)}} {{$student->studentprofile->childNo != null ? '/ No '.$student->studentprofile->childNo : ''}}</p>
+        <p class="text-muted">{{ucfirst($student->studentprofile->familystatus)}} {{$student->studentprofile->childno != null ? '/ No '.$student->studentprofile->childno : ''}}</p>
         <hr>
         <strong><i class="fa fa-commenting margin-r-5"></i>
         Family Notes</strong>
-        <p>{{ $student->studentprofile->familiyNote }}</p>
+        <p>{{ $student->studentprofile->familiynote }}</p>
         <hr>
         <strong><i class="fa fa-heart margin-r-5"></i>
         Health Notes</strong>
-        <p>{{ $student->studentprofile->healthNote }}</p>
+        <p>{{ $student->studentprofile->healthnote }}</p>
         <hr>
         <strong><i class="fa fa-reply margin-r-5"></i>
         Previous School</strong>
-        <p>{{ $student->studentprofile->previousSchool }}</p>
+        <p>{{ $student->studentprofile->prevschool }}</p>
         <hr>
         <strong><i class="fa fa-trophy margin-r-5"></i>
         Achievement Note</strong>
-        <p>{{ $student->studentprofile->achievementNote }}</p>
+        <p>{{ $student->studentprofile->achievementnote }}</p>
         <hr>
         <strong><i class="fa fa-commenting margin-r-5"></i>
         School Note</strong>
-        <p>{{ $student->studentprofile->schoolNote }}</p>
+        <p>{{ $student->studentprofile->schoolnote }}</p>
         <hr>
         <strong><i class="fa fa-commenting margin-r-5"></i>
         Previous School Note</strong>
-        <p>{{ $student->studentprofile->prevScNote }}</p>
+        <p>{{ $student->studentprofile->prevschoolnote }}</p>
         <hr>
         <strong><i class="fa fa-commenting margin-r-5"></i>
         After School Note</strong>
-        <p>{{ $student->studentprofile->afterScNote }}</p>
+        <p>{{ $student->studentprofile->afterschoolnote }}</p>
         <hr>
         <strong><i class="fa  fa-user margin-r-5"></i>
         Father's Name</strong>
@@ -146,11 +146,11 @@
         <hr>
         <strong><i class="fa fa-phone margin-r-5"></i>
         Father's Phone</strong>
-        <p>{{ $student->studentprofile->fphone }}</p>
+        <p>{{ $student->studentprofile->fatherphone }}</p>
         <hr>
         <strong><i class="fa fa-envelope margin-r-5"></i>
         Father's Email</strong>
-        <p>{{ $student->studentprofile->femail }}</p>
+        <p>{{ $student->studentprofile->fatheremail }}</p>
         <hr>
         <strong><i class="fa  fa-user margin-r-5"></i>
         Mother's Name</strong>
@@ -158,11 +158,11 @@
         <hr>
         <strong><i class="fa fa-phone margin-r-5"></i>
         Mother's Phone</strong>
-        <p>{{ $student->studentprofile->mphone }}</p>
+        <p>{{ $student->studentprofile->motherphone }}</p>
         <hr>
         <strong><i class="fa fa-envelope margin-r-5"></i>
         Mother's Email</strong>
-        <p>{{ $student->studentprofile->memail }}</p>
+        <p>{{ $student->studentprofile->motheremail }}</p>
         <hr>
         <strong><i class="fa  fa-user margin-r-5"></i>
         Guardian's Name</strong>
@@ -170,19 +170,19 @@
         <hr>
         <strong><i class="fa fa-phone margin-r-5"></i>
         Guardian's Phone</strong>
-        <p>{{ $student->studentprofile->gphone }}</p>
+        <p>{{ $student->studentprofile->guardianphone }}</p>
         <hr>
         <strong><i class="fa fa-envelope margin-r-5"></i>
         Guardian's Email</strong>
-        <p>{{ $student->studentprofile->gemail }}</p>
+        <p>{{ $student->studentprofile->guardianemail }}</p>
         <hr>
         <strong><i class="fa fa-map-marker margin-r-5"></i>
         Parent's Address</strong>
-        <p>{{ $student->studentprofile->paddress }}</p>
+        <p>{{ $student->studentprofile->parentaddress }}</p>
         <hr>
         <strong><i class="fa fa-commenting margin-r-5"></i>
         Parent's Note</strong>
-        <p>{{ $student->studentprofile->parentNote }}</p>
+        <p>{{ $student->studentprofile->parentnote }}</p>
         <hr>
       </div>
       <!-- /.box-body -->
@@ -200,13 +200,14 @@
           <form enctype="multipart/form-data" class="form-horizontal" action="{{ route('students.update', $student->id) }}" method="POST">
             {{ method_field('PUT') }}
             {{ csrf_field() }}
-            <div class="form-group">
-              <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+            <div class="form-group @if ($errors->has('noId')) has-error @endif">
               <label class="col-sm-2 control-label">
                 No ID / No ID National
               </label>
               <div class="col-sm-5">
                 <input value="{{ $student->noId }}" type="text" placeholder="No ID" class="form-control" name="noId">
+                @if ($errors->has('noId')) <p class="help-block">{{ $errors->first('noId') }}</p> @endif
               </div>
               <div class="col-sm-5">
                 <input value="{{ $student->noIdNational }}" type="text" placeholder="No ID National" class="form-control" name="noIdNational">
@@ -220,12 +221,13 @@
                 <input type="file" name="student_img" value="" class="form-control" placeholder="Profile Picture">
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group @if ($errors->has('studentname')) has-error @endif">
               <label class="col-sm-2 control-label">
                 Fullname
               </label>
               <div class="col-sm-10">
-                <input value="{{ $student->fullname }}" type="text" placeholder="Fullname" class="form-control" name="fullname">
+                <input value="{{ $student->studentname }}" type="text" placeholder="Fullname" class="form-control" name="studentname">
+                @if ($errors->has('studentname')) <p class="help-block">{{ $errors->first('studentname') }}</p> @endif
               </div>
             </div>
             <div class="form-group">
@@ -233,7 +235,7 @@
                 Nick Name
               </label>
               <div class="col-sm-10">
-                <input value="{{ $student->nickName }}" type="text" placeholder="Nick Name" class="form-control" name="nickName">
+                <input value="{{ $student->studentnick }}" type="text" placeholder="Nick Name" class="form-control" name="studentnick">
               </div>
             </div>
             <div class="form-group">
@@ -257,7 +259,7 @@
               <div class="checkbox">
                   <div class="col-sm-offset-2 col-sm-10">
                     <label>
-                    <input type="checkbox" name="statusActive" checked>
+                    <input type="checkbox" name="studentactive" checked>
                     Active
                   </label>
                   </div>
@@ -277,9 +279,10 @@
             <!-- Gender -->
             <div class="form-group">
               <label class="col-sm-2 control-label">Gender</label>
+              @if($student->studentprofile->gender == 1)
               <div class="radio col-sm-10">
                 <label>
-                  <input name="gender" id="optionsRadios1" value="1" type="radio">
+                  <input name="gender" id="optionsRadios1" value="1" type="radio" checked>
                   Male
                 </label>
               </div>
@@ -290,6 +293,21 @@
                   Female
                 </label>
               </div>
+            @else
+              <div class="radio col-sm-10">
+                <label>
+                  <input name="gender" id="optionsRadios1" value="1" type="radio">
+                  Male
+                </label>
+              </div>
+              <label class="col-sm-2 control-label"></label>
+              <div class="radio col-sm-10">
+                <label>
+                  <input name="gender" id="optionsRadios2" value="0" type="radio" checked>
+                  Female
+                </label>
+              </div>
+            @endif
             </div>
             @if ($errors->has('gender'))<span class="help-block">{{$errors->first('gender')}}</span> @endif
             <div class="form-group">
@@ -305,7 +323,7 @@
                 Family Status
               </label>
               <div class="col-sm-10">
-                <input value="{{ $student->studentprofile->familyStatus }}" type="text" placeholder="Family Status" class="form-control" name="familyStatus">
+                <input value="{{ $student->studentprofile->familystatus }}" type="text" placeholder="Family Status" class="form-control" name="familystatus">
               </div>
             </div>
             <div class="form-group">
@@ -316,7 +334,7 @@
                 <input value="{{ $student->studentprofile->siblings }}" type="text" placeholder="Siblings" class="form-control" name="siblings">
               </div>
               <div class="col-sm-5">
-                <input value="{{ $student->studentprofile->childNo }}" type="text" placeholder="Child Number" class="form-control" name="childNo">
+                <input value="{{ $student->studentprofile->childno }}" type="text" placeholder="Child Number" class="form-control" name="childno">
               </div>
             </div>
             <div class="form-group">
@@ -324,7 +342,7 @@
                 Family Note
               </label>
               <div class="col-sm-10">
-                <textarea name="familiyNote" type="text" class="form-control" placeholder="Family Note">{{$student->studentprofile->familiyNote}}</textarea>
+                <textarea name="familiynote" type="text" class="form-control" placeholder="Family Note">{{$student->studentprofile->familiynote}}</textarea>
               </div>
             </div>
             <div class="form-group">
@@ -332,7 +350,7 @@
                 Health Note
               </label>
               <div class="col-sm-10">
-                <textarea name="healthNote" type="text" class="form-control" placeholder="Health Note">{{$student->studentprofile->healthNote}}</textarea>
+                <textarea name="healthnote" type="text" class="form-control" placeholder="Health Note">{{$student->studentprofile->healthnote}}</textarea>
               </div>
             </div>
             <hr>
@@ -345,7 +363,7 @@
                 Previus School
               </label>
               <div class="col-sm-10">
-                <input name="previousSchool" value="{{$student->studentprofile->previousSchool}}" type="text" class="form-control" placeholder="Previous School">
+                <input name="prevschool" value="{{$student->studentprofile->prevschool}}" type="text" class="form-control" placeholder="Previous School">
               </div>
             </div>
             <div class="form-group">
@@ -353,7 +371,7 @@
                 Achievement
               </label>
               <div class="col-sm-10">
-                <textarea name="achievementNote" type="text" class="form-control" placeholder="Achievement Note">{{$student->studentprofile->achievementNote}}</textarea>
+                <textarea name="achievementnote" type="text" class="form-control" placeholder="Achievement Note">{{$student->studentprofile->achievementnote}}</textarea>
               </div>
             </div>
             <div class="form-group">
@@ -361,7 +379,7 @@
                 School Note
               </label>
               <div class="col-sm-10">
-                <textarea name="schoolNote" type="text" class="form-control" placeholder="School Note">{{$student->studentprofile->schoolNote}}</textarea>
+                <textarea name="schoolnote" type="text" class="form-control" placeholder="School Note">{{$student->studentprofile->schoolnote}}</textarea>
               </div>
             </div>
             <div class="form-group">
@@ -369,7 +387,7 @@
                 Previous School Note
               </label>
               <div class="col-sm-10">
-                <textarea name="prevScNote" type="text" class="form-control" placeholder="Previous School Note">{{$student->studentprofile->prevScNote}}</textarea>
+                <textarea name="prevschoolnote" type="text" class="form-control" placeholder="Previous School Note">{{$student->studentprofile->prevschoolnote}}</textarea>
               </div>
             </div>
             <div class="form-group">
@@ -377,7 +395,7 @@
                 After School Note
               </label>
               <div class="col-sm-10">
-                <textarea name="afterScNote" type="text" class="form-control" placeholder="After School Note">{{$student->studentprofile->afterScNote}}</textarea>
+                <textarea name="afterschoolnote" type="text" class="form-control" placeholder="After School Note">{{$student->studentprofile->afterschoolnote}}</textarea>
               </div>
             </div>
             <hr>
@@ -398,7 +416,7 @@
                 Father's Phone
               </label>
               <div class="col-sm-10">
-                <input value="{{ $student->studentprofile->fphone }}" type="text" placeholder="Father's Phone" class="form-control" name="fphone">
+                <input value="{{ $student->studentprofile->fatherphone }}" type="text" placeholder="Father's Phone" class="form-control" name="fatherphone">
               </div>
             </div>
             <div class="form-group">
@@ -406,7 +424,7 @@
                 Father's Email
               </label>
               <div class="col-sm-10">
-                <input value="{{ $student->studentprofile->father }}" type="text" placeholder="Father's Email" class="form-control" name="father">
+                <input value="{{ $student->studentprofile->fatheremail }}" type="text" placeholder="Father's Email" class="form-control" name="fatheremail">
               </div>
             </div>
             <div class="form-group">
@@ -422,7 +440,7 @@
                 Mother's Phone
               </label>
               <div class="col-sm-10">
-                <input value="{{ $student->studentprofile->mphone }}" type="text" placeholder="Mother's Phone" class="form-control" name="mphone">
+                <input value="{{ $student->studentprofile->motherphone }}" type="text" placeholder="Mother's Phone" class="form-control" name="motherphone">
               </div>
             </div>
             <div class="form-group">
@@ -430,7 +448,7 @@
                 Mother's Email
               </label>
               <div class="col-sm-10">
-                <input value="{{ $student->studentprofile->memail }}" type="text" placeholder="Mother's Email" class="form-control" name="memail">
+                <input value="{{ $student->studentprofile->motheremail }}" type="text" placeholder="Mother's Email" class="form-control" name="motheremail">
               </div>
             </div>
             <div class="form-group">
@@ -446,7 +464,7 @@
                 Guardian's Phone
               </label>
               <div class="col-sm-10">
-                <input value="{{ $student->studentprofile->gphone }}" type="text" placeholder="Guardian's Phone" class="form-control" name="gphone">
+                <input value="{{ $student->studentprofile->guardianphone }}" type="text" placeholder="Guardian's Phone" class="form-control" name="guardianphone">
               </div>
             </div>
             <div class="form-group">
@@ -454,7 +472,7 @@
                 Guardian's Email
               </label>
               <div class="col-sm-10">
-                <input value="{{ $student->studentprofile->gemail }}" type="text" placeholder="Guardian's Email" class="form-control" name="gemail">
+                <input value="{{ $student->studentprofile->guardianemail }}" type="text" placeholder="Guardian's Email" class="form-control" name="guardianemail">
               </div>
             </div>
             <div class="form-group">
@@ -462,7 +480,7 @@
                 Parents Address
               </label>
               <div class="col-sm-10">
-                <input value="{{ $student->studentprofile->paddress }}" type="text" placeholder="Parents Address" class="form-control" name="paddress">
+                <input value="{{ $student->studentprofile->parentaddress }}" type="text" placeholder="Parents Address" class="form-control" name="parentaddress">
               </div>
             </div>
             <div class="form-group">
@@ -470,7 +488,7 @@
                 Parents Note
               </label>
               <div class="col-sm-10">
-                <textarea name="parentNote" type="text" class="form-control" placeholder="Parents Note">{{$student->studentprofile->parentNote}}</textarea>
+                <textarea name="parentnote" type="text" class="form-control" placeholder="Parents Note">{{$student->studentprofile->parentnote}}</textarea>
               </div>
             </div>
             <div class="form-group">
