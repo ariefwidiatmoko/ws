@@ -58,7 +58,7 @@
     <div id="inlist" class="table-responsive box-body">
       <div class="row">
         <div class="col-sm-12">
-        <h4 style="margin-left: 15px;"> {{ $position->name }} position</h4>
+        <h4 style="margin-left: 15px;"> {{ $position->positionname }} position</h4>
           <table id="inlist" class="table table-hover">
             <thead>
               <tr>
@@ -77,9 +77,9 @@
             @forelse ($position->employees as $index => $item)
                 <tr>
                     <td>{{ $index += 1 }}</td>
-                    <td>{{ ucfirst($item->fullname) }}</td>
-                    <td>{{ $item->statusActive == 1 ? 'Yes' : 'No' }}</td>
-                    <td>{{ ucfirst($item->user['name']) }}</td>
+                    <td>{{ ucfirst($item->employeename) }}</td>
+                    <td>{{ $item->employeeactive == 1 ? 'Yes' : 'No' }}</td>
+                    <td>{{ $item->created_by ? ucwords($item->created_by) : '' }}</td>
                     <td>{{ ucfirst($item->updated_by == null ? $item->user['name'] : $item->updated_by) }}</td>
                     <td>{{ $item->created_at->format('d M Y - H:i:s') }}</td>
                     @can ('edit_employees', 'delete_employees')

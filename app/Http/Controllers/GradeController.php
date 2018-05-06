@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Grade;
+use App\Year;
 
 class GradeController extends Controller
 {
@@ -28,21 +29,24 @@ class GradeController extends Controller
 
       // Validate the data
       $this->validate($request, array(
-        'name' => 'required|unique:grades',
+        'gradename' => 'required|unique:grades',
         'alias' => 'required'
       ));
 
       $grade = new Grade;
 
       $grade->user_id = Auth::user()->id;
-      $grade->gradename = $request->name;
+      $grade->gradename = $request->gradename;
       $grade->alias = $request->alias;
 
       $grade->save();
 
-      flash()->success('Grade was successfully saved.');
+      $notification = array(
+        'message' => ucwords($request->gradename) . ' was successfully saved.',
+        'alert-type' => 'success'
+      );
 
-      return redirect()->route('grades.index');
+      return redirect()->route('grades.index')->with($notification);
     }
 
     public function show($id)
@@ -72,15 +76,19 @@ class GradeController extends Controller
 
       // Validate the data
       $this->validate($request, array(
-        'name' => 'required|unique:grades,name,'.$grade->id,
+        'gradename' => 'required|unique:grades,gradename,'.$grade->id,
         'alias' => 'required'
       ));
 
       $grade->update($request->all());
 
-      flash()->success('Grade has been updated.');
+      $notification = array(
+        'message' => ucwords($request->gradename) . ' was successfully updated.',
+        'alert-type' => 'success'
+      );
 
-      return redirect()->route('grades.index');
+
+      return redirect()->route('grades.index')->with($notification);
     }
 
     public function destroy($id)
@@ -95,8 +103,11 @@ class GradeController extends Controller
 
       $grade->delete();
 
-      flash()->success('Grade has been deleted.');
+      $notification = array(
+        'message' => ucwords($grade->gradename) . ' was successfully deleted.',
+        'alert-type' => 'error'
+      );
 
-      return redirect()->route('grades.index');
+      return redirect()->route('grades.index')->with($notification);
     }
 }

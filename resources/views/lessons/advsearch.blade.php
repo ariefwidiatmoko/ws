@@ -6,9 +6,9 @@
       <option value="">All Subjects</option>
       @foreach ($subjects as $item)
         @if($request->old('subject_id') == $item->id )
-          <option value="{{ $item->id }}" selected="selected">{{ $item->name }}</option>
+          <option value="{{ $item->id }}" selected="selected">{{ $item->subjectname }}</option>
         @else
-          <option value="{{ $item->id }}">{{ $item->name }}</option>
+          <option value="{{ $item->id }}">{{ $item->subjectname }}</option>
         @endif
       @endforeach
     </select>
@@ -31,12 +31,12 @@
   <div class="col-xs-2 form-group">
     <!-- Publish Unpublish -->
     <div class="form-group">
-      <select class="form-control input-sm" name="live">
-        @if($request->old('live') == 1)
+      <select class="form-control input-sm" name="lessonactive">
+        @if($request->old('lessonactive') == 1)
           <option value="">All Status</option>
           <option value="1" selected="selected">Publish</option>
           <option value="0">Unpublish</option>
-        @elseif($request->old('live') == null)
+        @elseif($request->old('lessonactive') == null)
           <option value="" selected="selected">All Status</option>
           <option value="1">Publish</option>
           <option value="0">Unpublish</option>

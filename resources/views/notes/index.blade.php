@@ -86,13 +86,13 @@
                 @forelse ($result as $index => $item)
                   <tr>
                     <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
-                    <td style="text-align: center;">{{ ucfirst($item->name) }}</td>
-                    <td><a href="{{ route('notes.show', $item ) }}">{{ ucfirst($item->title) }}</a></td>
+                    <td style="text-align: center;">{{ ucfirst($item->notesegment) }}</td>
+                    <td><a href="{{ route('notes.show', $item ) }}">{{ ucfirst($item->notetitle) }}</a></td>
                     <td style="text-align: center;">
                     @can('edit_notes')
-                      <input type="checkbox" class="published" data-id="{{$item->id}}" @if ($item->live) checked @endif>
+                      <input type="checkbox" class="published" data-id="{{$item->id}}" @if ($item->noteactive) checked @endif>
                     @else
-                      {{ $item->live == 1 ? 'Yes' : 'No' }}
+                      {{ $item->noteactive == 1 ? 'Yes' : 'No' }}
                     @endcan
                     </td>
                     <td style="text-align: center;">{{ ucfirst($item->user['name']) }}</td>

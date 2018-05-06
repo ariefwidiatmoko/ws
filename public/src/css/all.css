@@ -9,6 +9,8 @@
 @import url("../css/loading-page.css");
 /* Font Awesome */
 @import url("../font-awesome/css/font-awesome.min.css");
+/* toastr notifications */
+@import url("../toastrjs/toastr.min.css");
 
 /* Custom Sidebar */
 .main-sidebar .sidebar .sidebar-menu a:hover {

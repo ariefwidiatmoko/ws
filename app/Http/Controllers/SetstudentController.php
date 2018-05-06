@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use App\Student;
 use App\Year;
+use App\Semester;
 use App\Grade;
 use App\Classroom;
 use App\Studentyear;
@@ -19,26 +20,30 @@ class SetstudentController extends Controller
 
     public function index(Request $request)
     {
-
-        $students = DB::table('students')
-                        ->join('studentyears', 'students.id', '=', 'studentyears.student_id')->select('students.noId', 'students.noIdNational', 'students.studentname', 'studentyears.year_name', 'studentyears.grade_name', 'studentyears.semester_id');
+        $students = DB::table('studentyears')
+                        ->join('students', 'students.id', '=', 'studentyears.student_id')
+                        ->join('grades', 'grades.id', '=', 'studentyears.grade_id')
+                        ->join('years', 'years.id', '=', 'studentyears.year_id')
+                        ->select('students.id', 'students.noId', 'students.studentname', 'studentyears.year_id', 'studentyears.grade_id', 'studentyears.semester_id', 'years.yearname', 'grades.gradename')
+                        ->groupBy('student_id');
 
         if (isset($request->search)) {
             $students->where('studentname', 'like',  "%{$request->search}%");
         }
 
-        if (isset($request->year_name)) {
-            $students->whereNull('year_name');
-
+        if (isset($request->year_id)) {
+            $students->where('year_id', 'like',  "%{$request->year_id}%");
         }
 
-        if (isset($request->grade_name)) {
-        $students->whereNull('grade_name');
+        if (isset($request->grade_id)) {
+        $students->where('grade_id', 'like',  "%{$request->grade_id}%");
         }
 
         $result = $students->where('studentactive', 1)->orderBy('noId')->paginate(25);
 
         $pagination = (isset($request->search)) ? $result->appends(['studentname' => $request->search]) : '';
+        $pagination = (isset($request->year_id)) ? $result->appends(['year_id' => $request->year_id]) : '';
+        $pagination = (isset($request->grade_id)) ? $result->appends(['grade_id' => $request->grade_id]) : '';
 
         $years = Year::all();
         $grades = Grade::all();
@@ -60,6 +65,20 @@ class SetstudentController extends Controller
         }
 
         $file = $request->file('file');
+
+        //Validate CSV extension
+        $extension = $request->file->getClientOriginalExtension();
+        if ($extension != 'csv') {
+
+            $notification = array(
+              'message' => 'You insert '. strtoupper($extension) .' file. Please insert CSV file',
+              'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
+        }
+
+        //Import File
         $csvData = file_get_contents($file);
         $rows = array_map('str_getcsv', explode("\n", $csvData));
         $filtered = array_pop($rows);
@@ -71,10 +90,10 @@ class SetstudentController extends Controller
           $row = array_combine($header, $row);
 
           $students = Student::create([
-                          'noId' => $row['Id'],
-                          'noIdNational' => $row['IdNational'],
-                          'studentname' => $row['Fullname'],
-                          'studentnick' => $row['NickName'],
+                          'noId' => $row['ID'],
+                          'noIdNational' => $row['ID National'],
+                          'studentname' => $row['Name'],
+                          'studentnick' => $row['Nick Name'],
                           'studentactive' => 1,
                           'user_id' => Auth::user()->id,
                           'created_at' => Carbon::now(),
@@ -89,28 +108,119 @@ class SetstudentController extends Controller
         foreach($rows as $index => $row) {
           $row = array_combine($header, $row);
 
+          $years = Year::all()->pluck('id', 'yearname')->toArray();
+
+          $grades = Grade::all()->pluck('id', 'gradename')->toArray();
+
           $studentyears = Studentyear::insert([
                           'student_id' => $lastStudentIds[$index],
-                          'year_name' => $row['Year'],
+                          'year_id' => $years[$row['Year']],
                           'semester_id' => 1,
-                          'grade_name' => $row['Grade'],
+                          'grade_id' => $grades[$row['Grade']],
                           'created_at' => Carbon::now(),
                           'updated_at' => Carbon::now(),
                       ]);
 
           $studentyears = Studentyear::insert([
                           'student_id' => $lastStudentIds[$index],
-                          'year_name' => $row['Year'],
+                          'year_id' => $years[$row['Year']],
                           'semester_id' => 2,
-                          'grade_name' => $row['Grade'],
+                          'grade_id' => $grades[$row['Grade']],
                           'created_at' => Carbon::now(),
                           'updated_at' => Carbon::now(),
                       ]);
         }
 
-        flash()->success('Students data was successfully saved.');
+        $notification = array(
+          'message' => 'Student data was successfully imported.',
+          'alert-type' => 'success'
+        );
 
-        return redirect()->back();
+        return redirect()->back()->with($notification);
+    }
+
+    public function setClassroom(Request $request) {
+
+      $students = DB::table('studentyears')
+                      ->join('students', 'students.id', '=', 'studentyears.student_id')
+                      ->join('grades', 'grades.id', '=', 'studentyears.grade_id')
+                      ->join('years', 'years.id', '=', 'studentyears.year_id')
+                      ->select('students.noId', 'students.studentname', 'students.studentactive', 'studentyears.id', 'studentyears.student_id', 'studentyears.year_id', 'studentyears.grade_id', 'studentyears.semester_id', 'years.yearname', 'grades.gradename', 'studentyears.classroom_id');
+
+      $crs = DB::table('classyears')
+                    ->join('classrooms', 'classrooms.id', '=','classyears.classroom_id')
+                    ->join('years', 'years.id', '=', 'classyears.year_id')
+                    ->join('grades', 'grades.id', '=', 'classrooms.grade_id');
+
+      if (old('search') != null) {
+          $students->where('studentname', 'like', old('search'));
+      }
+
+      if (old('year_id') != null) {
+      $students->where('year_id', 'like', old('year_id'));
+      $crs->where('year_id', 'like', old('year_id'));
+      }
+
+      if (old('grade_id') != null) {
+      $students->where('grade_id', 'like', old('grade_id'));
+      $crs->where('grade_id', 'like', old('grade_id'));
+      }
+
+      $students->where('semester_id', 1);
+      $crs->where('semester_id', 1);
+
+      $request->flash();
+
+      $results = $students->where('studentactive', 1)->orderBy('noId')->get();
+      $classrooms = $crs->where('classroomactive', 1)->orderBy('classroomname')->get();
+
+      return view('setstudents.setclassroom', compact('results', 'students', 'request', 'crs', 'classrooms'));
+    }
+
+    public function allocateClassroom() {
+
+        $id = Input::get('id');
+        $sd = Input::get('student_id');
+        $yr = Input::get('year_id');
+        $gr = Input::get('grade_id');
+        $cr = Input::get('classroom_id');
+
+        $students = Studentyear::where('student_id', $sd)->where('year_id', $yr)->where('grade_id', $gr)->where('semester_id', '>=', 0)->get();
+
+        foreach ($students as $index => $student) {
+          $student->update([
+            'classroom_id' => $cr,
+          ]);
+        }
+
+        return response()->json($students);
+    }
+
+    public function addClassroom(Request $request, $id) {
+        $student = Student::findOrFail($id);
+
+        $semester = Semester::pluck('id');
+
+        foreach ($semester as $index => $item) {
+          $addcr = New Studentyear;
+          $addcr->user_id = $request->user_id;
+          $addcr->student_id = $id;
+          $addcr->classroom_id = $request->classroom_id;
+          $addcr->year_id = $request->year_id;
+          $addcr->semester_id = $semester[$index];
+          $addcr->grade_id = $request->grade_id;
+          $addcr->classroom_id = $request->classroom_id;
+
+          $addcr->save();
+        }
+
+        $notification = array(
+          'message' => 'Classroom was successfully added.',
+          'alert-type' => 'success'
+        );
+
+        return back()->with($notification);
+
     }
 
     public function create()
@@ -125,17 +235,35 @@ class SetstudentController extends Controller
 
     public function show($id)
     {
-        $setstudent = Student::findOrFail($id);
+        $student = Student::findOrFail($id);
 
-        $classrooms = Classroom::all();
+        $hist = DB::table('studentyears')
+                        ->join('students', 'students.id', '=', 'studentyears.student_id')
+                        ->join('grades', 'grades.id', '=', 'studentyears.grade_id')
+                        ->join('years', 'years.id', '=', 'studentyears.year_id')
+                        ->join('semesters', 'semesters.id', '=', 'studentyears.semester_id')
+                        ->join('classrooms', 'classrooms.id', '=', 'studentyears.classroom_id')
+                        ->select('studentyears.id', 'students.studentname', 'years.yearname', 'semesters.semestername', 'grades.gradename', 'classrooms.classroomname');
+
+        $histories = $hist->where('student_id', $id)->get();
+        $classrooms = Classroom::where('classroomactive', 1)->get();
         $years = Year::all();
         $grades = Grade::all();
 
-        return view('setstudents.show', compact('setstudent', 'classrooms', 'grades', 'years'));
+        return view('setstudents.show', compact('student', 'hist', 'histories', 'classrooms', 'years', 'grades'));
     }
 
     public function delYear($id) {
+        $student = Studentyear::findOrFail($id);
 
+        $student->delete();
+
+        $notification = array(
+          'message' => 'Classroom was successfully deleted.',
+          'alert-type' => 'warning'
+        );
+
+        return back()->with($notification);
     }
 
     public function edit($id)
@@ -150,6 +278,6 @@ class SetstudentController extends Controller
 
     public function destroy($id)
     {
-        //
+
     }
 }

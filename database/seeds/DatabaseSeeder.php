@@ -187,36 +187,123 @@ class DatabaseSeeder extends Seeder
           'classroomname' => '7A',
           'alias' => '1A',
           'classroomactive' => '1',
+          'grade_id' => '1',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
           'classroomname' => '7B',
           'alias' => '1B',
           'classroomactive' => '1',
+          'grade_id' => '1',
+        ]);
+        factory(App\Classroom::class)->create([
+          'user_id' => '1',
+          'classroomname' => '7C',
+          'alias' => '1C',
+          'classroomactive' => '1',
+          'grade_id' => '1',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
           'classroomname' => '8A',
           'alias' => '2A',
           'classroomactive' => '1',
+          'grade_id' => '2',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
           'classroomname' => '8B',
           'alias' => '2B',
           'classroomactive' => '1',
+          'grade_id' => '2',
+        ]);
+        factory(App\Classroom::class)->create([
+          'user_id' => '1',
+          'classroomname' => '8C',
+          'alias' => '2C',
+          'classroomactive' => '1',
+          'grade_id' => '2',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
           'classroomname' => '9A',
           'alias' => '3A',
           'classroomactive' => '1',
+          'grade_id' => '3',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
           'classroomname' => '9B',
           'alias' => '3B',
           'classroomactive' => '1',
+          'grade_id' => '3',
+        ]);
+        factory(App\Classroom::class)->create([
+          'user_id' => '1',
+          'classroomname' => '9C',
+          'alias' => '3C',
+          'classroomactive' => '1',
+          'grade_id' => '3',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '1',
+          'year_id' => '2',
+          'semester_id' => '1',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '1',
+          'year_id' => '2',
+          'semester_id' => '2',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '2',
+          'year_id' => '2',
+          'semester_id' => '1',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '2',
+          'year_id' => '2',
+          'semester_id' => '2',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '3',
+          'year_id' => '2',
+          'semester_id' => '1',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '3',
+          'year_id' => '2',
+          'semester_id' => '2',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '4',
+          'year_id' => '2',
+          'semester_id' => '1',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '4',
+          'year_id' => '2',
+          'semester_id' => '2',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '5',
+          'year_id' => '2',
+          'semester_id' => '1',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '5',
+          'year_id' => '2',
+          'semester_id' => '2',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '6',
+          'year_id' => '2',
+          'semester_id' => '1',
+        ]);
+        factory(App\Classyear::class)->create([
+          'classroom_id' => '6',
+          'year_id' => '2',
+          'semester_id' => '2',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',

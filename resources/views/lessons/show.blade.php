@@ -3,6 +3,8 @@
 @section('title', 'View Lesson')
 
 @section('stylesheets')
+  <!-- toastr notifications -->
+  <link rel="stylesheet" href="/src/toastrjs/toastr.min.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="/src/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <style>
@@ -53,15 +55,16 @@
         <span class="description">Update at: {{ $lesson->updated_at->diffForHumans() }} | Create at: {{ $lesson->created_at->format('d M Y') }}</span>
         <div class="username">
           <span class="label label-primary">Updated by : {{ $lesson->updated_by == null ? ucfirst($lesson->user->name) : ucfirst($lesson->updated_by) }}</span>
-          <span class="label label-warning">Subject : {{ ucfirst($lesson->subject->name) . ' | ' . ucfirst($lesson->subject->alias) }}</span>
+          <span class="label label-warning">Subject : {{ ucfirst($lesson->subject->subjectname) . ' - ' . ucfirst($lesson->subject->alias) }}</span>
+          <span class="label bg-green">Publish : {{$lesson->lessonactive ? 'Yes' : 'No'}}</span>
         </div>
       </div>
       <hr>
       <div class="box-body" style="margin-left: 10px; margin-right: 10px; margin-top: -15px;">
         <div style="margin-left: -10px;">
-          <h4><b style="color: white; background-color: #0091EA; margin: 15px 15px 15px 15px; padding: 10px 60px 10px 60px; box-shadow: 0 8px 6px -6px grey;">{{ ucwords($lesson->title) }}</b></h4>
+          <h4><b style="color: white; background-color: #0091EA; margin: 15px 15px 15px 15px; padding: 10px 60px 10px 60px; box-shadow: 0 8px 6px -6px grey;">{{ ucwords($lesson->lessontitle) }}</b></h4>
           <div class="col-md-8" style="margin-top: 20px;">
-            <p>{!! $lesson->content !!}</p>
+            <p>{!! $lesson->lessoncontent !!}</p>
             <div class="box-footer" style="margin-left: -20px;">
               <div class="margin">
                 <div class="btn-group">
@@ -71,7 +74,7 @@
                 </div>
                 <div class="btn-group">
                   @can ('delete_lessons', $lesson)
-                    <form action="{{ route('lessons.destroy', $lesson->id) }}" method="POST" onsubmit="return confirm('Do you want to delete {{$lesson->title}}?')">
+                    <form action="{{ route('lessons.destroy', $lesson->id) }}" method="POST" onsubmit="return confirm('Do you want to delete {{$lesson->lessontitle}}?')">
                       {{ csrf_field() }}
                       {{ method_field('DELETE') }}
                       <button type="submit" class="btn btn-danger btn-xs">Delete</button>
@@ -88,4 +91,10 @@
     </div>
     <!-- /.box-header -->
 </div>
+@endsection
+
+@section('scripts')
+    <!-- toastr notifications -->
+    <script type="text/javascript" src="/src/toastrjs/toastr.min.js"></script>
+    @include('shared._part_notification')
 @endsection

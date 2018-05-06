@@ -55,7 +55,7 @@ class UserController extends Controller
     public function showLink($id)
     {
         $user = User::find($id);
-        $employees = Employee::where('user_id', '=', null)->orderBy('fullname')->get();
+        $employees = Employee::where('user_id', '=', null)->orderBy('employeename')->get();
 
         return view('users.link', compact('user', 'employees'));
     }
@@ -72,7 +72,7 @@ class UserController extends Controller
         $employee->user_id = $request->user_id;
 
         //Copy Employee Detail to Profile
-        $profile->fullname = $employee->fullname;
+        $profile->profilename = $employee->employeename;
         //create date
         $dd = $employee->dob->format('d');
         $mm = $employee->dob->format('m');

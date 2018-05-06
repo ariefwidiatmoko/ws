@@ -70,10 +70,10 @@
                 <thead>
                   <tr>
                     <th style="text-align: center;">No</th>
-                    <th style="text-align: center;">Title</th>
+                    <th>Title</th>
                     <th style="text-align: center;">Subject</th>
                     <th style="text-align: center;">Created by</th>
-                    <th style="text-align: center;">Live</th>
+                    <th style="text-align: center;">Active</th>
                     @can ('edit_lessons', 'delete_lessons')
                     <th style="text-align: center;">Actions</th>
                     @endcan
@@ -85,15 +85,15 @@
                   <tr>
                     <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
                     <td>
-                      <a href="{{ route('lessons.show', $item->id) }}" title="View Lesson">{{ $item->title }}</a>
+                      <a href="{{ route('lessons.show', $item->id) }}" title="View Lesson">{{ $item->lessontitle }}</a>
                     </td>
-                    <td style="text-align: center;">{{ $item->subject->name }}</td>
+                    <td style="text-align: center;">{{ $item->subject->subjectname }}</td>
                     <td style="text-align: center;">{{ ucfirst($item->user['name']) }}</td>
                     <td style="text-align: center;">
                       @can('edit_lessons', $item)
-                        <input type="checkbox" class="published" data-id="{{$item->id}}" @if ($item->live) checked @endif>
+                        <input type="checkbox" class="published" data-id="{{$item->id}}" @if ($item->lessonactive) checked @endif>
                       @else
-                        {{ $item->live == 1 ? 'Yes' : 'No' }}
+                        {{ $item->lessonactive == 1 ? 'Yes' : 'No' }}
                       @endcan
                     </td>
                     @can ('edit_lessons', 'delete_lessons')
@@ -146,7 +146,7 @@
 
     <!-- icheck checkboxes -->
     <script type="text/javascript" src="/src/iCheck/icheck.min.js"></script>
-
+    @include('shared._part_notification')
     <script>
         $(document).ready(function(){
             $('.published').iCheck({

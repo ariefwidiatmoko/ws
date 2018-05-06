@@ -55,9 +55,12 @@ class ClassroomController extends Controller
 
       $classroom->save();
 
-      flash()->success('Classroom was successfully saved.');
+      $notification = array(
+        'message' => ucwords($request->classroomname) . ' was successfully saved.',
+        'alert-type' => 'success'
+      );
 
-      return redirect()->route('classrooms.index');
+      return redirect()->route('classrooms.index')->with($notification);
     }
 
     public function show($id)
@@ -105,11 +108,12 @@ class ClassroomController extends Controller
 
         $cys->save();
 
+        $notification = array(
+          'message' => 'Year was successfully updated.',
+          'alert-type' => 'success'
+        );
 
-
-        flash()->success('Year has been updated.');
-
-        return redirect()->route('classrooms.show', $classroom->id);
+        return redirect()->route('classrooms.show', $classroom->id)->with($notification);
 
     }
 
@@ -118,9 +122,12 @@ class ClassroomController extends Controller
 
       $classyear->delete();
 
-      flash()->success('Year has been delete.');
+      $notification = array(
+        'message' => 'Year was successfully deleted.',
+        'alert-type' => 'error'
+      );
 
-      return back();
+      return back()->with($notification);
     }
 
     public function updateGrade(Request $request, $id) {
@@ -131,9 +138,12 @@ class ClassroomController extends Controller
 
       $classroom->update();
 
-      flash()->success('Grade has been updated.');
+      $notification = array(
+        'message' => 'Grade was successfully set.',
+        'alert-type' => 'success'
+      );
 
-      return redirect()->route('classrooms.show', $classroom->id);
+      return redirect()->route('classrooms.show', $classroom->id)->with($notification);
 
     }
 
@@ -155,9 +165,12 @@ class ClassroomController extends Controller
 
       $classroom->update($request->all());
 
-      flash()->success('Classroom has been updated.');
+      $notification = array(
+        'message' => ucwords($request->classroomname) . ' was successfully updated.',
+        'alert-type' => 'success'
+      );
 
-      return redirect()->route('classrooms.index');
+      return redirect()->route('classrooms.index')->with($notification);
     }
 
     public function destroy($id)
@@ -172,8 +185,11 @@ class ClassroomController extends Controller
 
       $classroom->delete();
 
-      flash()->success('Classroom has been deleted.');
+      $notification = array(
+        'message' => ucwords($classroom->classroomname) . ' was successfully deleted.',
+        'alert-type' => 'error'
+      );
 
-      return redirect()->route('classrooms.index');
+      return redirect()->route('classrooms.index')->with($notification);
     }
 }

@@ -181,5 +181,5 @@
 @endsection
 
 @section('scripts')
-
+  @include('shared._part_notification')
 @endsection

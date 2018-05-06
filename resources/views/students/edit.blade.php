@@ -59,14 +59,20 @@
             $nowBd = Carbon::create($nowY, $mm, $dd, 0);
             $nextBd = Carbon::create($nextY, $mm, $dd, 0);
             if($nowBd > Carbon::now()) {
-              echo $nowT->diffInDays($nowBd);
+              $bdnow = $nowT->diffInDays($nowBd);
+              if ($bdnow <= 72) {
+                echo $nowT->diffInDays($nowBd) . 'days until Birthday';
+              }
             } else {
-              echo $nowT->diffInDays($nextBd);
+              $bdlater = $nowT->diffInDays($nextBd);
+              if ($bdlater <= 72) {
+                echo $nowT->diffInDays($nextBd) . 'days until Birthday';
+              }
             }
           } else {
             echo '-';
           }
-          @endphp days until Birthday
+          @endphp
         </p>
         <ul class="list-group list-group-unbordered">
           <li class="list-group-item clearfix"><i class="fa fa-phone margin-r-5"></i><b>

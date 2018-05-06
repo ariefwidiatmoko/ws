@@ -132,12 +132,9 @@
 @endsection
 
 @section('scripts')
-    <!-- toastr notifications -->
-    <script type="text/javascript" src="/src/toastrjs/toastr.min.js"></script>
-
     <!-- icheck checkboxes -->
     <script type="text/javascript" src="/src/iCheck/icheck.min.js"></script>
-
+    @include('shared._part_notification')
     <script>
         $(document).ready(function(){
             $('.statusActive').iCheck({

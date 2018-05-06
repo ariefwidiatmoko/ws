@@ -5,8 +5,6 @@
 @section('stylesheets')
   <!-- icheck checkboxes -->
   <link rel="stylesheet" href="/src/iCheck/square/yellow.css">
-  <!-- toastr notifications -->
-  <link rel="stylesheet" href="/src/toastrjs/toastr.min.css">
 @endsection
 
 @section('navmenu')
@@ -75,7 +73,7 @@
                   @forelse ($result as $index => $item)
                     <tr>
                       <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
-                      <td style="text-align: center;">{{ ucfirst($item->name) }}</td>
+                      <td style="text-align: center;">{{ ucfirst($item->semestername) }}</td>
                       <td style="text-align: center;">{{ ucfirst($item->alias) }}</td>
                       <td style="text-align: center;">{{ ucfirst($item->user['name']) }}</td>
                       <td style="text-align: center;">{{ $item->created_at->format('d M Y - H:i') }}</td>
@@ -126,6 +124,5 @@
 @endsection
 
 @section('scripts')
-    <!-- toastr notifications -->
-    <script type="text/javascript" src="/src/toastrjs/toastr.min.js"></script>
+  @include('shared._part_notification')
 @endsection

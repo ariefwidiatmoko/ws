@@ -61,21 +61,26 @@
       <li class="{{ \Request::is('home/events') ? 'active' : null }}"><a href="{{ route('events.index')}}" class="load-menu"><i class="fa fa-calendar fa-fw"></i><span> Events</span></a></li>
     @endcan
     @can('view_students', 'view_employees', 'view_positions')
-    <li class="treeview {{ \Request::is('home/administration/*') ? 'active' : null }}"><a href="#"><i class="fa fa-newspaper-o fa-fw"></i>
-      <span>Administrations</span><span class="pull-right-container"><i class="fa fa-angle-left fa-fw pull-right"></i></span></a>
+    <li class="treeview {{ \Request::is('home/academics/*') ? 'active' : null }}"><a href="#"><i class="fa fa-newspaper-o fa-fw"></i>
+      <span>Academics</span><span class="pull-right-container"><i class="fa fa-angle-left fa-fw pull-right"></i></span></a>
       <ul class="treeview-menu">
+
+          <li id="{{ Request::is('home/academics/classrooms*') ? 'sub-menu' : '' }}"><a href="{{ route('classroomstudent.index') }}"><i class="fa fa-angle-right fa-fw"></i>
+            Classroom</a>
+          </li>
+
         @can('view_contacts_students')
-          <li id="{{ Request::is('home/administration/students*') ? 'sub-menu' : '' }}"><a href="{{ route('students.index') }}"><i class="fa fa-angle-right fa-fw"></i>
+          <li id="{{ Request::is('home/academics/students*') ? 'sub-menu' : '' }}"><a href="{{ route('students.index') }}"><i class="fa fa-angle-right fa-fw"></i>
             Students</a>
           </li>
         @endcan
         @can('view_employees')
-          <li id="{{ Request::is('home/administration/employees*') ? 'sub-menu' : '' }}"><a href="{{ route('employees.index') }}"><i class="fa fa-angle-right fa-fw"></i>
+          <li id="{{ Request::is('home/academics/employees*') ? 'sub-menu' : '' }}"><a href="{{ route('employees.index') }}"><i class="fa fa-angle-right fa-fw"></i>
             Employees</a>
           </li>
         @endcan
         @can('view_positions')
-          <li id="{{ Request::is('home/administration/positions*') ? 'sub-menu' : '' }}"><a href="{{ route('positions.index') }}"><i class="fa fa-angle-right fa-fw"></i>
+          <li id="{{ Request::is('home/academics/positions*') ? 'sub-menu' : '' }}"><a href="{{ route('positions.index') }}"><i class="fa fa-angle-right fa-fw"></i>
             Positions</a>
           </li>
         @endcan

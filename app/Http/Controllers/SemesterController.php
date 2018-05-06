@@ -26,21 +26,24 @@ class SemesterController extends Controller
 
       // Validate the data
       $this->validate($request, array(
-        'name' => 'required|unique:semesters',
+        'semestername' => 'required|unique:semesters',
         'alias' => 'required'
       ));
 
       $semester = new Semester;
 
       $semester->user_id = Auth::user()->id;
-      $semester->semestername = $request->name;
+      $semester->semestername = $request->semestername;
       $semester->alias = $request->alias;
 
       $semester->save();
 
-      flash()->success('Semester was successfully saved.');
+      $notification = array(
+        'message' => ucwords($request->semestername) . ' was successfully saved.',
+        'alert-type' => 'success'
+      );
 
-      return redirect()->route('semesters.index');
+      return redirect()->route('semesters.index')->with($notification);
     }
 
     public function show($id)
@@ -67,15 +70,18 @@ class SemesterController extends Controller
 
       // Validate the data
       $this->validate($request, array(
-        'name' => 'required|unique:semesters,name,'.$semester->id,
+        'semestername' => 'required|unique:semesters,semestername,'.$semester->id,
         'alias' => 'required'
       ));
 
       $semester->update($request->all());
 
-      flash()->success('Semester has been updated.');
+      $notification = array(
+        'message' => ucwords($request->semestername) . ' was successfully updated.',
+        'alert-type' => 'success'
+      );
 
-      return redirect()->route('semesters.index');
+      return redirect()->route('semesters.index')->with($notification);
     }
 
     public function destroy($id)
@@ -90,8 +96,11 @@ class SemesterController extends Controller
 
       $semester->delete();
 
-      flash()->success('Semester has been deleted.');
+      $notification = array(
+        'message' => ucwords($semester->semestername) . ' was successfully deleted.',
+        'alert-type' => 'error'
+      );
 
-      return redirect()->route('semesters.index');
+      return redirect()->route('semesters.index')->with($notification);
     }
 }

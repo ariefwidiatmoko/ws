@@ -10,6 +10,8 @@
 <script src="/src/js/adminlte.min.js"></script>
 <!-- Dashboard -->
 <script src="/src/js/dashboard.js"></script>
+<!-- toastr notifications -->
+<script type="text/javascript" src="/src/toastrjs/toastr.min.js"></script>
 <script>
   //Loading Dasboard
   $( window ).on( "load", function() {

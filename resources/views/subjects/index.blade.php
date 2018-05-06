@@ -61,9 +61,9 @@
                 <thead>
                   <tr>
                       <th style="text-align: center;">No</th>
-                      <th style="text-align: center;">Name</th>
-                      <th style="text-align: center;">Alias</th>
-                      <th style="text-align: center;">Live</th>
+                      <th>Name</th>
+                      <th>Alias</th>
+                      <th style="text-align: center;">Active</th>
                       <th style="text-align: center;">Created by</th>
                       <th style="text-align: center;">Created At</th>
                       @can ('edit_subjects', 'delete_subjects')
@@ -76,13 +76,13 @@
                   @forelse ($result as $index => $item)
                     <tr>
                       <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
-                      <td>{{ ucfirst($item->name) }}</td>
+                      <td>{{ ucfirst($item->subjectname) }}</td>
                       <td>{{ ucfirst($item->alias) }}</td>
                       <td style="text-align: center;">
                         @can('edit_subjects', $item)
-                          <input type="checkbox" class="published" data-id="{{$item->id}}" @if ($item->live) checked @endif>
+                          <input type="checkbox" class="published" data-id="{{$item->id}}" @if ($item->subjectactive) checked @endif>
                         @else
-                          {{ $item->live == 1 ? 'Yes' : 'No' }}
+                          {{ $item->subjectactive == 1 ? 'Yes' : 'No' }}
                         @endcan
                       </td>
                       <td style="text-align: center;">{{ ucfirst($item->user['name']) }}</td>

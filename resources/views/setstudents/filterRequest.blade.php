@@ -12,13 +12,13 @@
   <div class="col-xs-2 form-group">
     <!-- User -->
     <div class="form-group">
-      <select class="form-control input-sm" name="yearName">
+      <select class="form-control input-sm" name="year_id">
         <option value="">Select Year</option>
         @foreach ($years as $item)
-          @if(old('yearName') == $item->name)
-          <option value="{{ $item->name }}" selected="selected">{{ ucfirst($item->name) }}</option>
+          @if(old('year_id') == $item->id)
+          <option value="{{ $item->id }}" selected="selected">{{ ucfirst($item->yearname) }}</option>
          @else
-           <option value="{{ $item->name }}">{{ ucfirst($item->name) }}</option>
+           <option value="{{ $item->id }}">{{ ucfirst($item->yearname) }}</option>
          @endif
         @endforeach
       </select>
@@ -27,13 +27,13 @@
   <div class="col-xs-2 form-group">
     <!-- User -->
     <div class="form-group">
-      <select class="form-control input-sm" name="gradeName">
+      <select class="form-control input-sm" name="grade_id">
         <option value="">Select Grade</option>
         @foreach ($grades as $item)
-          @if(old('gradeName') == $item->name)
-          <option value="{{ $item->name }}" selected="selected">{{ ucfirst($item->name) }}</option>
+          @if(old('grade_id') == $item->id)
+          <option value="{{ $item->id }}" selected="selected">{{ ucfirst($item->gradename) }}</option>
          @else
-           <option value="{{ $item->name }}">{{ ucfirst($item->name) }}</option>
+           <option value="{{ $item->id }}">{{ ucfirst($item->gradename) }}</option>
          @endif
         @endforeach
       </select>
@@ -46,9 +46,9 @@
         <option value="">Select Classroom</option>
         @foreach ($classrooms as $item)
           @if(old('classroom_id') == $item->id)
-          <option value="{{ $item->id }}" selected="selected">{{ ucfirst($item->name) }}</option>
+          <option value="{{ $item->id }}" selected="selected">{{ ucfirst($item->classroomname) }}</option>
          @else
-           <option value="{{ $item->id }}">{{ ucfirst($item->name) }}</option>
+           <option value="{{ $item->id }}">{{ ucfirst($item->classroomname) }}</option>
          @endif
         @endforeach
       </select>

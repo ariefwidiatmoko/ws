@@ -2,10 +2,10 @@
 <input type="hidden" name="updated_by" value="{{ Auth::user()->name }}">
 
 <!-- Name -->
-<div class="form-group @if ($errors->has('name')) has-error @endif">
+<div class="form-group @if ($errors->has('semestername')) has-error @endif">
     <label>Name</label>
-        <input type="text" class="form-control" name="name" value="{{ $semester->name }}" required>
-        @if ($errors->has('name')) <p class="help-block">{{ $errors->first('name') }}</p> @endif
+        <input type="text" class="form-control" name="semestername" value="{{ $semester->semestername }}" required>
+        @if ($errors->has('semestername')) <p class="help-block">{{ $errors->first('semestername') }}</p> @endif
 </div>
 
 <!-- Alias -->

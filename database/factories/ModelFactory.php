@@ -48,6 +48,15 @@ $factory->define(App\Classroom::class, function(Faker\Generator $faker) {
        'user_id' => function() {
             return \App\User::inRandomOrder()->first()->id;
        },
+       'grade_id' => $faker->randomDigit,
+   ];
+});
+
+$factory->define(App\Classyear::class, function(Faker\Generator $faker) {
+   return [
+       'classroom_id' => $faker->randomDigit,
+       'year_id' => $faker->randomDigit,
+       'semester_id' => $faker->randomDigit,
    ];
 });
 
@@ -81,7 +90,7 @@ $factory->define(App\Employee::class, function(Faker\Generator $faker) {
    return [
        'employeename' => $faker->name,
        'month_id' => $faker->numberBetween($min = 1, $max = 12),
-       'noId' => $faker->numberBetween($min = 10000, $max = 19999),
+       'noId' => $faker->numberBetween($min = 1000000, $max = 1999999),
        'dob' => $faker->date($format = 'Y-m-d', $max = 'now'),
        'phone' => $faker->phoneNumber,
        'email' => $faker->unique()->safeEmail,

@@ -47,9 +47,9 @@
           <div class="form-group">
               <label>Link "{{ucwords($user->name)}}" to Employee</label>
               <select class="form-control" name="employee_id">
-                <option value="">@if(isset($user->employee)) {{$user->employee->fullname}} @else Select Employee @endif</option>
+                <option value="">@if(isset($user->employee)) {{$user->employee->employeename}} @else Select Employee @endif</option>
                 @foreach ($employees as $item)
-                  <option value="{{ $item->id }}">{{ ucwords($item->fullname) }}</option>
+                  <option value="{{ $item->id }}">{{ ucwords($item->employeename) }}</option>
                 @endforeach
               </select>
           </div>

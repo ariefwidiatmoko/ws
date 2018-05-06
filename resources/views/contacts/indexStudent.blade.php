@@ -74,7 +74,7 @@
                   @forelse ($result as $index => $item)
                     <li><button class="show-modal" style="background-color: #fff; border: none;" data-avatar="{{ isset($item->studentprofile->avatar) ? $item->studentprofile->avatar : ''}}" data-studentname="{{$item->studentname}}" data-phone="{{ isset($item->studentprofile->phone) ? $item->studentprofile->phone : ''}}" data-email="{{ isset($item->studentprofile->email) ? $item->studentprofile->email : ''}}" data-address="{{ isset($item->studentprofile->address) ? $item->studentprofile->address : ''}}">
                       @if(isset($item->studentprofile->avatar))
-                        <img src="/images/users/{{ $item->studentprofile->avatar }}" alt="User Image">
+                        <img src="/images/students/{{ $item->studentprofile->avatar }}" alt="User Image">
                       @else
                         <img src="{{ asset('images/avatar/default.jpg') }}" alt="User Image">
                       @endif

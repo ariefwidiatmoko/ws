@@ -5,8 +5,6 @@
 @section('stylesheets')
   <!-- icheck checkboxes -->
   <link rel="stylesheet" href="/src/iCheck/square/yellow.css">
-  <!-- toastr notifications -->
-  <link rel="stylesheet" href="/src/toastrjs/toastr.min.css">
 @endsection
 
 @section('navmenu')
@@ -76,12 +74,12 @@
             @forelse ($result as $index => $item)
               <tr>
                 <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
-                <td><a href="{{ route('positions.show', $item->id) }}">{{ ucfirst($item->name) }}</a></td>
+                <td><a href="{{ route('positions.show', $item->id) }}">{{ ucfirst($item->positionname) }}</a></td>
                 <td style="text-align: center;">
                   @can('edit_positions', $item)
-                    <input type="checkbox" class="published" data-id="{{$item->id}}" @if ($item->live) checked @endif>
+                    <input type="checkbox" class="published" data-id="{{$item->id}}" @if ($item->positionactive) checked @endif>
                   @else
-                    {{ $item->live == 1 ? 'Yes' : 'No' }}
+                    {{ $item->positionactive == 1 ? 'Yes' : 'No' }}
                   @endcan
                 </td>
                 <td style="text-align: center;">{{ $item->user['name'] }}</td>
@@ -133,12 +131,9 @@
 @endsection
 
 @section('scripts')
-    <!-- toastr notifications -->
-    <script type="text/javascript" src="/src/toastrjs/toastr.min.js"></script>
-
     <!-- icheck checkboxes -->
     <script type="text/javascript" src="/src/iCheck/icheck.min.js"></script>
-
+    @include('shared._part_notification')
     <script>
         $(document).ready(function(){
             $('.published').iCheck({

@@ -1,10 +1,10 @@
 <!-- User_id -->
 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 <!-- Name -->
-<div class="form-group @if ($errors->has('name')) has-error @endif">
+<div class="form-group @if ($errors->has('subjectname')) has-error @endif">
     <label>Name</label>
-        <input type="text" class="form-control" name="name" value="" required>
-        @if ($errors->has('name')) <p class="help-block">{{ $errors->first('name') }}</p> @endif
+        <input type="text" class="form-control" name="subjectname" value="" required>
+        @if ($errors->has('subjectname')) <p class="help-block">{{ $errors->first('subjectname') }}</p> @endif
 </div>
 <!-- Alias -->
 <div class="form-group @if ($errors->has('alias')) has-error @endif">
@@ -16,7 +16,7 @@
 <div class="form-group">
   <div class="checkbox">
     <label>
-      <input type="checkbox" name="live" checked>
+      <input type="checkbox" name="subjectactive" checked>
       Live
     </label>
   </div>

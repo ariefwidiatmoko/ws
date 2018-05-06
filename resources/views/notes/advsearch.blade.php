@@ -33,12 +33,12 @@
   <div class="col-xs-2 form-group">
     <!-- Publish Unpublish -->
     <div class="form-group">
-      <select class="form-control input-sm" name="live">
-        @if(old('live') == 1)
+      <select class="form-control input-sm" name="noteactive">
+        @if(old('noteactive') == 1)
           <option value="">All Status</option>
           <option value="1" selected="selected">Publish</option>
           <option value="0">Unpublish</option>
-        @elseif(old('live') == null)
+        @elseif(old('noteactive') == null)
           <option value="" selected="selected">All Status</option>
           <option value="1">Publish</option>
           <option value="0">Unpublish</option>

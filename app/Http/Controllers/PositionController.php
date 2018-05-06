@@ -10,6 +10,7 @@ use App\Position;
 use App\Employee;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
+use Session;
 
 
 class PositionController extends Controller
@@ -22,18 +23,18 @@ class PositionController extends Controller
 
       if ($query == 'yes') {
           $result = Position::where('positionactive', 1)
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('positionname')
                         ->paginate(20);
       }
      elseif ($query == 'no') {
           $result = Position::where('positionactive', 0)
-                       ->orderBy('created_at', 'desc')
+                       ->orderBy('positionname')
                        ->paginate(20);
      }
      else {
           $result = Position::where('positionname','like','%'.$query.'%')
-                      ->orWhere('statusactive','like','%'.$query.'%')
-                      ->orderBy('name')
+                      ->orWhere('positionactive','like','%'.$query.'%')
+                      ->orderBy('positionname')
                       ->paginate(20);
       };
 
@@ -61,20 +62,23 @@ class PositionController extends Controller
     {
       // Validate the data
       $this->validate($request, array(
-        'name' => 'required|unique:positions'
+        'positionname' => 'required|unique:positions'
       ));
 
       $position = new Position;
 
       $position->user_id = Auth::user()->id;
-      $position->positionname = $request->name;
-      $position->positionactive = $request->active;
+      $position->positionname = $request->positionname;
+      $position->positionactive = $request->positionactive;
 
       $position->save();
 
-      flash()->success('Position was successfully saved.');
+      $notification = array(
+        'message' => ucwords($request->positionname) . ' was successfully saved.',
+        'alert-type' => 'success'
+      );
 
-      return redirect()->route('positions.index');
+      return redirect()->route('positions.index')->with($notification);
     }
 
     public function show($id)
@@ -86,9 +90,9 @@ class PositionController extends Controller
 
     public function edit(Position $position)
     {
-      $position = Position::findOrFail($position->id);
+        $position = Position::findOrFail($position->id);
 
-      return view('positions.edit', compact('position'));
+        return view('positions.edit', compact('position'));
     }
 
     public function update(Request $request, $id)
@@ -103,17 +107,20 @@ class PositionController extends Controller
 
       // Validate the data
       $this->validate($request, array(
-        'name' => 'required|unique:positions,name,'.$position->id
+        'positionname' => 'required|unique:positions,positionname,'.$position->id
       ));
 
-      if( !isset($request->active))
+      if( !isset($request->positionactive))
           $position->update(array_merge($request->all(), ['positionactive' => false] ));
               else
           $position->update($request->all());
 
-      flash()->success('Position has been updated.');
+          $notification = array(
+            'message' => ucwords($request->positionname) . ' was successfully updated.',
+            'alert-type' => 'success'
+          );
 
-      return redirect()->route('positions.index');
+      return redirect()->route('positions.index')->with($notification);
     }
 
     public function destroy(Position $position)
@@ -128,8 +135,11 @@ class PositionController extends Controller
 
       $position->delete();
 
-      flash()->success('Position has been deleted.');
+      $notification = array(
+        'message' => ucwords($position->positionname) . ' was successfully deleted.',
+        'alert-type' => 'error'
+      );
 
-      return redirect()->route('positions.index');
+      return redirect()->route('positions.index')->with($notification);
     }
 }

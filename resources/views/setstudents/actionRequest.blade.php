@@ -23,8 +23,8 @@
   <div id="advsearch">
   <form>
   <div class="col-xs-2 form-group">
-    <!-- Publish Unpublish -->
-    <div class="form-group">
+    <!-- Action -->
+    <div class="form-group @if ($errors->has('file')) has-error @endif">
       <div class="input-group">
         <div class="input-group-btn">
           <a type="button" href="#" class="btn btn-default btn-sm">Action</i></a>
@@ -45,7 +45,7 @@
      <form enctype="multipart/form-data" role="form" action="{{ route('setstudents.importStudent') }}" method="POST">
        {{ csrf_field() }}
        <div class="input-group">
-         <input id="file" type="file" class="form-control input-sm" name="file" required placeholder="Choose CSV file">
+         <input id="file" type="file" class="form-control input-sm" name="file" required placeholder="Choose CSV file" required>
          <div class="input-group-btn">
            <button class="btn btn-primary btn-sm">Go!</i></button>
          </div>
@@ -54,13 +54,13 @@
    </div>
      <div id="divFrmAddYear" class="form-group form-duration-div" style="display:none">
        <div class="input-group">
-         <select class="form-control input-sm" id="frm_duration" name="yearName">
+         <select class="form-control input-sm" id="frm_duration" name="year_id">
            <option value="">Select Year</option>
            @foreach ($years as $item)
-             @if(old('yearName') == $item->name)
-             <option value="{{ $item->name }}" selected="selected">{{ ucfirst($item->name) }}</option>
+             @if(old('year_id') == $item->id)
+             <option value="{{ $item->id }}" selected="selected">{{ ucfirst($item->yearname) }}</option>
             @else
-              <option value="{{ $item->name }}">{{ ucfirst($item->name) }}</option>
+              <option value="{{ $item->id }}">{{ ucfirst($item->yearname) }}</option>
             @endif
            @endforeach
          </select>
@@ -71,13 +71,13 @@
      </div>
      <div id="divFrmSetGrade" class="form-group form-duration-div" style="display:none">
        <div class="input-group">
-         <select class="form-control input-sm" id="frm_duration" name="gradeName">
+         <select class="form-control input-sm" id="frm_duration" name="grade_id">
            <option value="">Select Grade</option>
            @foreach ($grades as $item)
-             @if(old('gradeName') == $item->name)
-             <option value="{{ $item->name }}" selected="selected">{{ ucfirst($item->name) }}</option>
+             @if(old('grade_id') == $item->gradename)
+             <option value="{{ $item->id }}" selected="selected">{{ ucfirst($item->gradename) }}</option>
             @else
-              <option value="{{ $item->name }}">{{ ucfirst($item->name) }}</option>
+              <option value="{{ $item->id }}">{{ ucfirst($item->gradename) }}</option>
             @endif
            @endforeach
          </select>
@@ -87,7 +87,7 @@
        </div>
      </div>
      <div id="divFrmSetClass" class="form-group form-duration-div" style="display:none">
-       <a href="#" class="btn btn-primary btn-sm">Set Classroom</i></a>
+        <a href="{{ route('setstudents.setClassroom') }}" class="btn btn-primary btn-sm">Set Classroom</i></a>
      </div>
    </div>
 </div>

@@ -121,7 +121,7 @@ class StudentController extends Controller
         if (Input::hasFile('student_img')) {
 
           //delete old image
-          $oldImage = public_path("images/students/{$student->avatar}"); // get previous image from folder
+          $oldImage = public_path("images/students/{$studentprofile->avatar}"); // get previous image from folder
           if (File::exists($oldImage)) {
             File::delete($oldImage);
           }
@@ -132,7 +132,7 @@ class StudentController extends Controller
           $location = public_path('images/students/' . $filename);
           Image::make($avatar)->fit(160)->save($location);
 
-          $student->avatar = $filename;
+          $studentprofile->avatar = $filename;
         }
 
         if(isset($request->dob)) {

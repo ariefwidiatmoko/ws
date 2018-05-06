@@ -5,8 +5,6 @@
 @section('stylesheets')
   <!-- icheck checkboxes -->
   <link rel="stylesheet" href="/src/iCheck/square/yellow.css">
-  <!-- toastr notifications -->
-  <link rel="stylesheet" href="/src/toastrjs/toastr.min.css">
 @endsection
 
 @section('navmenu')
@@ -60,12 +58,10 @@
                   <tr>
                       <th style="text-align: center;">No</th>
                       <th style="text-align: center;"><input type="checkbox" name="file_id" value="0" class="selector all"></th>
-                      <th style="text-align: center;">Student</th>
-                      <th style="text-align: center;">No ID</th>
-                      <th style="text-align: center;">No ID National</th>
+                      <th style="text-align: center;">ID</th>
+                      <th>Student</th>
                       <th style="text-align: center;">Grade</th>
                       <th style="text-align: center;">Year</th>
-                      <th style="text-align: center;">Semester</th>
                     </tr>
                     {{ csrf_field() }}
                   </thead>
@@ -74,14 +70,12 @@
                     <tr>
                       <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
                       <td style="text-align: center;">
-                        <input id="check" type="checkbox" name="file_id" class="selector">
+                        <input id="check" type="checkbox" name="id[]" class="selector" value="{{$item->id}}">
                       </td>
-                      <td><a href="{{route('setstudents.show', $item->id)}}">{{ ucwords($item->fullname) }}</a></td>
                       <td style="text-align: center;">{{ $item->noId }}</td>
-                      <td style="text-align: center;">{{ $item->noIdNational }}</td>
-                      <td style="text-align: center;">@if(isset($item->gradeName)) Grade {{$item->gradeName}} @else Not Set @endif</td>
-                      <td style="text-align: center;">@if(isset($item->yearName)) Grade {{ucwords($item->yearName)}} @else Not Set @endif</td>
-                      <td style="text-align: center;">@if(isset($item->semester_id)) Semester {{$item->semester_id}} @else Not Set @endif</td>
+                      <td><a href="{{route('setstudents.show', $item->id)}}">{{ ucwords($item->studentname) }}</a></td>
+                      <td style="text-align: center;">@if(isset($item->grade_id)) {{$item->gradename}} @else Not Set @endif</td>
+                      <td style="text-align: center;">@if(isset($item->year_id)) {{ucwords($item->yearname)}} @else Not Set @endif</td>
                     </tr>
                   @empty
                     <tr>
@@ -109,12 +103,10 @@
 @endsection
 
 @section('scripts')
-    <!-- toastr notifications -->
-    <script type="text/javascript" src="/src/toastrjs/toastr.min.js"></script>
 
     <!-- icheck checkboxes -->
     <script type="text/javascript" src="/src/iCheck/icheck.min.js"></script>
-
+    @include('shared._part_notification')
     <script>
         $(document).ready(function(){
             $('input').iCheck({

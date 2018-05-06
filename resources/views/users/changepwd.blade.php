@@ -38,15 +38,15 @@
       <form enctype="multipart/form-data" role="form" action="{{ route('users.updatePassword', $user->id) }}" method="POST">
           {{ method_field('PUT') }}
           {{ csrf_field() }}
-          
+
           <!-- Username -->
-          <div class="form-group @if ($errors->has('name')) has-error @endif">
+          <div class="form-group @if ($errors->has('email')) has-error @endif">
               <label>Username</label>
-              <input type="text" class="form-control" name="name" value="{{ $user->email }}" disabled>
+              <input type="text" class="form-control" name="email" value="{{ $user->email }}" disabled>
           </div>
 
           <!-- Password -->
-          <div class="form-group @if ($errors->has('alias')) has-error @endif">
+          <div class="form-group @if ($errors->has('password')) has-error @endif">
               <label>Change Password</label>
               <input value="" id="password" name="password" type="password" class="form-control" id="inputPassword" placeholder="New Password" required>
           </div>

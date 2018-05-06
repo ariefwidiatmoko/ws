@@ -69,7 +69,7 @@
                 @if(isset($birthmonth))
                   <div class="col-sm-12">
                     <!-- small box -->
-                    <div class="bg-green" style="padding: 6px 6px 6px 6px;">
+                    <div class="bg-grey" style="color: white; background-color: #0091EA; margin: 5px 15px 5px 15px; padding: 2px 60px 2px 60px; box-shadow: 0 8px 6px -6px grey;">
                       <div class="inner">
                         <h4><b>Have Birthday at this Month</b></h4>
                       </div>

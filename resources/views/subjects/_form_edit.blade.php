@@ -2,10 +2,10 @@
 <input type="hidden" name="updated_by" value="{{ Auth::user()->name }}">
 
 <!-- Name -->
-<div class="form-group @if ($errors->has('name')) has-error @endif">
+<div class="form-group @if ($errors->has('subjectname')) has-error @endif">
     <label>Name</label>
-        <input type="text" class="form-control" name="name" value="{{ $subject->name }}" required>
-        @if ($errors->has('name')) <p class="help-block">{{ $errors->first('name') }}</p> @endif
+        <input type="text" class="form-control" name="subjectname" value="{{ $subject->subjectname }}" required>
+        @if ($errors->has('subjectname')) <p class="help-block">{{ $errors->first('subjectname') }}</p> @endif
 </div>
 
 <!-- Alias -->
@@ -15,11 +15,11 @@
         @if ($errors->has('alias')) <p class="help-block">{{ $errors->first('alias') }}</p> @endif
 </div>
 
-<!-- checkbox live -->
+<!-- checkbox subjectactive -->
 <div class="form-group">
   <div class="checkbox">
     <label>
-      <input type="checkbox" name="live" {{ $subject->live == 1 ? 'checked' : ''}}>
+      <input type="checkbox" name="subjectactive" {{ $subject->subjectactive == 1 ? 'checked' : ''}}>
       Live
     </label>
   </div>

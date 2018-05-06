@@ -57,13 +57,15 @@
         <span class="description">Update at: {{ $note->updated_at->diffForHumans() }} / {{ $note->created_at->format('d M Y') }}</span>
         <div class="username">
           <span class="label label-danger">Updated by : {{ $note->updated_by == null ? ucfirst($note->user->name) : ucfirst($note->updated_by) }}</span>
-          <span class="label label-warning">Segment : {{ ucfirst($note->name) }}</span>
-          {!! $note->live == 1 ? '<span class="label label-success">Live : Yes</span>' : '<span class="label bg-gray">Live : No</span>' !!}
+          <span class="label label-warning">Segment : {{ ucfirst($note->notesegment) }}</span>
+          {!! $note->noteactive == 1 ? '<span class="label label-success">Publish : Yes</span>' : '<span class="label bg-gray">Publish : No</span>' !!}
         </div>
       </div>
       <div class="box-body" style="margin-left: 10px; margin-right: 10px;">
         <div style="margin-left: -10px;">
-          <h4><b style="color: white; background-color: #0091EA; margin: 15px 15px 15px 15px; padding: 10px 60px 10px 60px; box-shadow: 0 8px 6px -6px grey;">{{ ucwords($note->title) }}</b></h4>
+          <br>
+          <h4><b style="color: white; background-color: #0091EA; margin: 15px 15px 15px 15px; padding: 10px 60px 10px 60px; box-shadow: 0 8px 6px -6px grey;">{{ ucwords($note->notetitle) }}</b></h4>
+          <br>
           @if(isset($note->image))
             <div class="col-md-4">
               <img class="img-responsive img-thumbnail" src="/images/notes/{{ $note->image }}" alt="Image">

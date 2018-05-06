@@ -75,7 +75,7 @@
                       @can ('edit_users')
                         <td style="text-align: center;">
                           @if(isset($item->employee->user_id))
-                            <a href="{{route('employees.edit', $item->employee->id)}}">{{$item->employee->fullname}}</a>
+                            <a href="{{route('employees.edit', $item->employee->id)}}">{{$item->employee->employeename}}</a>
                             <a href="{{route('users.showLink', $item->id)}}"><i class="fa fa-times-circle fa-fw"></i></a>
                           @else
                             <a href="{{route('users.showLink', $item->id)}}"><button class="btn btn-xs bg-blue">Set</button> </a>

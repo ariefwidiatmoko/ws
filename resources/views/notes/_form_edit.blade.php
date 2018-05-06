@@ -1,20 +1,20 @@
 <!-- user_id -->
 <input type="hidden" name="updated_by" value="{{ Auth::user()->name }}">
 <!-- name -->
-<div class="form-group @if ($errors->has('title')) has-error @endif">
+<div class="form-group @if ($errors->has('notesegement')) has-error @endif">
   <label>Segment</label>
-  <select class="form-control" name="name" required>
+  <select class="form-control" name="notesegement" required>
     @foreach($segment as $select => $item)
-      <option value="{{$item}}" {{$note->name == $item ? 'selected' : ''}}>{{$item}}</option>
+      <option value="{{$item}}" {{$note->notesegement == $item ? 'selected' : ''}}>{{$item}}</option>
     @endforeach
   </select>
-  @if ($errors->has('name')) <p class="help-block">{{ $errors->first('name') }}</p> @endif
+  @if ($errors->has('notesegement')) <p class="help-block">{{ $errors->first('notesegement') }}</p> @endif
 </div>
 <!-- title -->
-<div class="form-group @if ($errors->has('title')) has-error @endif">
+<div class="form-group @if ($errors->has('notetitle')) has-error @endif">
   <label>Title</label>
-  <input type="text" class="form-control" name="title" value="{{ $note->title }}">
-  @if ($errors->has('title')) <p class="help-block">{{ $errors->first('title') }}</p> @endif
+  <input type="text" class="form-control" name="notetitle" value="{{ $note->notetitle }}">
+  @if ($errors->has('notetitle')) <p class="help-block">{{ $errors->first('notetitle') }}</p> @endif
 </div>
 <!-- Description -->
 <div class="form-group @if ($errors->has('content')) has-error @endif">
@@ -26,7 +26,7 @@
 <div class="form-group">
   <div class="checkbox">
     <label>
-    <input type="checkbox" name="live" {{ $note->live == 1 ? 'checked' : '' }}>
+    <input type="checkbox" name="noteactive" {{ $note->noteactive == 1 ? 'checked' : '' }}>
     Live</label>
   </div>
 </div>

@@ -26,21 +26,24 @@ class YearController extends Controller
 
       // Validate the data
       $this->validate($request, array(
-        'name' => 'required|unique:years',
+        'yearname' => 'required|unique:years',
         'alias' => 'required'
       ));
 
       $year = new Year;
 
       $year->user_id = Auth::user()->id;
-      $year->yearname = $request->name;
+      $year->yearname = $request->yearname;
       $year->alias = $request->alias;
 
       $year->save();
 
-      flash()->success('Year was successfully saved.');
+      $notification = array(
+        'message' => ucwords($request->yearname) . ' was successfully saved.',
+        'alert-type' => 'success'
+      );
 
-      return redirect()->route('years.index');
+      return redirect()->route('years.index')->with($notification);
     }
 
     public function show($id)
@@ -67,15 +70,18 @@ class YearController extends Controller
 
       // Validate the data
       $this->validate($request, array(
-        'name' => 'required|unique:years,name,'.$year->id,
+        'yearname' => 'required|unique:years,yearname,'.$year->id,
         'alias' => 'required'
       ));
 
       $year->update($request->all());
 
-      flash()->success('Year has been updated.');
+      $notification = array(
+        'message' => ucwords($request->yearname) . ' was successfully updated.',
+        'alert-type' => 'success'
+      );
 
-      return redirect()->route('years.index');
+      return redirect()->route('years.index')->with($notification);
     }
 
     public function destroy($id)
@@ -90,8 +96,11 @@ class YearController extends Controller
 
       $year->delete();
 
-      flash()->success('Year has been deleted.');
+      $notification = array(
+        'message' => ucwords($year->yearname) . ' was successfully deleted.',
+        'alert-type' => 'error'
+      );
 
-      return redirect()->route('years.index');
+      return redirect()->route('years.index')->with($notification);
     }
 }

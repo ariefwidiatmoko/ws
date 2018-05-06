@@ -50,7 +50,7 @@
 <div class="control-group">
   <div class="checkbox">
     <label class="control-label">
-      <input type="checkbox" name="statusActive" checked>
+      <input type="checkbox" name="studentactive" checked>
       Active
     </label>
   </div>
@@ -60,7 +60,7 @@
   <label class="control-label">Position</label>
   <select class="form-control select2" name="positions[]" multiple="multiple">
     @foreach ($positions as $item)
-      <option value="{{ $item->id }}">{{ $item->name }}</option>
+      <option value="{{ $item->id }}">{{ $item->positionname }}</option>
     @endforeach
   </select>
 </div>

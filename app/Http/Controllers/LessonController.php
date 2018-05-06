@@ -37,18 +37,18 @@ class LessonController extends Controller
                $lessons->where('user_id', $request->user_id);
          }
 
-         if (isset($request->active)) {
-               $lessons->where('lessonactive', $request->active);
+         if (isset($request->lessonactive)) {
+               $lessons->where('lessonactive', $request->lessonactive);
          }
 
-         $result = $lessons->orderBy('updated_at', 'desc')->orderBy('published_at', 'desc')->paginate(20);
+         $result = $lessons->orderBy('created_at', 'desc')->paginate(20);
 
          $pagination = (isset($request->subject_id)) ? $result->appends(['subject_id' => $request->subject_id]) : '';
          $pagination = (isset($request->user_id)) ? $result->appends(['user_id' => $request->user_id]) : '';
-         $pagination = (isset($request->active)) ? $result->appends(['lessonactive' => $request->active]) : '';
+         $pagination = (isset($request->lessonactive)) ? $result->appends(['lessonactive' => $request->lessonactive]) : '';
          $pagination = (isset($request->search)) ? $result->appends(['lessontitle' => $request->search]) : '';
 
-         $subjects = Subject::where('subjectactive', 1)->orderBy('name')->get();
+         $subjects = Subject::where('subjectactive', 1)->orderBy('subjectname')->get();
          $users = User::all();
 
          $request->flash();
@@ -73,7 +73,7 @@ class LessonController extends Controller
 
     public function create()
     {
-        $subjects = Subject::where('active', 1)->orderBy('subjectname')->get();
+        $subjects = Subject::where('subjectactive', 1)->orderBy('subjectname')->get();
 
         return view('lessons.create', compact('subjects'));
     }
@@ -83,23 +83,26 @@ class LessonController extends Controller
         // Validate the data
         $this->validate($request, array(
           'subject_id' => 'required',
-          'title' => 'required|string|max:200',
-          'content' => 'required'
+          'lessontitle' => 'required|string|max:200',
+          'lessoncontent' => 'required'
         ));
 
         $lesson = new Lesson;
 
         $lesson->user_id = Auth::user()->id;
         $lesson->subject_id = $request->subject_id;
-        $lesson->lessontitle = $request->title;
-        $lesson->lessoncontent = $request->content;
-        $lesson->lessonactive = $request->active;
+        $lesson->lessontitle = $request->lessontitle;
+        $lesson->lessoncontent = $request->lessoncontent;
+        $lesson->lessonactive = $request->lessonactive;
 
         $lesson->save();
 
-        flash()->success('Lesson was successfully saved.');
+        $notification = array(
+          'message' => ucwords($request->lessontitle) . ' was successfully saved.',
+          'alert-type' => 'success'
+        );
 
-      return redirect()->route('lessons.show', $lesson->id);
+      return redirect()->route('lessons.show', $lesson->id)->with($notification);
     }
 
     public function show($id)
@@ -112,7 +115,7 @@ class LessonController extends Controller
     public function edit(Lesson $lesson)
     {
         $lesson = Lesson::findOrFail($lesson->id);
-        $subjects = Subject::where('active', 1)->orderBy('name')->get();
+        $subjects = Subject::where('subjectactive', 1)->orderBy('subjectname')->get();
 
         return view('lessons.edit', compact('lesson', 'subjects'));
     }
@@ -130,19 +133,22 @@ class LessonController extends Controller
         // Validate the data
         $this->validate($request, array(
           'subject_id' => 'required',
-          'title' => 'required|string|max:200',
-          'content' => 'required'
+          'lessontitle' => 'required|string|max:200',
+          'lessoncontent' => 'required'
         ));
 
-        if( !isset($request->active)) {
+        if( !isset($request->lessonactive)) {
           $lesson->update(array_merge($request->all(), ['lessonactive' => false] ));
         } else {
           $lesson->update($request->all());
+
+          $notification = array(
+            'message' => ucwords($request->lessontitle) . ' was successfully updated.',
+            'alert-type' => 'success'
+          );
+
+        return redirect()->route('lessons.show', $lesson->id)->with($notification);
         }
-
-        flash()->success('Lesson has been updated.');
-
-        return redirect()->route('lessons.show', $lesson->id);
     }
 
     public function destroy(Lesson $lesson)
@@ -157,8 +163,11 @@ class LessonController extends Controller
 
         $lesson->delete();
 
-        flash()->success('Lesson has been deleted.');
+        $notification = array(
+          'message' => ucwords($lesson->lessontitle) . ' was successfully deleted.',
+          'alert-type' => 'error'
+        );
 
-        return redirect()->route('lessons.index');
+        return redirect()->route('lessons.index')->with($notification);
     }
 }
