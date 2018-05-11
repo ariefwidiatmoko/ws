@@ -22,4 +22,9 @@ class Year extends Model
   public function studentyears() {
       return $this->hasMany(Studentyear::class);
   }
+
+  public function yearactive()
+  {
+      return $this->hasOne(Yearactive::class);
+  }
 }

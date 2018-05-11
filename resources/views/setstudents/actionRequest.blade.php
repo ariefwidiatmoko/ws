@@ -50,6 +50,7 @@
            <button class="btn btn-primary btn-sm">Go!</i></button>
          </div>
        </div>
+       <label for="file" style="font-size: 0.7em;"><a href="{{url('data/student_data_example.csv')}}">CSV file Template</a></label>
      </form>
    </div>
      <div id="divFrmAddYear" class="form-group form-duration-div" style="display:none">

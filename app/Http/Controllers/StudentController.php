@@ -12,6 +12,7 @@ use Image;
 use Session;
 use File;
 use Illuminate\Support\Facades\Input;
+use DB;
 
 class StudentController extends Controller
 {
@@ -92,6 +93,16 @@ class StudentController extends Controller
     {
         $student = Student::findOrFail($id);
 
+        $hist = DB::table('studentyears')
+                        ->join('students', 'students.id', '=', 'studentyears.student_id')
+                        ->join('grades', 'grades.id', '=', 'studentyears.grade_id')
+                        ->join('years', 'years.id', '=', 'studentyears.year_id')
+                        ->join('semesters', 'semesters.id', '=', 'studentyears.semester_id')
+                        ->join('classrooms', 'classrooms.id', '=', 'studentyears.classroom_id')
+                        ->select('studentyears.id', 'students.studentname', 'years.yearname', 'semesters.semestername', 'grades.gradename', 'classrooms.classroomname');
+
+        $histories = $hist->where('student_id', $id)->get();
+
         if(!isset($student->studentprofile)) {
             $studentprofile = new Studentprofile;
             $studentprofile->student_id = $student->id;
@@ -103,7 +114,7 @@ class StudentController extends Controller
         }
 
 
-        return view('students.edit', compact('student'));
+        return view('students.edit', compact('student', 'hist', 'histories'));
     }
 
     public function update(Request $request, $id)

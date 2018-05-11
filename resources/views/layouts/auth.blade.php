@@ -18,7 +18,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('src/css/AdminLTE.min.css') }}">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-color: #458dd5">
     @yield('content')
     <!-- /.login-box -->
     </body>

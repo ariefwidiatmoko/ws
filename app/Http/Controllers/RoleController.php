@@ -34,8 +34,11 @@ class RoleController extends Controller
 
         $role = Role::create($request->only('name'));
 
-        flash()->success('Role is added');
-        return redirect()->route('roles.show', $role->id);
+        $notification = array(
+          'message' => ucwords($request->name) . ' was successfully saved.',
+          'alert-type' => 'success'
+        );
+        return redirect()->route('roles.show', $role->id)->with($notification);
     }
 
     public function show($id)
@@ -95,12 +98,19 @@ class RoleController extends Controller
             $role->name = $request->name;
             $role->save();
 
-            flash( $role->name . ' role & permissions has been updated.');
+            $notification = array(
+              'message' => ucwords($request->name) . ' was successfully updated.',
+              'alert-type' => 'success'
+            );
         } else {
-            flash()->error( 'Role with id '. $id .' note found.');
+
+        $notification = array(
+          'message' => ucwords($request->name) . ' was not found.',
+          'alert-type' => 'error'
+        );
         }
 
-        return redirect()->back();
+        return redirect()->back()->with($notification);
     }
 
     public function destroy(Role $role)
@@ -115,7 +125,10 @@ class RoleController extends Controller
 
       $role->delete();
 
-      flash()->success('Role has been deleted.');
+      $notification = array(
+        'message' => 'Role was successfully deleted.',
+        'alert-type' => 'error'
+      );
 
       return redirect()->route('roles.index');
     }

@@ -1,5 +1,5 @@
 <div id="advsearch">
-  <form enctype="multipart/form-data" role="form" action="{{ route('setstudents.index') }}" method="GET" id="form-advsearch">
+  <form enctype="multipart/form-data" role="form" action="{{ route('setstudents.setClassroom') }}" method="GET" id="form-advsearch">
   <div class="col-xs-2 form-group">
     <!-- User -->
     <div class="input-group">

@@ -45,6 +45,10 @@ class Employee extends Model
         return $this->belongsToMany(Classroom::class);
     }
 
+    public function classyearsems() {
+        return $this->hasMany(Classyearsem::class);
+    }
+
     public function month()
     {
         return $this->belongsTo(Month::class);

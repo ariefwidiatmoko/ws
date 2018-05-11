@@ -1,20 +1,9 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Students')
-
+@section('title', 'Classroom - List Students')
 @section('stylesheets')
   <!-- icheck checkboxes -->
   <link rel="stylesheet" href="/src/iCheck/square/yellow.css">
-  <!-- toastr notifications -->
-  <link rel="stylesheet" href="/src/toastrjs/toastr.min.css">
-  <style media="screen">
-    tr>td {
-            cursor: pointer;
-          }
-    tr>td:hover {
-                  color: #458dd5;
-                }
-  </style>
 @endsection
 
 @section('navmenu')
@@ -23,22 +12,11 @@
 @endsection
 
 @section('searchbox')
-  <div class="text-right">
-    <form action="{{ route('students.index') }}" method="GET">
-      <div class="input-group input-group-sm col-md-12">
-        <input type="text" name="search" class="form-control pull-right" placeholder="Search Students...">
-        <div class="input-group-btn">
-          <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-        </div>
-      </div>
-    </form>
-  </div>
+
 @endsection
 
 @section('button')
-  @can ('add_students')
-  <a href="{{ route('students.create') }}" class="btn btn-xs btn-success"><i class="fa fa-plus fa-fw"></i> New Student</a>
-  @endcan
+  <a href="{{ route('classroomstudent.index') }}" class="btn btn-xs btn-default">Back</a>
 @endsection
 
 @section('content')
@@ -64,41 +42,63 @@
     <!-- /.box-header -->
     <div id="inlist" class="table-responsive box-body">
       <div class="row">
-        <div class="col-sm-12">
-          <table id="inlist" class="table table-hover">
+        <div class="col-md-6">
+          <table id="inlist" class="table table-bordered table-hover">
             <thead>
               <tr>
-                  <th style="width: 5%; text-align: center;">No</th>
-                  <th style="width: 10%;">No ID</th>
-                  <th style="width: 15%;">No ID National</th>
-                  <th style="width: 70%;">Name</th>
+                  <th style="text-align: center;">No</th>
+                  <th>ID / National ID</th>
+                  <th>Name</th>
                 </tr>
                 {{ csrf_field() }}
               </thead>
               <tbody>
               @forelse ($result as $index => $item)
-                <tr class="clickable-row" data-href="{{route('students.edit', $item->id)}}">
+                <tr>
                   <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
-                  <td>{{$item->noId}}</td>
-                  <td>{{$item->noIdNational}}</td>
+                  <td>{{$item->noId}} / {{$item->noIdNational}}</td>
                   <td>{{ ucfirst($item->studentname) }}</td>
                 </tr>
               @empty
                 <tr>
-                  <td>No Students</td>
+                  <td>No Students (<a href="{{route('setstudents.index')}}">Allocate Classroom - Student</a>)</td>
                 </tr>
               @endforelse
               </tbody>
             </table>
+            <div class="col-sm-5">
+              <div class="hidden-xs hidden-sm" style="margin-left: 10px;">Showing <b>{{ $result->total() }} students</b></div>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-5">
-            <div class="hidden-xs hidden-sm" style="margin-left: 10px;">Showing <b>Page {{ $result->currentPage() }}</b> ( {{ $result->count() }} of {{ $result->total() }} students )</div>
+          <div class="col-md-1">
           </div>
-          <div class="col-sm-7 text-right" style="margin-top: -34px;">
-            {!! $result->appends(Request::all())->render() !!}
-          </div>
+            <div class="col-md-4">
+              <div class="box box-widget widget-user-2">
+                <div class="widget-user-header bg-green">
+                  <div class="widget-user-image">
+                    <img class="img-circle" src="{{ asset('images/avatar/default.jpg') }}" alt="User Avatar">
+                  </div>
+                  <!-- /.widget-user-image -->
+                  <h3 class="widget-user-username">Classroom {{strtoupper($class->classroomname)}}</h3>
+                  <h5 class="widget-user-desc">Homeroom Teacher: Not Set</h5>
+                </div>
+                <div class="box-footer no-padding">
+                  <ul class="nav nav-stacked">
+                    @if (isset($yr))
+                      <li><a href="#"><b>Year</b> <span class="pull-right badge bg-blue">{{$yr->yearname}}</span></a></li>
+                      <li><a href="#"><b>Grade</b> <span class="pull-right badge bg-aqua">Grade {{strtoupper($class->grade->gradename)}}</span></a></li>
+                      <li><a href="#"><b>Total Students</b> <span class="pull-right badge bg-green">{{ $result->total() }} students</span></a></li>
+                      <li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
+                    @else
+                      No Data
+                    @endif
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1">
+
+            </div>
         </div>
       </div>
       <!-- /.box-body -->
@@ -115,11 +115,6 @@
     <script type="text/javascript" src="/src/iCheck/icheck.min.js"></script>
 
     <script>
-        jQuery(document).ready(function($) {
-            $(".clickable-row").click(function() {
-                window.location = $(this).data("href");
-            });
-        });
         $(document).ready(function(){
             $('.statusActive').iCheck({
                 checkboxClass: 'icheckbox_square-yellow',

@@ -69,8 +69,9 @@
                       <td>
                         <div class="row">
                           @can('edit_profiles')
-                          <div class="btn-group" role="group">
-                            <div class="col-xs-1 margin">
+                            <div class="btn-group" role="group">
+                                <div class="btn-group" role="group">
+                                  <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
                                   <a href="{{ route('profiles.edit', $item->id) }}" class="btn btn-xs btn-info">Edit</a>
                             </div>
                           </div>

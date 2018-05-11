@@ -8,7 +8,7 @@ class Classyear extends Model
 {
 
     protected $fillable = [
-        'classroom_id','year_id', 'semester_id'
+        'classroom_id','year_id', 'semester_id', 'employee_id'
     ];
 
     public function classroom()
@@ -24,5 +24,10 @@ class Classyear extends Model
     public function semester()
     {
         return $this->belongsTo(Semester::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
     }
 }

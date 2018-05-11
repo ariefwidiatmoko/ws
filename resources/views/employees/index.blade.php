@@ -94,12 +94,12 @@
                   <td>
                     <div class="row">
                       <div class="btn-group" role="group">
-                        <div class="col-xs-1 margin">
+                        <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
                           @can ('edit_employees')
                             <a href="{{ route('employees.edit', $item->id) }}" class="btn btn-xs btn-info">View</a>
                           @endcan
                         </div>
-                        <div class="col-xs-1 margin">
+                        <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
                             @can ('delete_employees')
                               {!! Form::open( ['method' => 'delete', 'url' => route('employees.destroy', $item->id), 'onSubmit' => 'return confirm("Are you sure you want to delete it?")']) !!}
                                 <button type="submit" class="btn btn-xs btn-danger">Delete</button>

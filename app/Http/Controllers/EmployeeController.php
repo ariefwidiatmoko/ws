@@ -48,7 +48,7 @@ class EmployeeController extends Controller
 
         $employee = Employee::findOrFail($id);
 
-        $employee->employeective = !$employee->employeective;
+        $employee->employeeactive = !$employee->employeeactive;
         $employee->save();
 
         return response()->json($employee);

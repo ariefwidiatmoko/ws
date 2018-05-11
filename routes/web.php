@@ -43,13 +43,14 @@ Route::group( ['prefix' => 'home', 'middleware' => ['auth', 'web']], function()
     //Events
     Route::resource('/events', 'EventController');
     //Academics
-    Route::resource('/academics/classroom-student', 'ClassroomstudentController');
+    Route::resource('/academics/classroomstudent', 'ClassroomstudentController');
     Route::resource('/academics/positions', 'PositionController');
     Route::post('/academics/positions/publish', 'PositionController@publish')->name('positions.publish');
     Route::resource('/academics/students', 'StudentController');
     Route::post('/academics/students/active', 'StudentController@statusActive')->name('students.statusActive');
     Route::resource('/academics/employees', 'EmployeeController');
     Route::post('/academics/employees/active', 'EmployeeController@statusActive')->name('employees.statusActive');
+    Route::resource('/academics/alumni', 'AlumniController');
     //Settings
     Route::resource('/settings/years', 'YearController');
     Route::resource('/settings/semesters', 'SemesterController');
@@ -73,6 +74,8 @@ Route::group( ['prefix' => 'home', 'middleware' => ['auth', 'web']], function()
     Route::post('/settings/add-classroom/{id}', 'SetstudentController@addClassroom')->name('setstudents.addClassroom');
     Route::get('/settings/set-classroom', 'SetstudentController@setClassroom')->name('setstudents.setClassroom');
     Route::put('/settings/allocate-classroom', 'SetstudentController@allocateClassroom')->name('setstudents.allocateClassroom');
+    Route::put('/settings/allocate-student-classroom/{id}', 'SetstudentController@allocateStudentCR')->name('setstudents.allocateStudentCR');
+    Route::resource('/settings/academics', 'AcademicController');
     Route::get('/users/change-password/{id}', 'UserController@changePassword')->name('users.changePassword');
     Route::put('/users/update-password/{id}', 'UserController@updatePassword')->name('users.updatePassword');
     Route::get('/settings/importcsv-students', 'ImportController@importcsv')->name('importcsv.student');

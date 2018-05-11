@@ -4,13 +4,12 @@
 
 @section('content')
 <div class="login-box">
-  <div class="login-logo">
-    <a href="{{ route('login') }}"><img src="../favicon.ico" style="max-width: 34px; height: auto; margin-top: -5px;" alt=""> {{ config('app.name', 'Laravel') }}</a>
+  <div class="">
+    <br><br><br><br><br><br>
   </div>
   <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">LOGIN</p>
-
+  <div class="login-box-body" style="box-shadow: 0 8px 6px -6px grey;">
+    <h3 class="login-box-msg"><img src="../favicon.ico" style="max-width: 34px; height: auto; margin-top: -5px;" alt=""> {{ config('app.name', 'Laravel') }}</h3>
     <form method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
       <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">

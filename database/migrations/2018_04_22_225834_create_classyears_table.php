@@ -14,6 +14,7 @@ class CreateClassyearsTable extends Migration
             $table->integer('classroom_id');
             $table->integer('year_id');
             $table->integer('semester_id');
+            $table->integer('employee_id');
             $table->timestamps();
         });
     }

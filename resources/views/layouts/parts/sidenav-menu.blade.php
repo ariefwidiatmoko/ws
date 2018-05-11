@@ -5,6 +5,38 @@
     <li class="{{ \Request::is('home') ? 'active' : null }}"><a href="{{ route('home') }}"><i class="fa fa-home fa-fw"></i><span>
       Dashboard</span></a>
     </li>
+    @can('view_students', 'view_employees', 'view_positions')
+    <li class="treeview {{ \Request::is('home/academics/*') ? 'active' : null }}"><a href="#"><i class="fa fa-newspaper-o fa-fw"></i>
+      <span>Academics</span><span class="pull-right-container"><i class="fa fa-angle-left fa-fw pull-right"></i></span></a>
+      <ul class="treeview-menu">
+
+          <li id="{{ Request::is('home/academics/classrooms*') ? 'sub-menu' : '' }}"><a href="{{ route('classroomstudent.index') }}"><i class="fa fa-angle-right fa-fw"></i>
+            Classrooms</a>
+          </li>
+
+        @can('view_contacts_students')
+          <li id="{{ Request::is('home/academics/students*') ? 'sub-menu' : '' }}"><a href="{{ route('students.index') }}"><i class="fa fa-angle-right fa-fw"></i>
+            Students</a>
+          </li>
+        @endcan
+        @can('view_employees')
+          <li id="{{ Request::is('home/academics/employees*') ? 'sub-menu' : '' }}"><a href="{{ route('employees.index') }}"><i class="fa fa-angle-right fa-fw"></i>
+            Employees</a>
+          </li>
+        @endcan
+
+          <li id="{{ Request::is('home/academics/alumni*') ? 'sub-menu' : '' }}"><a href="{{ route('alumni.index') }}"><i class="fa fa-angle-right fa-fw"></i>
+            Alumni</a>
+          </li>
+
+        @can('view_positions')
+          <li id="{{ Request::is('home/academics/positions*') ? 'sub-menu' : '' }}"><a href="{{ route('positions.index') }}"><i class="fa fa-angle-right fa-fw"></i>
+            Positions</a>
+          </li>
+        @endcan
+      </ul>
+    </li>
+    @endcan
     @can('view_lessons', 'view_subjects', 'view_notes')
     <li class="treeview {{ \Request::is('home/contents/*') ? 'active' : null }}"><a href="#"><i class="fa fa-edit fa-fw"></i>
       <span>Contents</span><span class="pull-right-container"><i class="fa fa-angle-left fa-fw pull-right"></i></span></a>
@@ -60,33 +92,6 @@
     @can ('view_events')
       <li class="{{ \Request::is('home/events') ? 'active' : null }}"><a href="{{ route('events.index')}}" class="load-menu"><i class="fa fa-calendar fa-fw"></i><span> Events</span></a></li>
     @endcan
-    @can('view_students', 'view_employees', 'view_positions')
-    <li class="treeview {{ \Request::is('home/academics/*') ? 'active' : null }}"><a href="#"><i class="fa fa-newspaper-o fa-fw"></i>
-      <span>Academics</span><span class="pull-right-container"><i class="fa fa-angle-left fa-fw pull-right"></i></span></a>
-      <ul class="treeview-menu">
-
-          <li id="{{ Request::is('home/academics/classrooms*') ? 'sub-menu' : '' }}"><a href="{{ route('classroomstudent.index') }}"><i class="fa fa-angle-right fa-fw"></i>
-            Classroom</a>
-          </li>
-
-        @can('view_contacts_students')
-          <li id="{{ Request::is('home/academics/students*') ? 'sub-menu' : '' }}"><a href="{{ route('students.index') }}"><i class="fa fa-angle-right fa-fw"></i>
-            Students</a>
-          </li>
-        @endcan
-        @can('view_employees')
-          <li id="{{ Request::is('home/academics/employees*') ? 'sub-menu' : '' }}"><a href="{{ route('employees.index') }}"><i class="fa fa-angle-right fa-fw"></i>
-            Employees</a>
-          </li>
-        @endcan
-        @can('view_positions')
-          <li id="{{ Request::is('home/academics/positions*') ? 'sub-menu' : '' }}"><a href="{{ route('positions.index') }}"><i class="fa fa-angle-right fa-fw"></i>
-            Positions</a>
-          </li>
-        @endcan
-      </ul>
-    </li>
-    @endcan
     @can('view_users', 'view_profiles', 'view_permissions', 'view_roles')
     <li class="treeview {{ \Request::is('home/userm/*') ? 'active' : null }}"><a href="#"><i class="fa fa-user-plus"></i><span>
       Users Management</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
@@ -118,6 +123,11 @@
     <li class="treeview {{ \Request::is('home/settings/*') ? 'active' : null }}"><a href="#"><i class="fa fa-sliders fa-fw"></i><span>
       Settings</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
       <ul class="treeview-menu">
+
+        <li id="{{ Request::is('home/settings/academics*') ? 'sub-menu' : '' }}"><a href="{{ route('academics.index') }}" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
+          Academics</a>
+        </li>
+
         @can('view_years')
           <li id="{{ Request::is('home/settings/years*') ? 'sub-menu' : '' }}"><a href="{{ route('years.index') }}" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
             Years</a>

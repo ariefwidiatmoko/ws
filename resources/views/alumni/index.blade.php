@@ -1,20 +1,16 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Students')
+@section('title', 'Alumni')
 
 @section('stylesheets')
-  <!-- icheck checkboxes -->
-  <link rel="stylesheet" href="/src/iCheck/square/yellow.css">
-  <!-- toastr notifications -->
-  <link rel="stylesheet" href="/src/toastrjs/toastr.min.css">
-  <style media="screen">
-    tr>td {
-            cursor: pointer;
-          }
-    tr>td:hover {
-                  color: #458dd5;
-                }
-  </style>
+<style media="screen">
+  tr>td {
+          cursor: pointer;
+        }
+  tr>td:hover {
+                color: #458dd5;
+              }
+</style>
 @endsection
 
 @section('navmenu')
@@ -24,9 +20,9 @@
 
 @section('searchbox')
   <div class="text-right">
-    <form action="{{ route('students.index') }}" method="GET">
+    <form action="{{ route('alumni.index') }}" method="GET">
       <div class="input-group input-group-sm col-md-12">
-        <input type="text" name="search" class="form-control pull-right" placeholder="Search Students...">
+        <input type="text" name="search" class="form-control pull-right" placeholder="Search Alumni...">
         <div class="input-group-btn">
           <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
         </div>
@@ -36,9 +32,7 @@
 @endsection
 
 @section('button')
-  @can ('add_students')
-  <a href="{{ route('students.create') }}" class="btn btn-xs btn-success"><i class="fa fa-plus fa-fw"></i> New Student</a>
-  @endcan
+  <span class="badge bg-green">List Alumni</span>
 @endsection
 
 @section('content')
@@ -69,15 +63,15 @@
             <thead>
               <tr>
                   <th style="width: 5%; text-align: center;">No</th>
-                  <th style="width: 10%;">No ID</th>
-                  <th style="width: 15%;">No ID National</th>
-                  <th style="width: 70%;">Name</th>
+                  <th style="width: 10%;">ID</th>
+                  <th style="width: 10%;">National ID</th>
+                  <th style="width: 45%;">Name</th>
                 </tr>
                 {{ csrf_field() }}
               </thead>
               <tbody>
               @forelse ($result as $index => $item)
-                <tr class="clickable-row" data-href="{{route('students.edit', $item->id)}}">
+                <tr title="View Detail" class="clickable-row" data-href="{{route('alumni.show', $item->id)}}">
                   <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
                   <td>{{$item->noId}}</td>
                   <td>{{$item->noIdNational}}</td>
@@ -85,7 +79,7 @@
                 </tr>
               @empty
                 <tr>
-                  <td>No Students</td>
+                  <td>No Alumni</td>
                 </tr>
               @endforelse
               </tbody>
@@ -94,7 +88,7 @@
         </div>
         <div class="row">
           <div class="col-sm-5">
-            <div class="hidden-xs hidden-sm" style="margin-left: 10px;">Showing <b>Page {{ $result->currentPage() }}</b> ( {{ $result->count() }} of {{ $result->total() }} students )</div>
+            <div class="hidden-xs hidden-sm" style="margin-left: 10px;">Showing <b>Page {{ $result->currentPage() }}</b> ( {{ $result->count() }} of {{ $result->total() }} alumni )</div>
           </div>
           <div class="col-sm-7 text-right" style="margin-top: -34px;">
             {!! $result->appends(Request::all())->render() !!}
@@ -108,12 +102,6 @@
 @endsection
 
 @section('scripts')
-    <!-- toastr notifications -->
-    <script type="text/javascript" src="/src/toastrjs/toastr.min.js"></script>
-
-    <!-- icheck checkboxes -->
-    <script type="text/javascript" src="/src/iCheck/icheck.min.js"></script>
-
     <script>
         jQuery(document).ready(function($) {
             $(".clickable-row").click(function() {

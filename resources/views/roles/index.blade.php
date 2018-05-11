@@ -87,14 +87,14 @@
                       @can ('edit_roles')
                       <td>
                         <div class="row">
-                          <div class="btn-group" role="group">
-                            <div class="col-xs-1 margin">
+                              <div class="btn-group" role="group">
+                                <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
                               @can ('edit_roles', $item)
                                 <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-xs btn-info">Edit</a>
                               @endcan
                             </div>
                           </div>
-                          <div class="col-xs-1 margin">
+                          <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
                               @can ('delete_roles', $item)
                                 {!! Form::open( ['method' => 'delete', 'url' => route('roles.destroy', $item->id), 'onSubmit' => 'return confirm("Are yous sure wanted to delete it?")']) !!}
                                   <button type="submit" class="btn btn-xs btn-danger">Delete</button>
@@ -126,4 +126,8 @@
         <!-- /.box-body -->
       </div>
   </div>
+@endsection
+
+@section('scripts')
+  @include('shared._part_notification')
 @endsection

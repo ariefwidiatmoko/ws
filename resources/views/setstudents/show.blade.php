@@ -72,10 +72,10 @@
                 <td>{{$item->yearname}}</td>
                 <td>{{$item->semestername}}</td>
                 <td>{{$item->gradename}}</td>
-                <td>{{$item->classroomname}}</td>
+                <td class="item{{$index}}">{!!$item->classroomname ? $item->classroomname : '<button class="edit-modal btn btn-xs" href="#" data-id="'. $item->id. '" data-index="'. $index . '" data-student_id="'. $item->student_id. '">Set</button>'!!}</td>
                 <td>
-                  <form action="{{ route('setstudents.delYear', $item->id) }}" method="post">
-                    <button type="submit" role="button" class="btn btn-xs btn-danger">Delete</button>
+                  <form action="{{ route('setstudents.delYear', $item->id) }}" method="post" onsubmit="return confirm('Are you sure want to delete the classroom?')">
+                    <button type="submit" role="button"class="btn btn-xs btn-danger"><i class="fa fa-trash-o"></i></button>
                     {{ csrf_field() }}
                   </form>
                 </td>
@@ -155,8 +155,64 @@
   </div>
   <!-- /.row -->
 </div>
+{{-- Modal Set Classroom --}}
+<div id="editModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="id">Classroom</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" id="id_edit">
+                                <input type="hidden" id="index_edit">
+                                <select class="form-control input-sm" id="classroomname_edit">
+                                  @foreach ($classrooms as $index => $item)
+                                    <option value="{{ $item->classroomname }}">{{ ucfirst($item->classroomname) }}</option>
+                                  @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="edit btn btn-xs btn-primary" data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-xs btn-warning" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
 @include('shared._part_notification')
+<script>
+// Edit a post
+      $(document).on('click', '.edit-modal', function() {
+          $('.modal-title').text('Edit');
+          $('#id_edit').val($(this).data('id'));
+          $('#index_edit').val($(this).data('index'));
+          id = $('#id_edit').val();
+          $('#editModal').modal('show');
+      });
+      $('.modal-footer').on('click', '.edit', function() {
+          $.ajax({
+              type: 'PUT',
+              url: '/home/settings/allocate-student-classroom/' + id,
+              data: {
+                  '_token': $('input[name=_token]').val(),
+                  'id': $("#id_edit").val(),
+                  'index': $("#index_edit").val(),
+                  'classroomname': $('#classroomname_edit').val(),
+              },
+              success: function(data) {
+                  window.location.reload();
+              },
+          });
+      });
+</script>
 @endsection

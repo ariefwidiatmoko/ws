@@ -8,17 +8,15 @@
 
   <style>
       table, td, th {
-        border: 1px solid black;
-      }
-
+           border: 1px solid black;
+         }
       table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-
+           border-collapse: collapse;
+           width: 100%;
+         }
       th {
-        vertical-align: baseline;
-      }
+            vertical-align: baseline;
+         }
   </style>
 @endsection
 
@@ -41,6 +39,10 @@
   </div>
 @endsection
 
+@section('btn1')
+ @include('setstudents.filterSetclassroom')
+@endsection
+
 @section('content')
 <div class="content" id="main-content" style="margin-top: -20px; margin-left: 1px;">
 <div class="box box-primary collapsed-box" style="margin-top: 20px;">
@@ -55,7 +57,6 @@
     <div class="box" style="margin-top: -20px;">
       <div class="box-header" style="margin-left: -15px">
         <h3 class="box-title col-xs-12" style="margin-top: 15px">@yield('btn1')</h3>
-        <h3 class="box-title col-xs-12">@yield('btn2')</h3>
       </div>
       <!-- /.box-header -->
       <div id="inlist" class="table-responsive box-body">
@@ -72,13 +73,13 @@
                   </tr>
                   <tr>
                     @foreach ($classrooms as $index => $cr)
-                      <th style="text-align: center;">{{$cr->classroomname}} <br><input type="checkbox" name="classroom" class="{{$cr->classroom_id}}-selectall" value="{{$cr->classroom_id}}"></th>
+                      <th style="text-align: center;">{{$cr->classroomname}}</th>
                     @endforeach
                   </tr>
                   {{ csrf_field() }}
                 </thead>
                 <tbody>
-                  @foreach ($results as $index => $item)
+                  @forelse ($results as $index => $item)
                     <tr>
                       <td style="text-align: center;">{{ucwords($item->noId)}}</td>
                       <td style="text-align: center;">{{ucwords($item->studentname)}}</td>
@@ -98,9 +99,14 @@
                         </td>
                       @endforeach
                     </tr>
-                  @endforeach
+                  @empty
+                    <tr>
+                      <td>No Student</td>
+                    </tr>
+                  @endforelse
                 </tbody>
               </table>
+              <div id="result"></div>
             </div>
 
           </div>
@@ -149,7 +155,7 @@
                         'classroom_id': classroom_id
                     },
                     success: function(data) {
-                        // empty
+
                     },
                 });
             });

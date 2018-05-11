@@ -20,12 +20,12 @@ class SetstudentController extends Controller
 
     public function index(Request $request)
     {
+        $input = $request->all();
         $students = DB::table('studentyears')
                         ->join('students', 'students.id', '=', 'studentyears.student_id')
                         ->join('grades', 'grades.id', '=', 'studentyears.grade_id')
                         ->join('years', 'years.id', '=', 'studentyears.year_id')
-                        ->select('students.id', 'students.noId', 'students.studentname', 'studentyears.year_id', 'studentyears.grade_id', 'studentyears.semester_id', 'years.yearname', 'grades.gradename')
-                        ->groupBy('student_id');
+                        ->select('students.id', 'students.noId', 'students.studentname', 'studentyears.year_id', 'studentyears.grade_id', 'studentyears.semester_id', 'years.yearname', 'grades.gradename');
 
         if (isset($request->search)) {
             $students->where('studentname', 'like',  "%{$request->search}%");
@@ -39,7 +39,7 @@ class SetstudentController extends Controller
         $students->where('grade_id', 'like',  "%{$request->grade_id}%");
         }
 
-        $result = $students->where('studentactive', 1)->orderBy('noId')->paginate(25);
+        $result = $students->where('studentactive', 1)->where('semester_id', 1)->orderBy('noId')->orderBy('gradename')->paginate(25);
 
         $pagination = (isset($request->search)) ? $result->appends(['studentname' => $request->search]) : '';
         $pagination = (isset($request->year_id)) ? $result->appends(['year_id' => $request->year_id]) : '';
@@ -51,7 +51,7 @@ class SetstudentController extends Controller
 
         $request->flash();
 
-        return view('setstudents.index', compact('result', 'query', 'years', 'grades', 'classrooms', 'students'));
+        return view('setstudents.index', compact('result', 'query', 'years', 'grades', 'classrooms', 'students', 'input', 'request'));
     }
 
     public function importStudent(Request $request)
@@ -152,18 +152,16 @@ class SetstudentController extends Controller
                     ->join('years', 'years.id', '=', 'classyears.year_id')
                     ->join('grades', 'grades.id', '=', 'classrooms.grade_id');
 
-      if (old('search') != null) {
-          $students->where('studentname', 'like', old('search'));
+      if (isset($request->search)) {
+          $students->where('studentname', 'like',  "%{$request->search}%");
       }
 
-      if (old('year_id') != null) {
-      $students->where('year_id', 'like', old('year_id'));
-      $crs->where('year_id', 'like', old('year_id'));
+      if (isset($request->year_id)) {
+          $students->where('year_id', 'like',  "%{$request->year_id}%");
       }
 
-      if (old('grade_id') != null) {
-      $students->where('grade_id', 'like', old('grade_id'));
-      $crs->where('grade_id', 'like', old('grade_id'));
+      if (isset($request->grade_id)) {
+      $students->where('grade_id', 'like',  "%{$request->grade_id}%");
       }
 
       $students->where('semester_id', 1);
@@ -171,10 +169,27 @@ class SetstudentController extends Controller
 
       $request->flash();
 
+      $years = Year::all();
+      $grades = Grade::all();
+
       $results = $students->where('studentactive', 1)->orderBy('noId')->get();
       $classrooms = $crs->where('classroomactive', 1)->orderBy('classroomname')->get();
 
-      return view('setstudents.setclassroom', compact('results', 'students', 'request', 'crs', 'classrooms'));
+      return view('setstudents.setclassroom', compact('results', 'students', 'request', 'crs', 'classrooms', 'years', 'grades'));
+    }
+
+    public function allocateStudentCR(Request $request, $id) {
+      $st = Studentyear::findOrFail($id);
+      $class = Classroom::where('classroomname', $request->classroomname)->first();
+
+      $st->classroom_id = $class->id;
+      $st->update();
+
+      $student = array(['index' => $request->index, 'classroomname' => $class->classroomname]);
+
+
+
+      return response()->json($student);
     }
 
     public function allocateClassroom() {
@@ -242,8 +257,8 @@ class SetstudentController extends Controller
                         ->join('grades', 'grades.id', '=', 'studentyears.grade_id')
                         ->join('years', 'years.id', '=', 'studentyears.year_id')
                         ->join('semesters', 'semesters.id', '=', 'studentyears.semester_id')
-                        ->join('classrooms', 'classrooms.id', '=', 'studentyears.classroom_id')
-                        ->select('studentyears.id', 'students.studentname', 'years.yearname', 'semesters.semestername', 'grades.gradename', 'classrooms.classroomname');
+                        ->leftJoin('classrooms', 'classrooms.id', '=', 'studentyears.classroom_id')
+                        ->select('studentyears.id', 'studentyears.student_id', 'students.studentname', 'years.yearname', 'semesters.semestername', 'grades.gradename', 'classrooms.classroomname');
 
         $histories = $hist->where('student_id', $id)->get();
         $classrooms = Classroom::where('classroomactive', 1)->get();
@@ -256,7 +271,8 @@ class SetstudentController extends Controller
     public function delYear($id) {
         $student = Studentyear::findOrFail($id);
 
-        $student->delete();
+        $student->classroom_id = null;
+        $student->update();
 
         $notification = array(
           'message' => 'Classroom was successfully deleted.',

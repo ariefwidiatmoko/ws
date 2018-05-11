@@ -72,6 +72,11 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
+    public function yearactive()
+    {
+        return $this->hasOne(Yearactive::class);
+    }
+
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = bcrypt($value);
     }

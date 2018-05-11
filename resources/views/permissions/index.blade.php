@@ -73,7 +73,8 @@
                       <td>
                         <div class="row">
                           <div class="btn-group" role="group">
-                            <div class="col-xs-1 margin">
+                              <div class="btn-group" role="group">
+                                <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
                               @can ('edit_permissions', $item)
                                 <a href="{{ route('permissions.edit', $item->id) }}" class="btn btn-xs btn-info">Edit</a>
                               @endcan
