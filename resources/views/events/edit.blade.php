@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Edit Category')
+@section('title', 'Edit Event')
 
 @section('stylesheets')
 

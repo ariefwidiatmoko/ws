@@ -21,12 +21,12 @@ class RoleController extends Controller
                       ->orderBy('name')
                       ->paginate(20);
 
-        return view('roles.index', compact('result', 'query'));
+        return view('usermanagements.roles.index', compact('result', 'query'));
     }
 
     public function create()
     {
-      return view('roles.create');
+      return view('usermanagements.roles.create');
     }
     public function store(Request $request)
     {
@@ -56,7 +56,7 @@ class RoleController extends Controller
         $permMessages = Permission::where('name','like','%'.'messages'.'%')->get();
         $permEvents = Permission::where('name','like','%'.'events'.'%')->get();
 
-        return view('roles.show', compact('role', 'permUsers', 'permProfiles', 'permRoles', 'permPermissions', 'permLessons', 'permSubjects', 'permFilemanager', 'permEmployees', 'permNotes', 'permMessages', 'permEvents'));
+        return view('usermanagements.roles.show', compact('role', 'permUsers', 'permProfiles', 'permRoles', 'permPermissions', 'permLessons', 'permSubjects', 'permFilemanager', 'permEmployees', 'permNotes', 'permMessages', 'permEvents'));
     }
 
     public function edit($id)
@@ -74,7 +74,7 @@ class RoleController extends Controller
         $permMessages = Permission::where('name','like','%'.'messages'.'%')->orderBy('name')->get();
         $permEvents = Permission::where('name','like','%'.'events'.'%')->orderBy('name')->get();
 
-        return view('roles.show', compact('role', 'permUsers', 'permProfiles', 'permRoles', 'permPermissions', 'permLessons', 'permSubjects', 'permFilemanager', 'permEmployees', 'permNotes', 'permMessages', 'permEvents'));
+        return view('usermanagements.roles.edit', compact('role', 'permUsers', 'permProfiles', 'permRoles', 'permPermissions', 'permLessons', 'permSubjects', 'permFilemanager', 'permEmployees', 'permNotes', 'permMessages', 'permEvents'));
     }
 
     public function update(Request $request, $id)

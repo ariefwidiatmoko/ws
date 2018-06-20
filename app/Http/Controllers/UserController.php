@@ -21,14 +21,14 @@ class UserController extends Controller
     {
         $query = $request->get('search');
         $result = User::where('name', 'LIKE', '%' . $query . '%')->paginate(20);
-        return view('users.index', compact('result', 'query'));
+        return view('usermanagements.users.index', compact('result', 'query'));
     }
 
     public function create()
     {
         $roles = Role::pluck('name', 'id');
 
-        return view('users.create', compact('roles'));
+        return view('usermanagements.users.create', compact('roles'));
     }
 
     public function store(Request $request)
@@ -57,7 +57,7 @@ class UserController extends Controller
         $user = User::find($id);
         $employees = Employee::where('user_id', '=', null)->orderBy('employeename')->get();
 
-        return view('users.link', compact('user', 'employees'));
+        return view('usermanagements.users.link', compact('user', 'employees'));
     }
 
     public function updateLink(Request $request, $id)
@@ -96,7 +96,7 @@ class UserController extends Controller
     public function changePassword($id) {
         $user = User::findOrFail($id);
 
-        return view('users.changepwd', compact('user'));
+        return view('usermanagements.users.changepwd', compact('user'));
     }
 
     public function deleteLink($id) {
@@ -124,7 +124,7 @@ class UserController extends Controller
           return redirect()->route('home');
         }
 
-        return view('users.changepwd', compact('user'));
+        return view('usermanagements.users.changepwd', compact('user'));
     }
 
     public function edit($id)
@@ -143,7 +143,7 @@ class UserController extends Controller
         $permMessages = Permission::where('name','like','%'.'messages'.'%')->get();
         $permEvents = Permission::where('name','like','%'.'events'.'%')->get();
 
-        return view('users.edit', compact('user', 'roles', 'permUsers', 'permProfiles', 'permRoles', 'permPermissions', 'permLessons', 'permSubjects', 'permFilemanager', 'permEmployees', 'permNotes', 'permMessages', 'permEvents'));
+        return view('usermanagements.users.edit', compact('user', 'roles', 'permUsers', 'permProfiles', 'permRoles', 'permPermissions', 'permLessons', 'permSubjects', 'permFilemanager', 'permEmployees', 'permNotes', 'permMessages', 'permEvents'));
     }
 
     public function update(Request $request, $id)

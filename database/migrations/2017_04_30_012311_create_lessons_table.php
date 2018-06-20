@@ -20,6 +20,7 @@ class CreateLessonsTable extends Migration
             $table->text('lessoncontent');
             $table->boolean('lessonactive')->default(0);
             $table->dateTime('published_at')->nullable();
+            $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')

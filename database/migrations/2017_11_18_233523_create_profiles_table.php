@@ -22,6 +22,7 @@ class CreateProfilesTable extends Migration
           $table->text('quote')->nullable();
           $table->text('about')->nullable();
           $table->string('avatar')->nullable();
+          $table->string('created_by')->nullable();
           $table->string('updated_by')->nullable();
           $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'))->nullable();
           $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'))->nullable();

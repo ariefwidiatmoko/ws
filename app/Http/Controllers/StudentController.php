@@ -42,7 +42,7 @@ class StudentController extends Controller
 
       }
 
-      return view('students.index', compact('result', 'query'));
+      return view('academics.students.index', compact('result', 'query'));
 
     }
 
@@ -60,7 +60,7 @@ class StudentController extends Controller
 
     public function create()
     {
-          return view('students.create');
+          return view('academics.students.create');
     }
 
     public function store(Request $request)
@@ -84,11 +84,6 @@ class StudentController extends Controller
         return redirect()->route('students.edit', $student->id);
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     public function edit($id)
     {
         $student = Student::findOrFail($id);
@@ -98,11 +93,12 @@ class StudentController extends Controller
                         ->join('grades', 'grades.id', '=', 'studentyears.grade_id')
                         ->join('years', 'years.id', '=', 'studentyears.year_id')
                         ->join('semesters', 'semesters.id', '=', 'studentyears.semester_id')
-                        ->join('classrooms', 'classrooms.id', '=', 'studentyears.classroom_id')
-                        ->select('studentyears.id', 'students.studentname', 'years.yearname', 'semesters.semestername', 'grades.gradename', 'classrooms.classroomname');
+                        ->leftJoin('classrooms', 'classrooms.id', '=', 'studentyears.classroom_id')
+                        ->select('studentyears.id', 'studentyears.student_id', 'students.studentname', 'years.yearname', 'semesters.semestername', 'grades.gradename', 'classrooms.classroomname');
 
         $histories = $hist->where('student_id', $id)->get();
 
+        //Check Student Profile if No Profile found, System create empty Profile
         if(!isset($student->studentprofile)) {
             $studentprofile = new Studentprofile;
             $studentprofile->student_id = $student->id;
@@ -113,8 +109,9 @@ class StudentController extends Controller
             return redirect()->route('students.edit', $student->id);
         }
 
+        $classrooms = DB::table('classrooms')->where('classroomactive', 1)->get();
 
-        return view('students.edit', compact('student', 'hist', 'histories'));
+        return view('academics.students.edit', compact('student', 'hist', 'histories', 'classrooms'));
     }
 
     public function update(Request $request, $id)
@@ -123,6 +120,7 @@ class StudentController extends Controller
         $this->validate($request,[
           'noId' => 'required|unique:students,noId,'.$id,
           'studentname' => 'required',
+          'student_img' => 'max:1900'
         ]);
 
         $student = Student::findOrFail($id);
@@ -139,30 +137,36 @@ class StudentController extends Controller
 
           //save new image
           $avatar = $request->file('student_img');
-          $filename = 'student_avatar_' . $current_time = Carbon::now()->toDateTimeString() . '.' . $avatar->getClientOriginalExtension();
+          $filename = 'student_avatar_' . $current_time = Carbon::now()->format('Y-m-d-H:i:s') . '.' . $avatar->getClientOriginalExtension();
           $location = public_path('images/students/' . $filename);
           Image::make($avatar)->fit(160)->save($location);
 
           $studentprofile->avatar = $filename;
         }
-
+        //Get Month for Birthday
         if(isset($request->dob)) {
           $mm = date('m', strtotime($request->dob));
           $studentprofile->month_id = $mm;
         }
 
-        $student->update($request->all());
-
-        $studentprofile->update($request->all());
+        $student->update($request->all()); $studentprofile->update($request->all());
 
         flash()->success('Student was successfully updated.');
-        return back();
 
+        return back();
 
     }
 
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        $student = Student::findOrFail($id);
+
+        $student->delete();
+
+        $notification = array(
+          'message' => ucwords($student->studentname) . ' was successfully deleted.',
+          'alert-type' => 'error'
+        );
+
+        return redirect()->route('students.index')->with($notification);
     }
 }

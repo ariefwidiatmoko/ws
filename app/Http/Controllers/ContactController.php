@@ -92,7 +92,7 @@ class ContactController extends Controller
 
       $monthnow = Carbon::now()->format('m');
 
-      $birthmonth = Employee::where('month_id', '=', $monthnow)->get();
+      $birthmonth = Employee::where('month_id', $monthnow)->get();
 
       $request->flash();
 

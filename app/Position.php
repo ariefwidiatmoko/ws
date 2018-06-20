@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Position extends Model
 {
       protected $fillable = [
-          'positionname', 'positionactive', 'updated_by', 'user_id',
+          'positionname', 'positionactive', 'created_by', 'updated_by', 'user_id',
       ];
 
       public function user()

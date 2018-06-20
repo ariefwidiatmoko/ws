@@ -13,6 +13,8 @@ class CreateMonthsTable extends Migration
             $table->increments('id');
             $table->string('noId');
             $table->string('monthname');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->string('alias')->nullable();
             $table->timestamps();
         });

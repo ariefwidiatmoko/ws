@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Semester extends Model
 {
   protected $fillable = [
-      'semestername','alias', 'user_id'
+      'semestername','alias', 'created_by', 'updated_by', 'user_id'
   ];
 
   public function user()
@@ -15,11 +15,20 @@ class Semester extends Model
       return $this->belongsTo(User::class);
   }
 
-  public function classyearsems() {
-      return $this->hasMany(Classyearsem::class);
+  public function classyears() {
+      return $this->hasMany(Classyear::class);
   }
 
   public function studentyears() {
       return $this->hasMany(Studentyear::class);
+  }
+
+  public function yearactive()
+  {
+      return $this->hasOne(Yearactive::class);
+  }
+
+  public function classsubjects() {
+      return $this->hasMany(Classsubject::class);
   }
 }

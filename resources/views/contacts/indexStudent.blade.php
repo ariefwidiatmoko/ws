@@ -15,6 +15,7 @@
 
 @section('navmenu')
   <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a class="active">Contact</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
   <a class="active">@yield('title')</a>
 @endsection
 

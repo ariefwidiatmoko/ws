@@ -14,7 +14,7 @@ class MessageController extends Controller
     public function index()
     {
         $result = Message::orderBy('created_at', 'desc')->paginate(20);
-        return view('messages.index', compact('result'));
+        return view('contacts.messages.index', compact('result'));
     }
 
     public function store(Request $request)

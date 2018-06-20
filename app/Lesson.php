@@ -18,7 +18,7 @@ class Lesson extends Model
             ->saveSlugsTo('slug');
     }
 
-    protected $fillable = ['lessontitle', 'slug', 'lessoncontent', 'lessonactive', 'published_at', 'updated_by', 'user_id', 'subject_id' ];
+    protected $fillable = ['lessontitle', 'slug', 'lessoncontent', 'lessonactive', 'published_at', 'created_by', 'updated_by', 'user_id', 'subject_id' ];
 
     protected $dates = ['published_at'];
 

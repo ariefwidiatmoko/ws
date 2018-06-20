@@ -27,23 +27,23 @@ class CreateStudentprofilesTable extends Migration
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
+            $table->boolean('gender')->nullable();
+            $table->string('pob')->nullable();
+            $table->date('dob')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('address')->nullable();
-            $table->string('pob')->nullable();
-            $table->date('dob')->nullable();
-            $table->boolean('gender')->nullable();
             $table->string('citizenship')->nullable();
-            $table->string('familystatus')->nullable();
             $table->integer('siblings')->nullable();
+            $table->string('familystatus')->nullable();
             $table->string('childno')->nullable();
             $table->text('familiynote')->nullable();
             $table->text('healthnote')->nullable();
             $table->text('achievementnote')->nullable();
-            $table->text('schoolnote')->nullable();
             $table->string('prevschool')->nullable();
             $table->text('prevschoolnote')->nullable();
             $table->text('afterschoolnote')->nullable();
+            $table->text('schoolnote')->nullable();
             $table->string('father')->nullable();
             $table->string('fatherphone')->nullable();
             $table->string('fatheremail')->nullable();
@@ -56,6 +56,8 @@ class CreateStudentprofilesTable extends Migration
             $table->string('parentaddress')->nullable();
             $table->text('parentnote')->nullable();
             $table->string('avatar')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

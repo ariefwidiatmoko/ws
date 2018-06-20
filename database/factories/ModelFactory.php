@@ -7,6 +7,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => 'secret',
+        'created_by' => 'System',
         'remember_token' => str_random(10),
     ];
 });
@@ -15,6 +16,7 @@ $factory->define(App\Month::class, function(Faker\Generator $faker) {
    return [
        'noId' => $faker->randomDigit,
        'monthname' => $faker->name,
+       'created_by' => 'System',
        'alias' => $faker->name
    ];
 });
@@ -24,6 +26,7 @@ $factory->define(App\Subject::class, function(Faker\Generator $faker) {
        'subjectname' => $faker->name,
        'alias' => $faker->name,
        'subjectactive' => $faker->boolean(),
+       'created_by' => 'System',
        'user_id' => function() {
             return \App\User::inRandomOrder()->first()->id;
        },
@@ -34,6 +37,7 @@ $factory->define(App\Grade::class, function(Faker\Generator $faker) {
    return [
        'gradename' => $faker->name,
        'alias' => $faker->name,
+       'created_by' => 'System',
        'user_id' => function() {
             return \App\User::inRandomOrder()->first()->id;
        },
@@ -45,6 +49,7 @@ $factory->define(App\Classroom::class, function(Faker\Generator $faker) {
        'classroomname' => $faker->name,
        'alias' => $faker->name,
        'classroomactive' => $faker->boolean(),
+       'created_by' => 'System',
        'user_id' => function() {
             return \App\User::inRandomOrder()->first()->id;
        },
@@ -57,6 +62,7 @@ $factory->define(App\Classyear::class, function(Faker\Generator $faker) {
        'classroom_id' => $faker->randomDigit,
        'year_id' => $faker->randomDigit,
        'semester_id' => $faker->randomDigit,
+       'created_by' => 'System',
    ];
 });
 
@@ -70,6 +76,7 @@ $factory->define(App\Profile::class, function(Faker\Generator $faker) {
       'education' => $faker->sentence,
       'quote' => $faker->sentence(random_int(2, 3)),
       'about' => $faker->paragraph(random_int(3, 5)),
+      'created_by' => 'System',
       'updated_by' => function() {
            return \App\User::inRandomOrder()->first()->name;
       },
@@ -80,6 +87,7 @@ $factory->define(App\Position::class, function(Faker\Generator $faker) {
    return [
        'positionname' => $faker->name,
        'positionactive' => $faker->boolean(),
+       'created_by' => 'System',
        'user_id' => function() {
             return \App\User::inRandomOrder()->first()->id;
        },
@@ -119,6 +127,7 @@ $factory->define(App\Lesson::class, function(Faker\Generator $faker) {
             return \App\User::inRandomOrder()->first()->id;
        },
        'subject_id' => $faker->numberBetween($min = 1, $max = 10),
+       'created_by' => 'System',
    ];
 });
 
@@ -130,6 +139,7 @@ $factory->define(App\Note::class, function(Faker\Generator $faker) {
       'description' => $faker->paragraph(random_int(8, 12)),
       'image' => $faker->name,
       'noteactive' => $faker->boolean(),
+      'created_by' => 'System',
    ];
 });
 
@@ -140,6 +150,7 @@ $factory->define(App\Message::class, function(Faker\Generator $faker) {
       'email' => $faker->unique()->safeEmail,
       'messagetitle' => $faker->sentence,
       'messagecontent' => $faker->paragraph(random_int(8, 12)),
+      'created_by' => 'System',
    ];
 });
 
@@ -151,6 +162,7 @@ $factory->define(App\Student::class, function(Faker\Generator $faker) {
       'studentname' => $faker->name,
       'studentnick' => $faker->name,
       'studentactive' => $faker->boolean(),
+      'created_by' => 'System',
    ];
 });
 
@@ -188,6 +200,7 @@ $factory->define(App\Studentprofile::class, function(Faker\Generator $faker) {
       'guardianemail' => $faker->unique()->safeEmail,
       'parentaddress' => $faker->address,
       'parentNote' => $faker->sentence($nbWords = 18, $variableNbWords = true),
+      'created_by' => 'System',
    ];
 });
 
@@ -196,6 +209,7 @@ $factory->define(App\Year::class, function(Faker\Generator $faker) {
       'user_id' => $faker->randomDigit,
       'yearname' => $faker->name,
       'alias' => $faker->name,
+      'created_by' => 'System',
    ];
 });
 
@@ -204,5 +218,74 @@ $factory->define(App\Semester::class, function(Faker\Generator $faker) {
       'user_id' => $faker->randomDigit,
       'semestername' => $faker->name,
       'alias' => $faker->name,
+      'created_by' => 'System',
+   ];
+});
+
+$factory->define(App\Yearactive::class, function(Faker\Generator $faker) {
+   return [
+      'id' => $faker->randomDigit,
+      'year_id' => function() { return \App\Year::inRandomOrder()->first()->id; },
+      'semester_id' => function() { return \App\Semester::inRandomOrder()->first()->id; },
+      'created_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+      'updated_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+   ];
+});
+
+$factory->define(App\School::class, function(Faker\Generator $faker) {
+   return [
+      'schoolname' => $faker->randomDigit,
+      'principal' => function() { return \App\Employee::inRandomOrder()->first()->employeename; },
+      'viceprincipal' => function() { return \App\Employee::inRandomOrder()->first()->employeename; },
+      'address' => $faker->address,
+      'phone' => $faker->phoneNumber,
+      'email' => $faker->unique()->safeEmail,
+      'printdate' => '2018-12-12',
+      'created_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+      'updated_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+      'user_id' => function() { return \App\User::inRandomOrder()->first()->id; },
+   ];
+});
+
+$factory->define(App\Type::class, function(Faker\Generator $faker) {
+   return [
+      'id' => $faker->randomDigit,
+      'typename' => $faker->name,
+      'typedescription' => $faker->name,
+      'created_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+      'updated_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+   ];
+});
+
+$factory->define(App\Group::class, function(Faker\Generator $faker) {
+   return [
+      'id' => $faker->randomDigit,
+      'groupname' => $faker->name,
+      'groupdescription' => $faker->name,
+      'created_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+      'updated_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+   ];
+});
+
+$factory->define(App\Competency::class, function(Faker\Generator $faker) {
+   return [
+      'id' => $faker->randomDigit,
+      'competencyname' => $faker->name,
+      'competencydescription' => $faker->name,
+      'year_id' => function() { return \App\Year::inRandomOrder()->first()->id; },
+      'semester_id' => function() { return \App\Semester::inRandomOrder()->first()->id; },
+      'grade_id' => function() { return \App\Grade::inRandomOrder()->first()->id; },
+      'created_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+      'updated_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+   ];
+});
+
+$factory->define(App\Detail::class, function(Faker\Generator $faker) {
+   return [
+      'id' => $faker->randomDigit,
+      'detailname' => $faker->name,
+      'detaildescription' => $faker->name,
+      'created_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+      'updated_by' => function() { return \App\User::inRandomOrder()->first()->name; },
    ];
 });

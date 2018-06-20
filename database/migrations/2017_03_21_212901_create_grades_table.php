@@ -13,6 +13,7 @@ class CreateGradesTable extends Migration
             $table->increments('id');
             $table->string('gradename');
             $table->string('alias')->nullable();
+            $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')

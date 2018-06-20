@@ -50,7 +50,7 @@ class NoteController extends Controller
 
         $total_result = $result->total();
 
-        return view('notes.index', compact('result', 'query', 'users', '$pagination', 'users', 'total_result', 'request', 'segments'));
+        return view('contents.notes.index', compact('result', 'query', 'users', '$pagination', 'users', 'total_result', 'request', 'segments'));
     }
 
     public function publish()
@@ -67,7 +67,7 @@ class NoteController extends Controller
 
     public function create()
     {
-        return view('notes.create');
+        return view('contents.notes.create');
     }
 
     public function store(Request $request) {
@@ -116,7 +116,7 @@ class NoteController extends Controller
     {
       $note = Note::findOrFail($id);
 
-      return view('notes.show', compact('note'));
+      return view('contents.notes.show', compact('note'));
     }
 
     public function edit(Note $note)
@@ -125,7 +125,7 @@ class NoteController extends Controller
 
         $segment = array('Announcement', 'News', 'Event', 'Final', 'Holiday');
 
-        return view('notes.edit', compact('note', 'segment'));
+        return view('contents.notes.edit', compact('note', 'segment'));
     }
 
     public function update(Request $request, $id)

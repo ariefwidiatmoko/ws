@@ -17,6 +17,7 @@ class CreateClassroomsTable extends Migration
             $table->increments('id');
             $table->string('classroomname');
             $table->string('alias')->nullable();
+            $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->boolean('classroomactive')->default(1);
             $table->unsignedInteger('grade_id')->nullable();

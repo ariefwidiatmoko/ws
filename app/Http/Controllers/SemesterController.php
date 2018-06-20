@@ -13,12 +13,12 @@ class SemesterController extends Controller
     {
         $query = $request->get('search');
         $result = Semester::where('semestername', 'LIKE', '%' . $query . '%')->paginate(20);
-        return view('semesters.index', compact('result', 'query'));
+        return view('settings.semesters.index', compact('result', 'query'));
     }
 
     public function create()
     {
-        return view('semesters.create');
+        return view('settings.semesters.create');
     }
 
     public function store(Request $request)
@@ -55,7 +55,7 @@ class SemesterController extends Controller
     {
       $semester = Semester::findOrFail($id);
 
-      return view('semesters.edit', compact('semester'));
+      return view('settings.semesters.edit', compact('semester'));
     }
 
     public function update(Request $request, $id)

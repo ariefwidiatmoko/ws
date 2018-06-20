@@ -39,7 +39,7 @@ class EmployeeController extends Controller
 
       }
 
-      return view('employees.index', compact('result', 'query'));
+      return view('academics.employees.index', compact('result', 'query'));
     }
 
     public function statusActive()
@@ -59,7 +59,7 @@ class EmployeeController extends Controller
         $nowDate = Carbon::now()->toDateString();
         $positions = Position::all();
 
-        return view('employees.create', compact('positions', 'nowDate'));
+        return view('academics.employees.create', compact('positions', 'nowDate'));
     }
 
     public function store(Request $request)
@@ -112,7 +112,7 @@ class EmployeeController extends Controller
 
         $positions = Position::all();
 
-        return view('employees.edit', compact('employee', 'positions'));
+        return view('academics.employees.edit', compact('employee', 'positions'));
     }
 
     public function update(Request $request, $id)

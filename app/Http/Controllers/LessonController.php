@@ -55,7 +55,7 @@ class LessonController extends Controller
 
          $total_result = $result->total();
 
-         return view('lessons.index', compact('lessons', 'result', '$pagination', 'subjects', 'users', 'total_result', 'request'));
+         return view('contents.lessons.index', compact('lessons', 'result', '$pagination', 'subjects', 'users', 'total_result', 'request'));
 
     }
 
@@ -75,7 +75,7 @@ class LessonController extends Controller
     {
         $subjects = Subject::where('subjectactive', 1)->orderBy('subjectname')->get();
 
-        return view('lessons.create', compact('subjects'));
+        return view('contents.lessons.create', compact('subjects'));
     }
 
     public function store(Request $request) {
@@ -109,7 +109,7 @@ class LessonController extends Controller
     {
       $lesson = Lesson::findOrFail($id);
 
-      return view('lessons.show', compact('lesson'));
+      return view('contents.lessons.show', compact('lesson'));
     }
 
     public function edit(Lesson $lesson)
@@ -117,7 +117,7 @@ class LessonController extends Controller
         $lesson = Lesson::findOrFail($lesson->id);
         $subjects = Subject::where('subjectactive', 1)->orderBy('subjectname')->get();
 
-        return view('lessons.edit', compact('lesson', 'subjects'));
+        return view('contents.lessons.edit', compact('lesson', 'subjects'));
     }
 
     public function update(Request $request, $id)

@@ -2,50 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use DB;
-use App\Studentyear;
-use App\Student;
 use App\Classroom;
-use App\Year;
-use App\Semester;
-use App\Grade;
 use App\Classyear;
+use DB;
+use App\Employee;
+use App\Grade;
+use Illuminate\Http\Request;
+use App\Semester;
+use App\Student;
+use App\Studentyear;
+use App\Year;
+use App\Yearactive;
 
 class ClassroomstudentController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $yearactive = Yearactive::first();
         $students = DB::table('studentyears')
                         ->join('students', 'students.id', '=', 'studentyears.student_id')
                         ->join('grades', 'grades.id', '=', 'studentyears.grade_id')
                         ->join('years', 'years.id', '=', 'studentyears.year_id')
                         ->join('classrooms', 'classrooms.id', '=', 'studentyears.classroom_id')
                         ->join('semesters', 'semesters.id', '=', 'studentyears.semester_id')
-                        ->select('studentyears.id', 'studentyears.year_id', 'studentyears.grade_id', 'studentyears.semester_id', 'studentyears.classroom_id', 'classrooms.classroomname', 'years.yearname', 'grades.gradename')
-                        ->groupBy('classroom_id');
+                        ->select('studentyears.id', 'studentyears.year_id', 'studentyears.grade_id', 'studentyears.semester_id', 'studentyears.classroom_id', 'classrooms.classroomname', 'years.yearname', 'grades.gradename');
 
-        $result = $students->paginate(20);
+        if(isset($request->search)) {
+            $students->where('classroomname', 'like',  "%{$request->search}%");
+        }
 
-        return view('classroomstudent.index', compact('result'));
+        if(isset($request->year_id)) {
+            $students->where('year_id', 'like',  $request->year_id);
+        }
+
+        if(!isset($request->year_id)) {
+            $students->where('year_id', 'like',  $yearactive->year_id);
+        }
+
+        if(isset($request->grade_id)) {
+            $students->where('studentyears.grade_id', 'like',  $request->grade_id);
+        }
+
+        $years = Year::all();
+        $grades = Grade::all();
+
+        $request->flash();
+
+        $result = $students->groupBy('year_id')
+                           ->groupBy('classroom_id')
+                           ->paginate(20);
+
+        return view('academics.classroomstudent.index', compact('grades', 'request', 'result', 'years', 'yearactive'));
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
+    public function showDetail($id, $year_id)
     {
         $class = Classroom::findOrFail($id);
-
-
+        $cryear = Classyear::where('classroom_id', $id)->where('year_id', $year_id);
 
         $students = DB::table('studentyears')
                         ->join('students', 'students.id', '=', 'studentyears.student_id')
@@ -56,24 +70,22 @@ class ClassroomstudentController extends Controller
                         ->select('students.noId', 'students.noIdNational', 'students.studentname', 'students.studentactive', 'studentyears.id', 'studentyears.student_id', 'studentyears.year_id', 'studentyears.grade_id', 'studentyears.semester_id', 'studentyears.classroom_id', 'classrooms.classroomname', 'years.yearname', 'grades.gradename')
                         ->groupBy('student_id');
 
-        $result = $students->where('classroom_id', $id)->paginate(50);
-        $yr = $students->where('classroom_id', $id)->first();
+        $result = $students->where('classroom_id', $id)->where('year_id', $year_id)->paginate(50);
+        $classroomyear = $cryear->first();
+        $employees = Employee::where('employeeactive', 1)->get();
 
-        return view('classroomstudent.show', compact('class', 'result', 'yr'));
+        return view('academics.classroomstudent.show', compact('class', 'result', 'classroomyear', 'employees'));
     }
 
-    public function edit($id)
+    public function updateHomeroom(Request $request, $id)
     {
-        //
-    }
+        $classyears = Classyear::where('classroom_id', $request->classroom_id)->where('year_id', $request->year_id)->get();
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        foreach ($classyears as $index => $item) {
+          $item->employee_id = $request->employee_id;
+          $item->update();
+        }
 
-    public function destroy($id)
-    {
-        //
+        return response()->json($classyears);
     }
 }

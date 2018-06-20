@@ -13,12 +13,12 @@ class YearController extends Controller
     {
         $query = $request->get('search');
         $result = Year::where('yearname', 'LIKE', '%' . $query . '%')->paginate(20);
-        return view('years.index', compact('result', 'query'));
+        return view('settings.years.index', compact('result', 'query'));
     }
 
     public function create()
     {
-        return view('years.create');
+        return view('settings.years.create');
     }
 
     public function store(Request $request)
@@ -55,7 +55,7 @@ class YearController extends Controller
     {
       $year = Year::findOrFail($id);
 
-      return view('years.edit', compact('year'));
+      return view('settings.years.edit', compact('year'));
     }
 
     public function update(Request $request, $id)

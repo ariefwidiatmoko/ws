@@ -10,6 +10,7 @@ use App\Classyear;
 use App\Grade;
 use App\Year;
 use App\Semester;
+use DB;
 
 class ClassroomController extends Controller
 {
@@ -18,7 +19,9 @@ class ClassroomController extends Controller
     {
         $query = $request->get('search');
         $result = Classroom::where('classroomname', 'LIKE', '%' . $query . '%')->orderBy('classroomname')->paginate(20);
-        return view('classrooms.index', compact('result', 'query'));
+        $years = Year::all();
+
+        return view('settings.classrooms.index', compact('result', 'query', 'years'));
     }
 
     public function statusActive()
@@ -35,7 +38,7 @@ class ClassroomController extends Controller
 
     public function create()
     {
-        return view('classrooms.create');
+        return view('settings.classrooms.create');
     }
 
     public function store(Request $request)
@@ -66,19 +69,19 @@ class ClassroomController extends Controller
     public function show($id)
     {
         $classroom = Classroom::findOrFail($id);
-        $classyears = Classyear::all();
+        $classyears = Classyear::orderBy('year_id', 'desc')->get();
         $grades = Grade::all();
         $years = Year::all();
         $semesters = Semester::all();
 
-        return view('classrooms.show', compact('classroom', 'classyears', 'grades', 'years', 'semesters'));
+        return view('settings.classrooms.show', compact('classroom', 'classyears', 'grades', 'years', 'semesters'));
     }
 
     public function edit($id)
     {
       $classroom = Classroom::findOrFail($id);
 
-      return view('classrooms.edit', compact('classroom'));
+      return view('settings.classrooms.edit', compact('classroom'));
     }
 
     public function updateYear(Request $request, $id) {
@@ -191,5 +194,78 @@ class ClassroomController extends Controller
       );
 
       return redirect()->route('classrooms.index')->with($notification);
+    }
+
+    public function yearClassroom(Request $request) {
+
+      $crhave = Classyear::where('year_id', $request->year_id)->groupBy('classroom_id')->get();
+      $year = Year::findOrFail($request->year_id);
+
+      if(isset($crhave)) {
+
+        $cr_id = $crhave->pluck('classroom_id')->toArray();
+
+        $classrooms = DB::table('classrooms')->where('classroomactive', 1)->whereNotIn('id', $cr_id)->get();
+
+        $classIds = $classrooms->pluck('id')->toArray();
+
+        if (empty($classIds)) {
+
+            $notification = array(
+              'message' => 'Year academic '. $year->yearname .' already exist, no need to add same year academic',
+              'alert-type' => 'error'
+            );
+
+            return redirect()->route('classrooms.index')->with($notification);
+        }
+
+        foreach ($classIds as $index => $item) {
+          $classr = new Classyear;
+          $classr->classroom_id = $classIds[$index];
+          $classr->year_id = $request->year_id;
+          $classr->semester_id = 1;
+          $classr->save();
+
+          $classr = new Classyear;
+          $classr->classroom_id = $classIds[$index];
+          $classr->year_id = $request->year_id;
+          $classr->semester_id = 2;
+          $classr->save();
+        }
+
+            $notification = array(
+              'message' => 'Year academic '. $year->yearname .' succesfully added to some classroom',
+              'alert-type' => 'success'
+            );
+
+            return redirect()->route('classrooms.index')->with($notification);
+
+      } else {
+        $classrooms = DB::table('classrooms')->where('classroomactive', 1)->get();
+        $crIds = $classrooms->pluck('id')->all();
+
+        foreach ($crIds as $index => $item) {
+          $classyear = new Classyear;
+          $classyear->classroom_id = $crIds[$index];
+          $classyear->year_id = $request->year_id;
+          $classyear->semester_id = 1;
+          $classyear->save();
+
+          $classyear = new Classyear;
+          $classyear->classroom_id = $crIds[$index];
+          $classyear->year_id = $request->year_id;
+          $classyear->semester_id = 2;
+          $classyear->save();
+        }
+
+            $notification = array(
+              'message' => 'Year academic '. $year->yearname .' succesfully added to All Classroom',
+              'alert-type' => 'success'
+            );
+
+            return redirect()->route('classrooms.index')->with($notification);
+      }
+
+      return back();
     }
 }

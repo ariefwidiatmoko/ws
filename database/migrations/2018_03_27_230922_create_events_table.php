@@ -20,6 +20,8 @@ class CreateEventsTable extends Migration
             $table->boolean('allday')->default(1);
             $table->dateTime('event_start');
             $table->dateTime('event_end');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')->on('users')

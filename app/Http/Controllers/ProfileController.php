@@ -30,21 +30,14 @@ class ProfileController extends Controller
                     ->orderBy('id')
                     ->paginate(20);
 
-      return view('profiles.index', compact('result', 'query'));
-    }
-
-    public function show($id)
-    {
-      $profile = Profile::findOrFail($id);
-
-      return view('profiles.show', compact('profile'));
+      return view('usermanagements.profiles.index', compact('result', 'query'));
     }
 
     public function edit($id)
     {
       $profile = Profile::findOrFail($id);
 
-      return view('profiles.edit', compact('profile'));
+      return view('usermanagements.profiles.edit', compact('profile'));
     }
 
     public function update(Request $request, $id)
@@ -95,8 +88,8 @@ class ProfileController extends Controller
 
     public function myprofile($profilename)
     {
-        $user = User::whereProfilename($profilename)->first();
+        $user = User::whereName($profilename)->first();
 
-        return view('profiles.myprofile', compact('user'));
+        return view('usermanagements.profiles.myprofile', compact('user'));
     }
 }

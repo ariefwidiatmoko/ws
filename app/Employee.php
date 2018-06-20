@@ -15,7 +15,7 @@ class Employee extends Model
   	];
 
     protected $fillable = [
-        'noId', 'employeename','dob', 'phone', 'email', 'address', 'education', 'quote', 'about', 'avatar', 'employeective', 'created_by', 'updated_by', 'user_id',
+        'noId', 'employeename','dob', 'phone', 'email', 'address', 'education', 'quote', 'about', 'avatar', 'employeeactive', 'created_by', 'updated_by', 'user_id', 'month_id'
     ];
 
     protected $dates = ['dob'];
@@ -45,8 +45,8 @@ class Employee extends Model
         return $this->belongsToMany(Classroom::class);
     }
 
-    public function classyearsems() {
-        return $this->hasMany(Classyearsem::class);
+    public function classyears() {
+        return $this->hasMany(Classyear::class);
     }
 
     public function month()

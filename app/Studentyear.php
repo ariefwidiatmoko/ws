@@ -8,7 +8,7 @@ class Studentyear extends Model
 {
 
     protected $fillable = [
-        'student_id', 'year_id', 'semester_id', 'grade_id', 'classroom_id'
+        'student_id', 'sybatch_id', 'year_id', 'semester_id', 'grade_id', 'classroom_id', 'created_by', 'updated_by', 'user_id'
     ];
 
     public function student()
@@ -26,8 +26,18 @@ class Studentyear extends Model
         return $this->belongsTo(Classroom::class);
     }
 
-    public function subjectscores()
+    public function typescores()
     {
-        return $this->hasMany(Subjectscore::class);
+        return $this->hasMany(Typescore::class);
+    }
+
+    public function groupdetails()
+    {
+        return $this->hasMany(Groupdetail::class);
+    }
+
+    public function detailscores()
+    {
+        return $this->hasMany(Detailscore::class);
     }
 }

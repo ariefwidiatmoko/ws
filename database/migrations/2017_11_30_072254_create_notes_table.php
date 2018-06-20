@@ -20,6 +20,7 @@ class CreateNotesTable extends Migration
             $table->text('description');
             $table->string('image')->nullable();
             $table->boolean('noteactive')->default(0);
+            $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')

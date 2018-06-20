@@ -21,7 +21,7 @@ class SubjectController extends Controller
                       ->orWhere('alias', 'like', '%'.$query.'%')
                       ->orderBy('subjectname')
                       ->paginate(20);
-        return view('subjects.index', compact('result', 'query'));
+        return view('settings.subjects.index', compact('result', 'query'));
     }
 
     public function publish()
@@ -38,7 +38,7 @@ class SubjectController extends Controller
 
     public function create()
     {
-        return view('subjects.create');
+        return view('settings.subjects.create');
     }
 
     public function store(Request $request) {
@@ -63,16 +63,11 @@ class SubjectController extends Controller
       return redirect()->route('subjects.index');
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     public function edit(Subject $subject)
     {
       $subject = Subject::findOrFail($subject->id);
 
-      return view('subjects.edit', compact('subject'));
+      return view('settings.subjects.edit', compact('subject'));
     }
 
     public function update(Request $request, $id) {

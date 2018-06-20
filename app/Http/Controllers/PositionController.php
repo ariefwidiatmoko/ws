@@ -38,7 +38,7 @@ class PositionController extends Controller
                       ->paginate(20);
       };
 
-      return view('positions.index', compact('result', 'query'));
+      return view('academics.positions.index', compact('result', 'query'));
     }
 
     public function publish()
@@ -55,7 +55,7 @@ class PositionController extends Controller
 
     public function create()
     {
-        return view('positions.create');
+        return view('academics.positions.create');
     }
 
     public function store(Request $request)
@@ -85,14 +85,14 @@ class PositionController extends Controller
     {
         $position = Position::findOrFail($id);
 
-        return view('positions.show', compact('position'));
+        return view('academics.positions.show', compact('position'));
     }
 
     public function edit(Position $position)
     {
         $position = Position::findOrFail($position->id);
 
-        return view('positions.edit', compact('position'));
+        return view('academics.positions.edit', compact('position'));
     }
 
     public function update(Request $request, $id)

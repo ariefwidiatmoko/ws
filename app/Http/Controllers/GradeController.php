@@ -14,14 +14,14 @@ class GradeController extends Controller
     {
         $query = $request->get('search');
         $result = Grade::where('gradename', 'LIKE', '%' . $query . '%')->paginate(20);
-        return view('grades.index', compact('result', 'query'));
+        return view('settings.grades.index', compact('result', 'query'));
     }
 
     public function create()
     {
         $years = Year::all();
 
-        return view('grades.create', compact('years'));
+        return view('settings.grades.create', compact('years'));
     }
 
     public function store(Request $request)
@@ -54,14 +54,14 @@ class GradeController extends Controller
 
         $grade = Grade::findOrFail($id);
 
-        return view('grades.show', compact('grade'));
+        return view('settings.grades.show', compact('grade'));
     }
 
     public function edit($id)
     {
       $grade = Grade::findOrFail($id);
 
-      return view('grades.edit', compact('grade'));
+      return view('settings.grades.edit', compact('grade'));
     }
 
     public function update(Request $request, $id)

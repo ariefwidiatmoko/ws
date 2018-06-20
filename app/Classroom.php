@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Classroom extends Model
 {
   protected $fillable = [
-      'classroomname','alias', 'classroomactive', 'grade_id', 'user_id'
+      'classroomname','alias', 'classroomactive', 'grade_id', 'user_id', 'created_by', 'updated_by'
   ];
 
   public function setClassroomActiveAttribute($value)
@@ -36,5 +36,9 @@ class Classroom extends Model
 
   public function classyears() {
       return $this->hasMany(Classyear::class);
+  }
+
+  public function classsubjects() {
+      return $this->hasMany(Classsubject::class);
   }
 }

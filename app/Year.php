@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Year extends Model
 {
   protected $fillable = [
-      'yearname','alias', 'user_id'
+      'yearname','alias', 'user_id', 'created_by', 'updated_by'
   ];
 
   public function user()
@@ -26,5 +26,9 @@ class Year extends Model
   public function yearactive()
   {
       return $this->hasOne(Yearactive::class);
+  }
+
+  public function classsubjects() {
+      return $this->hasMany(Classsubject::class);
   }
 }

@@ -16,7 +16,7 @@ class User extends Authenticatable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'created_by', 'updated_by'
     ];
 
     protected $hidden = [
@@ -75,6 +75,11 @@ class User extends Authenticatable
     public function yearactive()
     {
         return $this->hasOne(Yearactive::class);
+    }
+
+    public function schools()
+    {
+        return $this->hasMany(School::class);
     }
 
     public function setPasswordAttribute($value) {

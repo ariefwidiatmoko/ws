@@ -11,10 +11,11 @@
   </style>
 @endsection
 
-@section('title', 'Contacts')
+@section('title', 'Employee\'s Contacts')
 
 @section('navmenu')
   <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a class="active">Contact</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
   <a class="active">@yield('title')</a>
 @endsection
 
@@ -66,11 +67,11 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="box-body no-padding">
-                @if(isset($birthmonth))
+                @if($birthmonth->count() > 0)
                   <div class="col-sm-12">
                     <!-- small box -->
-                    <div class="bg-grey" style="color: white; background-color: #0091EA; margin: 5px 15px 5px 15px; padding: 2px 60px 2px 60px; box-shadow: 0 8px 6px -6px grey;">
-                      <div class="inner">
+                    <div class="col-md-3 bg-grey" style="color: white; background-color: #0091EA; margin: 5px 15px 5px 15px; padding: 2px 60px 2px 60px; box-shadow: 0 8px 6px -6px grey;">
+                      <div class="inner text-center">
                         <h4><b>Have Birthday at this Month</b></h4>
                       </div>
                     </div>
@@ -78,15 +79,23 @@
                   <ul class="users-list clearfix hidden-xs hidden-sm">
                   @foreach ($birthmonth as $index => $item)
                       <li>
-                        <button class="show-modal" style="background-color: #fff; border: none;" data-avatar="{{$item->avatar}}" data-employeename="{{$item->employeename}}" data-dob="{{$item->dob}}" data-phone="{{$item->phone}}" data-email="{{$item->email}}" data-address="{{$item->address}}" data-education="{{$item->education}}">
+                        <button class="show-modal"
+                                style="background-color: #fff; border: none;"
+                                data-avatar="@if(isset($item->avatar)) {{$item->avatar}} @else @endif"
+                                data-employeename="@if(isset($item->employeename)) {{$item->employeename}} @else @endif"
+                                data-dob="@if(isset($item->dob)) {{$item->dob}} @else @endif"
+                                data-phone="@if(isset($item->phone)) {{$item->phone}} @else @endif"
+                                data-email="@if(isset($item->email)) {{$item->email}} @else @endif"
+                                data-address="@if(isset($item->address)) {{$item->address}} @else @endif"
+                                data-education="@if(isset($item->education)) {{$item->education}} @else @endif">
                         @if(isset($item->avatar))
                           <img src="/images/employees/{{ $item->avatar }}" alt="User Image">
                         @else
                           <img src="{{ asset('images/avatar/default.jpg') }}" alt="User Image">
                         @endif
-                        <a class="users-list-name" href="#">{{$item->employeename}}</a>
-                        <span class="users-list-date"><b>{{$item->dob->format('d M')}}</b></span>
-                        <span class="users-list-date"><b>{{$item->phone}}</b></span></button>
+                        <a class="users-list-name" href="#">@if(isset($item->employeename)) {{$item->employeename}} @else @endif</a>
+                        <span class="users-list-date"><b>@if(isset($item->dob)) {{$item->dob->format('d M')}} @else @endif</b></span>
+                        <span class="users-list-date"><b>@if(isset($item->phone)) {{$item->phone}} @else @endif</b></span></button>
                       </li>
                   @endforeach
                   </ul>

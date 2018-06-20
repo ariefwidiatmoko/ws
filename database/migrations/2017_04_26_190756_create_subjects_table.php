@@ -18,6 +18,7 @@ class CreateSubjectsTable extends Migration
             $table->integer('no_subject')->nullable();
             $table->string('subjectname');
             $table->string('alias');
+            $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->boolean('subjectactive')->default(0);
             $table->timestamps();

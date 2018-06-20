@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-  protected $fillable = ['subjectname', 'alias', 'user_id', 'updated_by', 'subjectactive'];
+  protected $fillable = ['no_subject', 'subjectname', 'alias', 'user_id', 'created_by', 'updated_by', 'subjectactive'];
 
   public function setSubjectActiveAttribute($value)
   {
@@ -18,17 +18,12 @@ class Subject extends Model
       return $this->hasMany(Lesson::class);
   }
 
-  public function subjectscores() {
-      return $this->hasMany(Subjectscore::class);
-  }
-
   public function user()
   {
       return $this->belongsTo(User::class);
   }
 
-  public function setLiveAttribute($value)
-  {
-    $this->attributes['live'] = (boolean)($value);
+  public function classsubjects() {
+      return $this->hasMany(Classsubject::class);
   }
 }

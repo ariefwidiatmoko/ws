@@ -52,17 +52,20 @@ class DatabaseSeeder extends Seeder
           'name' => 'superadmin',
           'email' => 'ariefwidiatmoko@gmail.com',
           'password' => 'secret',
+          'created_by' => 'System',
         ])->assignRole('Admin');
 
         factory(App\User::class)->create([
           'name' => 'superadmin2',
           'email' => 'superadmin2@gmail.com',
           'password' => 'secret',
+          'created_by' => 'System',
         ])->assignRole('Admin');
 
         factory(App\User::class)->create([
           'name' => 'user',
           'password' => 'secret',
+          'created_by' => 'System',
         ])->assignRole('User');
 
         $this->command->info('Here is your admin details to login:');
@@ -75,72 +78,84 @@ class DatabaseSeeder extends Seeder
           'noId' => '01',
           'monthname' => 'January',
           'alias' => 'Jan',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '02',
           'monthname' => 'February',
           'alias' => 'Feb',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '03',
           'monthname' => 'March',
           'alias' => 'Mar',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '04',
           'monthname' => 'April',
           'alias' => 'Apr',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '05',
           'monthname' => 'May',
           'alias' => 'May',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '06',
           'monthname' => 'June',
           'alias' => 'Jun',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '07',
           'monthname' => 'July',
           'alias' => 'Jul',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '08',
           'monthname' => 'August',
           'alias' => 'Aug',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '09',
           'monthname' => 'September',
           'alias' => 'Sep',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '10',
           'monthname' => 'October',
           'alias' => 'Oct',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '11',
           'monthname' => 'November',
           'alias' => 'Nov',
+          'created_by' => 'System',
         ]);
 
         factory(App\Month::class)->create([
           'noId' => '12',
           'monthname' => 'December',
           'alias' => 'Dec',
+          'created_by' => 'System',
         ]);
 
         factory(App\Profile::class)->create([
@@ -151,7 +166,8 @@ class DatabaseSeeder extends Seeder
           'education' => 'Sarjana Pertanian IPB',
           'address' => 'Bogor, Indonesia',
           'about' => 'Passion in Coding, May Coding in You',
-          'avatar' => 'owner.jpg'
+          'avatar' => 'owner.jpg',
+          'created_by' => 'System',
         ]);
 
         factory(App\Profile::class)->create([
@@ -162,25 +178,30 @@ class DatabaseSeeder extends Seeder
           'education' => 'S1',
           'address' => 'Indonesia',
           'about' => 'Always Forever Selalu',
-          'avatar' => 'owner.jpg'
+          'avatar' => 'owner.jpg',
+          'created_by' => 'System',
         ]);
         factory(App\Profile::class)->create([
           'user_id' => '3',
+          'created_by' => 'System',
         ]);
         factory(App\Grade::class)->create([
           'user_id' => '1',
           'gradename' => '7',
           'alias' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Grade::class)->create([
           'user_id' => '1',
           'gradename' => '8',
           'alias' => '2',
+          'created_by' => 'System',
         ]);
         factory(App\Grade::class)->create([
           'user_id' => '1',
           'gradename' => '9',
           'alias' => '3',
+          'created_by' => 'System',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
@@ -188,6 +209,7 @@ class DatabaseSeeder extends Seeder
           'alias' => '1A',
           'classroomactive' => '1',
           'grade_id' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
@@ -195,6 +217,7 @@ class DatabaseSeeder extends Seeder
           'alias' => '1B',
           'classroomactive' => '1',
           'grade_id' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
@@ -202,6 +225,7 @@ class DatabaseSeeder extends Seeder
           'alias' => '1C',
           'classroomactive' => '1',
           'grade_id' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
@@ -209,6 +233,7 @@ class DatabaseSeeder extends Seeder
           'alias' => '2A',
           'classroomactive' => '1',
           'grade_id' => '2',
+          'created_by' => 'System',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
@@ -216,6 +241,7 @@ class DatabaseSeeder extends Seeder
           'alias' => '2B',
           'classroomactive' => '1',
           'grade_id' => '2',
+          'created_by' => 'System',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
@@ -223,6 +249,7 @@ class DatabaseSeeder extends Seeder
           'alias' => '2C',
           'classroomactive' => '1',
           'grade_id' => '2',
+          'created_by' => 'System',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
@@ -230,6 +257,7 @@ class DatabaseSeeder extends Seeder
           'alias' => '3A',
           'classroomactive' => '1',
           'grade_id' => '3',
+          'created_by' => 'System',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
@@ -237,6 +265,7 @@ class DatabaseSeeder extends Seeder
           'alias' => '3B',
           'classroomactive' => '1',
           'grade_id' => '3',
+          'created_by' => 'System',
         ]);
         factory(App\Classroom::class)->create([
           'user_id' => '1',
@@ -244,152 +273,180 @@ class DatabaseSeeder extends Seeder
           'alias' => '3C',
           'classroomactive' => '1',
           'grade_id' => '3',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '1',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '1',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '2',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '2',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '2',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '2',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '3',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '3',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '2',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '4',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '4',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '2',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '5',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '5',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '2',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '6',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Classyear::class)->create([
           'classroom_id' => '6',
-          'year_id' => '2',
+          'year_id' => '1',
           'semester_id' => '2',
+          'created_by' => 'System',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',
-          'subjectname' => 'AGM',
-          'alias' => 'Agama',
+          'alias' => 'AGM',
+          'subjectname' => 'Agama',
           'subjectactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',
-          'subjectname' => 'BHS',
-          'alias' => 'Bahasa Indonesia',
+          'alias' => 'BHS',
+          'subjectname' => 'Bahasa Indonesia',
           'subjectactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',
-          'subjectname' => 'PKn',
-          'alias' => 'Pendidikan Kewarganegaraan',
+          'alias' => 'PKn',
+          'subjectname' => 'Pendidikan Kewarganegaraan',
           'subjectactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',
-          'subjectname' => 'MAT',
-          'alias' => 'Matematika',
+          'alias' => 'MAT',
+          'subjectname' => 'Matematika',
           'subjectactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',
-          'subjectname' => 'PJK',
-          'alias' => 'Pendidikan Jasmani Kesehatan',
+          'alias' => 'PJK',
+          'subjectname' => 'Pendidikan Jasmani Kesehatan',
           'subjectactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',
-          'subjectname' => 'SAINS',
-          'alias' => 'Ilmu Pengetahuan Alam',
+          'alias' => 'SAINS',
+          'subjectname' => 'Ilmu Pengetahuan Alam',
           'subjectactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',
-          'subjectname' => 'SOSIAL',
-          'alias' => 'Ilmu Pengetahuan Sosial',
+          'alias' => 'SOSIAL',
+          'subjectname' => 'Ilmu Pengetahuan Sosial',
           'subjectactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',
-          'subjectname' => 'SENI',
-          'alias' => 'Seni dan Budaya',
+          'alias' => 'SENI',
+          'subjectname' => 'Seni dan Budaya',
           'subjectactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',
-          'subjectname' => 'JAWA',
-          'alias' => 'Bahasa Jawa',
+          'alias' => 'JAWA',
+          'subjectname' => 'Bahasa Jawa',
           'subjectactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Subject::class)->create([
           'user_id' => '1',
-          'subjectname' => 'ITK',
-          'alias' => 'Ilmu Teknologi dan Komputer',
+          'alias' => 'ITK',
+          'subjectname' => 'Ilmu Teknologi dan Komputer',
           'subjectactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Position::class)->create([
           'user_id' => '1',
           'positionname' => 'Administration',
           'positionactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Position::class)->create([
           'user_id' => '1',
           'positionname' => 'Home Teacher',
           'positionactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Position::class)->create([
           'user_id' => '1',
           'positionname' => 'Principal',
           'positionactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Position::class)->create([
           'user_id' => '1',
           'positionname' => 'Teacher',
           'positionactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(App\Employee::class)->create([
           'user_id' => '1',
           'month_id' => '02',
           'dob' => '2000-02-17',
           'employeeactive' => '1',
+          'created_by' => 'System',
         ])->each(function ($employee) {
           $boolean = random_int(0, 1);
 
@@ -409,6 +466,7 @@ class DatabaseSeeder extends Seeder
           'employeeactive' => '1',
           'month_id' => '02',
           'dob' => '1999-02-17',
+          'created_by' => 'System',
         ])->each(function ($employee) {
           $boolean = random_int(0, 1);
 
@@ -428,6 +486,7 @@ class DatabaseSeeder extends Seeder
           'employeeactive' => '1',
           'month_id' => '10',
           'dob' => '1998-10-27',
+          'created_by' => 'System',
         ])->each(function ($employee) {
           $boolean = random_int(0, 1);
 
@@ -447,6 +506,7 @@ class DatabaseSeeder extends Seeder
           'employeeactive' => '1',
           'month_id' => '07',
           'dob' => '1997-07-17',
+          'created_by' => 'System',
         ])->each(function ($employee) {
           $boolean = random_int(0, 1);
 
@@ -466,6 +526,7 @@ class DatabaseSeeder extends Seeder
           'employeeactive' => '1',
           'month_id' => '04',
           'dob' => '1997-04-17',
+          'created_by' => 'System',
         ])->each(function ($employee) {
           $boolean = random_int(0, 1);
 
@@ -485,6 +546,7 @@ class DatabaseSeeder extends Seeder
           'employeeactive' => '1',
           'month_id' => '06',
           'dob' => '1996-06-17',
+          'created_by' => 'System',
         ])->each(function ($employee) {
           $boolean = random_int(0, 1);
 
@@ -504,6 +566,7 @@ class DatabaseSeeder extends Seeder
           'employeeactive' => '1',
           'month_id' => '03',
           'dob' => '1999-03-17',
+          'created_by' => 'System',
         ])->each(function ($employee) {
           $boolean = random_int(0, 1);
 
@@ -526,105 +589,288 @@ class DatabaseSeeder extends Seeder
           'description' => 'Jadwal Ujian untuk Semester 2 Tahun Ajaran 2017/2018',
           'image' => 'webtitle_default.jpg',
           'noteactive' => '1',
+          'created_by' => 'System',
         ]);
         // now lets seed some lessons for demo
         factory(\App\Lesson::class)->create([
           'user_id' => '1',
           'lessontitle' => 'Pengenalan Matematika Dasar',
           'lessonactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(\App\Lesson::class)->create([
           'user_id' => '1',
           'lessontitle' => 'Belajar Sains Melalui Lingkungan Sekitar',
           'lessonactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(\App\Lesson::class)->create([
           'user_id' => '1',
           'lessontitle' => 'Mempraktekkan Doa dalam Keseharian',
           'lessonactive' => '1',
+          'created_by' => 'System',
         ]);
         factory(\App\Lesson::class, 100)->create();
-        factory(\App\Student::class, 30)->create();
-        factory(\App\Studentprofile::class, 5)->create([
-          'month_id' => '10',
-          'dob' => '2005-10-21',
-        ]);
-        factory(\App\Studentprofile::class, 5)->create([
-          'month_id' => '05',
-          'dob' => '2010-05-12',
-        ]);
-        factory(\App\Studentprofile::class, 5)->create([
-          'month_id' => '07',
-          'dob' => '2009-07-09',
-        ]);
-        factory(\App\Studentprofile::class, 5)->create([
-          'month_id' => '04',
-          'dob' => '2008-04-22',
-        ]);
-        factory(\App\Studentprofile::class, 5)->create([
-          'month_id' => '09',
-          'dob' => '2008-09-09',
-        ]);
-        factory(\App\Studentprofile::class, 5)->create([
-          'month_id' => '11',
-          'dob' => '2008-11-28',
-        ]);
-        factory(\App\Year::class)->create([
-          'user_id' => '1',
-          'yearname' => '2017/2018',
-          'alias' => '1718',
-        ]);
         factory(\App\Year::class)->create([
           'user_id' => '1',
           'yearname' => '2018/2019',
           'alias' => '1819',
+          'created_by' => 'System',
         ]);
         factory(\App\Year::class)->create([
           'user_id' => '1',
           'yearname' => '2019/2020',
           'alias' => '1920',
+          'created_by' => 'System',
         ]);
         factory(\App\Year::class)->create([
           'user_id' => '1',
           'yearname' => '2020/2021',
           'alias' => '2021',
+          'created_by' => 'System',
         ]);
         factory(\App\Year::class)->create([
           'user_id' => '1',
           'yearname' => '2021/2022',
           'alias' => '2122',
+          'created_by' => 'System',
         ]);
         factory(\App\Year::class)->create([
           'user_id' => '1',
           'yearname' => '2022/2023',
           'alias' => '2223',
+          'created_by' => 'System',
         ]);
         factory(\App\Year::class)->create([
           'user_id' => '1',
           'yearname' => '2023/2024',
           'alias' => '2324',
+          'created_by' => 'System',
         ]);
         factory(\App\Year::class)->create([
           'user_id' => '1',
           'yearname' => '2024/2025',
           'alias' => '2425',
+          'created_by' => 'System',
         ]);
         factory(\App\Year::class)->create([
           'user_id' => '1',
           'yearname' => '2025/2026',
           'alias' => '2526',
+          'created_by' => 'System',
         ]);
         factory(\App\Semester::class)->create([
           'user_id' => '1',
           'semestername' => 'Semester 1',
           'alias' => 'Sem 1',
+          'created_by' => 'System',
         ]);
         factory(\App\Semester::class)->create([
           'user_id' => '1',
           'semestername' => 'Semester 2',
           'alias' => 'Sem 2',
+          'created_by' => 'System',
         ]);
-        $this->command->info('Some Subjects, Lessons, Years, Semester data seeded.');
+        factory(\App\Yearactive::class)->create([
+          'id' => '1',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'created_by' => function() { return \App\User::first()->name; },
+          'updated_by' => function() { return \App\User::first()->name; },
+          'user_id' => function() { return \App\User::first()->id; },
+          'created_by' => 'System',
+        ]);
+        factory(\App\School::class)->create([
+          'id' => '1',
+          'schoolname' => 'Sekolah Alfa',
+          'principal' => function() { return \App\Employee::inRandomOrder()->first()->employeename; },
+          'viceprincipal' => function() { return \App\Employee::inRandomOrder()->first()->employeename; },
+          'address' => 'Jalan Raya Kemenangan Merdeka Barat Jakarta',
+          'phone' => '021 65746321',
+          'email' => 'info@sekolahalfa.co.id',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Type::class)->create([
+          'id' => '1',
+          'typename' => 'KI-1',
+          'typedescription' => 'Spiritual',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Type::class)->create([
+          'id' => '2',
+          'typename' => 'KI-2',
+          'typedescription' => 'Sikap',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Type::class)->create([
+          'id' => '3',
+          'typename' => 'KI-3',
+          'typedescription' => 'Pengetahuan',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Type::class)->create([
+          'id' => '4',
+          'typename' => 'KI-4',
+          'typedescription' => 'Ketrampilan',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Group::class)->create([
+          'id' => '1',
+          'groupname' => 'NH',
+          'groupdescription' => 'Nilai Harian',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Group::class)->create([
+          'id' => '2',
+          'groupname' => 'NA',
+          'groupdescription' => 'Nilai Akhir',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '1',
+          'competencyname' => 'KD3.1',
+          'competencydescription' => 'KD3.1',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '2',
+          'competencyname' => 'KD3.2',
+          'competencydescription' => 'KD3.2',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '3',
+          'competencyname' => 'KD3.3',
+          'competencydescription' => 'KD3.3',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '4',
+          'competencyname' => 'KD3.4',
+          'competencydescription' => 'KD3.4',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '5',
+          'competencyname' => 'KD3.5',
+          'competencydescription' => 'KD3.5',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '6',
+          'competencyname' => 'KD3.6',
+          'competencydescription' => 'KD3.6',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '7',
+          'competencyname' => 'KD4.1',
+          'competencydescription' => 'KD4.1',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '8',
+          'competencyname' => 'KD4.2',
+          'competencydescription' => 'KD4.2',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '9',
+          'competencyname' => 'KD4.3',
+          'competencydescription' => 'KD4.3',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '10',
+          'competencyname' => 'KD4.4',
+          'competencydescription' => 'KD4.4',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '11',
+          'competencyname' => 'KD4.5',
+          'competencydescription' => 'KD4.5',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competency::class)->create([
+          'id' => '12',
+          'competencyname' => 'KD4.6',
+          'competencydescription' => 'KD4.6',
+          'year_id' => '1',
+          'semester_id' => '1',
+          'grade_id' => '1',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Detail::class)->create([
+          'id' => '1',
+          'detailname' => 'UH',
+          'detaildescription' => 'Ulangan Harian',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Detail::class)->create([
+          'id' => '2',
+          'detailname' => 'QZ',
+          'detaildescription' => 'Quiz',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Detail::class)->create([
+          'id' => '3',
+          'detailname' => 'TG',
+          'detaildescription' => 'Tugas',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Detail::class)->create([
+          'id' => '4',
+          'detailname' => 'PK',
+          'detaildescription' => 'Praktek',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Detail::class)->create([
+          'id' => '5',
+          'detailname' => 'UT',
+          'detaildescription' => 'Ujian Akhir',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Detail::class)->create([
+          'id' => '6',
+          'detailname' => 'UP',
+          'detaildescription' => 'Ujian Praktek',
+          'created_by' => 'System',
+        ]);
+        $this->command->info('Some Dummy Data are successfully seeded.');
         $this->command->warn('All done :)');
     }
 

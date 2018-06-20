@@ -20,6 +20,8 @@ class CreateStudentsTable extends Migration
             $table->string('studentname');
             $table->string('studentnick')->nullable();
             $table->boolean('studentactive')->default(1);
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')->on('users')

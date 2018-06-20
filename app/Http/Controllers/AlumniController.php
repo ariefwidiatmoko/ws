@@ -27,17 +27,7 @@ class AlumniController extends Controller
 
         $request->flash();
 
-        return view('alumni.index', compact('students', 'result', 'request'));
-    }
-
-    public function create()//
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
+        return view('academics.alumni.index', compact('students', 'result', 'request'));
     }
 
     public function show($id)
@@ -54,21 +44,6 @@ class AlumniController extends Controller
 
         $histories = $hist->where('student_id', $id)->get();
 
-        return view('alumni.show', compact('student', 'hist', 'histories'));
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+        return view('academics.alumni.show', compact('student', 'hist', 'histories'));
     }
 }
