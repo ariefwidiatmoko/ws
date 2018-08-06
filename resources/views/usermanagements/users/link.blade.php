@@ -7,13 +7,28 @@
 @endsection
 
 @section('navmenu')
-  <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
-  <a href="{{ route('users.index') }}">Users</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('home') }}" title="Dashboard"><i class="fa fa-home fa-fw"></i></a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a>User Managements</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('users.index') }}">Users</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
   <a class="active" style="color: grey;">@yield('title')</a>
 @endsection
 
 @section('button')
-  <a href="{{ route('users.index') }}" class="btn btn-xs btn-default">Back</a>
+  <div class="row">
+    <div class="btn-group" role="group" style="margin-left: -10px;">
+      <div class="col-xs-1 margin">
+        <a href="{{ route('users.index') }}" class="btn btn-xs btn-default">Back</a>
+      </div>
+      <div class="col-xs-1 margin">
+        {!! Form::open( ['method' => 'delete', 'url' => route('users.updateLink', $user->id), 'onSubmit' => 'return confirm("Are yous sure wanted to delete the link?")']) !!}
+          {{ method_field('PUT') }}
+          {{ csrf_field() }}
+          <input type="hidden" name="employee_id" value="">
+          <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash-o fa-fw"></i>Link</button>
+        {!! Form::close() !!}
+      </div>
+    </div>
+  </div>
 @endsection
 
 
@@ -35,7 +50,6 @@
     <hr>
     <!-- /.box-header -->
     <div class="box-body" style="margin-left: 15px; margin-right: 15px;">
-    @if(empty($user->employee))
       <form enctype="multipart/form-data" role="form" action="{{ route('users.updateLink', $user->id) }}" method="POST">
         {{ method_field('PUT') }}
         {{ csrf_field() }}
@@ -47,9 +61,11 @@
           <div class="form-group">
               <label>Link "{{ucwords($user->name)}}" to Employee</label>
               <select class="form-control" name="employee_id">
-                <option value="">@if(isset($user->employee)) {{$user->employee->employeename}} @else Select Employee @endif</option>
+                @if (empty($user->employee_id))
+                  <option value="">Select Employee</option>
+                @endif
                 @foreach ($employees as $item)
-                  <option value="{{ $item->id }}">{{ ucwords($item->employeename) }}</option>
+                  <option value="{{ $item->id }}" {{$user->employee_id == $item->id ? 'select' : ''}}>{{ ucwords($item->employeename) }}</option>
                 @endforeach
               </select>
           </div>
@@ -61,28 +77,12 @@
             <a href="{{ route('users.index') }}" type="button" class="btn btn-default btn-xs">Cancel</a>
           </div>
         </form>
-      @else
-        <form enctype="multipart/form-data" role="form" action="{{ route('users.deleteLink', $user->id) }}" method="POST">
-          {{ method_field('PUT') }}
-          {{ csrf_field() }}
-          <!-- Delete Link to employee -->
-          <div class="form-group">
-            <label>Delete link {{ucwords($user->name)}}</label>
-            <div class="form-control">
-              <p>to <b>{{$user->employee->employeename}}</b></p>
-            </div>
-          </div>
-          <div class="">
-            <br>
-            <!-- Submit Form Button -->
-            {!! Form::submit('Delete', ['class' => 'btn btn-xs btn-danger']) !!}
-            <!-- Back Button -->
-            <a href="{{ route('users.index') }}" type="button" class="btn btn-default btn-xs">Cancel</a>
-          </div>
-        </form>
-      @endif
     </div>
     <!-- /.box-body -->
   </div>
 </div>
+@endsection
+
+@section('scripts')
+    @include('shared._part_notification')
 @endsection

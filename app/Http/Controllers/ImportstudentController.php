@@ -14,6 +14,7 @@ use App\Semester;
 use App\Grade;
 use App\Classroom;
 use App\Studentyear;
+use App\Studentprofile;
 use DB;
 
 class ImportstudentController extends Controller
@@ -52,7 +53,7 @@ class ImportstudentController extends Controller
 
         $request->flash();
 
-        return view('settings.importstudents.index', compact('result', 'query', 'years', 'grades', 'classrooms', 'students', 'input', 'request'));
+        return view('academics.importstudents.index', compact('result', 'query', 'years', 'grades', 'classrooms', 'students', 'input', 'request'));
     }
 
     public function import(Request $request) {
@@ -83,22 +84,26 @@ class ImportstudentController extends Controller
 
           $count = count($rows);
 
+          $arraydata = array();
+
         foreach($rows as $row) {
           $row = array_combine($header, $row);
           //For handle Duplication Entry Error
           try{
 
-              $students = Student::create([
+              $student = Student::create([
                             'noId' => $row['ID'],
                             'noIdNational' => $row['ID National'],
                             'studentname' => $row['Name'],
                             'studentnick' => $row['Nick Name'],
                             'studentactive' => 1,
                             'user_id' => Auth::user()->id,
+                            'created_by' => Auth::user()->name,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                         ]);
 
+              $arraydata[] = $student->id;
           }catch(\Exception $exception) {
 
                 $notification = array(
@@ -125,6 +130,8 @@ class ImportstudentController extends Controller
                             'year_id' => $years[$row['Year']],
                             'semester_id' => 1,
                             'grade_id' => $grades[$row['Grade']],
+                            'user_id' => Auth::user()->id,
+                            'created_by' => Auth::user()->name,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                         ]);
@@ -134,9 +141,19 @@ class ImportstudentController extends Controller
                             'year_id' => $years[$row['Year']],
                             'semester_id' => 2,
                             'grade_id' => $grades[$row['Grade']],
+                            'user_id' => Auth::user()->id,
+                            'created_by' => Auth::user()->name,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                         ]);
+            }
+
+            foreach ($arraydata as $index => $item) {
+                $studentprofile = new Studentprofile;
+                $studentprofile->student_id = $item;
+                $studentprofile->user_id = Auth::user()->id;
+                $studentprofile->created_by = Auth::user()->name;
+                $studentprofile->save();
             }
 
         $notification = array(
@@ -146,17 +163,5 @@ class ImportstudentController extends Controller
 
         return redirect()->back()->with($notification);
         }
-    }
-
-    public function allocateStudentCR(Request $request, $id) {
-      $st = Studentyear::findOrFail($id);
-      $class = Classroom::where('classroomname', $request->classroomname)->first();
-
-      $st->classroom_id = $class->id;
-      $st->update();
-
-      $student = array(['index' => $request->index, 'classroomname' => $class->classroomname]);
-
-      return response()->json($student);
     }
 }

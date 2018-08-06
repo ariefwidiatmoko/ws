@@ -53,17 +53,6 @@
     <input value="{{ $student->studentprofile->email }}" type="text" placeholder="Email" class="form-control" name="email">
   </div>
 </div>
-<!-- statusActive -->
-<div class="form-group">
-  <div class="checkbox">
-      <div class="col-sm-offset-3 col-sm-9">
-        <label>
-        <input type="checkbox" name="studentactive" checked>
-        Active
-      </label>
-      </div>
-  </div>
-</div>
 <div class="form-group">
   <label class="col-sm-3 control-label">
     Place & Date of Birth
@@ -102,7 +91,7 @@
   <label class="col-sm-3 control-label"></label>
   <div class="radio col-sm-9">
     <label>
-      <input name="gender" id="optionsRadios2" value="0" type="radio" checked>
+      <input name="gender" id="optionsRadios2" value="0" type="radio">
       Female
     </label>
   </div>
@@ -154,7 +143,7 @@
 </div>
 <hr>
 <div class="box-header" style="margin: -20px 0px -20px 0px;">
-  <h3 class="box-title"><span class="label label-info">School Related Info</span></h3>
+  <h3 class="box-title"><span class="label label-default">School Related Info</span></h3>
 </div>
 <hr>
 <div class="form-group">
@@ -199,7 +188,7 @@
 </div>
 <hr>
 <div class="box-header" style="margin: -20px 0px -20px 0px;">
-  <h3 class="box-title"><span class="label label-info">Parents Related Info</span></h3>
+  <h3 class="box-title"><span class="label label-default">Parents Related Info</span></h3>
 </div>
 <hr>
 <div class="form-group">

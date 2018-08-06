@@ -8,7 +8,8 @@
 @endsection
 
 @section('navmenu')
-  <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('home') }}" title="Dashboard"><i class="fa fa-home fa-fw"></i></a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a>User Managements</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
   <a class="active" style="color: grey;">@yield('title')</a>
 @endsection
 
@@ -44,12 +45,12 @@
                 <h3 class="profile-username text-center">{{ ucfirst(Auth::user()->name) }}</h3>
                 <p class="text-muted text-center">
                   @if(empty(Auth::user()->profile->fullname))
-                    -
+
                   @else
                     {{ ucfirst(Auth::user()->profile->fullname) }} /
                   @endif
                   @if(empty(Auth::user()->profile->dob))
-                    - years old
+
                   @else
                     {{ Auth::user()->profile->dob->age }} years old
                   @endif</p>

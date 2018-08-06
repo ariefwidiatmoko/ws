@@ -3,7 +3,8 @@
 @section('title', 'Users')
 
 @section('navmenu')
-  <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('home') }}" title="Dashboard"><i class="fa fa-home fa-fw"></i></a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a>User Managements</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
   <a class="active">@yield('title')</a>
 @endsection
 
@@ -74,9 +75,9 @@
                       <td style="text-align: center;">{{ $item->roles->implode('name', ', ') }}</td>
                       @can ('edit_users')
                         <td style="text-align: center;">
-                          @if(isset($item->employee->user_id))
+                          @if(isset($item->employee_id))
                             <a href="{{route('employees.edit', $item->employee->id)}}">{{$item->employee->employeename}}</a>
-                            <a href="{{route('users.showLink', $item->id)}}"><i class="fa fa-times-circle fa-fw"></i></a>
+                            <a href="{{route('users.showLink', $item->id)}}"><i class="fa fa-pencil fa-fw"></i></a>
                           @else
                             <a href="{{route('users.showLink', $item->id)}}"><button class="btn btn-xs bg-blue">Set</button> </a>
                           @endif
@@ -89,9 +90,8 @@
                       <td>
                         <div class="row">
                           <div class="btn-group" role="group">
-                              <div class="btn-group" role="group">
-                                <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
-                                  @can ('edit_users', $item)
+                              <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
+                              @can ('edit_users', $item)
                               <a href="{{ route('users.edit', $item->id) }}" class="btn btn-xs btn-info">Edit</a>
                               @endcan
                             </div>
@@ -102,7 +102,6 @@
                               {!! Form::close() !!}
                             @endcan
                             </div>
-                          </div>
                         </div>
                       </td>
                     </tr>

@@ -8,7 +8,7 @@
 
       <div class="content">
           <div class="title m-b-md">
-              Unauthorized - Error 401
+              Unauthorized - @yield('error_title')
           </div>
 
           <div class="links">

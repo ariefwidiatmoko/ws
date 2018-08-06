@@ -110,9 +110,11 @@ class EmployeeController extends Controller
     {
         $employee = Employee::findOrFail($id);
 
+        $user = User::where('employee_id', $employee->id)->first();
+
         $positions = Position::all();
 
-        return view('academics.employees.edit', compact('employee', 'positions'));
+        return view('academics.employees.edit', compact('employee', 'user', 'positions'));
     }
 
     public function update(Request $request, $id)
@@ -163,6 +165,21 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
-        //
+      $me = Auth::user();
+
+      if( $me->hasRole('Admin') ) {
+          $employee = Employee::findOrFail($id);
+      } else {
+          $employee = $me->employees()->findOrFail($id);
+      }
+
+      $employee->delete();
+
+      $notification = array(
+        'message' => ucwords($employee->employeename) . ' was successfully deleted.',
+        'alert-type' => 'error'
+      );
+
+      return redirect()->route('employees.index')->with($notification);
     }
 }

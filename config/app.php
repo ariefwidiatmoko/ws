@@ -171,7 +171,8 @@ return [
         /*
          * Package Service Providers...
          */
-        MaddHatter\LaravelFullcalendar\ServiceProvider::class,Maatwebsite\Excel\ExcelServiceProvider::class,
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */

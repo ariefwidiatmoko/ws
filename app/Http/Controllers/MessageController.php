@@ -94,4 +94,9 @@ class MessageController extends Controller
 
         return redirect()->route('messages.index');
     }
+
+    public function filemanager()
+    {
+      return view('contents.filemanager.index');
+    }
 }

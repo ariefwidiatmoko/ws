@@ -36,6 +36,14 @@ class UserController extends Controller
         // has password
         $request->merge(['password' => $request->get('password')]);
 
+        $check_email = User::where('email', $request->email)->first();
+
+        if($check_email) {
+
+          flash()->error('Email already used.');
+          return back();
+        }
+
         // Create the user
         if ( $user = User::create($request->except('roles', 'permissions')) ) {
 
@@ -55,42 +63,37 @@ class UserController extends Controller
     public function showLink($id)
     {
         $user = User::find($id);
-        $employees = Employee::where('user_id', '=', null)->orderBy('employeename')->get();
+        $employees = Employee::all();
 
         return view('usermanagements.users.link', compact('user', 'employees'));
     }
 
     public function updateLink(Request $request, $id)
     {
+
         $user = User::findOrFail($id);
-        $profile = Profile::findOrFail($id);
-        $employee = Employee::findOrFail($request->employee_id);
 
-        $input = $request->except(['_method', '_token', 'employee_id']);
-        //Link User to Employee
-        $employee->updated_by = $request->updated_by;
-        $employee->user_id = $request->user_id;
+        if(empty($request->employee_id)) {
+            $user->employee_id = null;
+            $user->update();
 
-        //Copy Employee Detail to Profile
-        $profile->profilename = $employee->employeename;
-        //create date
-        $dd = $employee->dob->format('d');
-        $mm = $employee->dob->format('m');
-        $yy = $employee->dob->format('Y');
-        $employeeDob = Carbon::create($yy, $mm, $dd, 0);
-        //save dob
-        $profile->dob = $employeeDob->format('Y-m-d');
-        $profile->phone = $employee->phone;
-        $profile->address = $employee->address;
-        $profile->education = $employee->education;
+            $notification = array(
+              'message' => 'Link to employee successfully saved',
+              'alert-type' => 'success'
+            );
 
-        $user->update();
-        $profile->update();
+            return redirect()->route('users.index')->with($notification);
+        } else {
+            $user->employee_id = $request->employee_id;
+            $user->update();
 
-        $employee->update($input);
+            $notification = array(
+              'message' => 'Link to employee successfully updated',
+              'alert-type' => 'success'
+            );
 
-        flash('Link to employee has been saved.');
-        return redirect()->route('users.index');
+            return redirect()->route('users.index')->with($notification);
+        }
     }
 
     public function changePassword($id) {

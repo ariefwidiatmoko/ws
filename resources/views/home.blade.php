@@ -18,7 +18,7 @@
           aria-hidden="true">×</button>
         <h5>
           <i class="icon fa fa-bell-o"></i>
-          Welcome {{ ucfirst(Auth::user()->name) }} to Appone - Another Project System.
+          Welcome {{ ucfirst(Auth::user()->name) }} to {{ config('app.name', 'Laravel') }} - Integrated Solution for School System.
         </h5>
       </div>
     </div>

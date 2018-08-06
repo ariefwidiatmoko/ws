@@ -7,6 +7,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => 'secret',
+        'employee_id' => $faker->randomDigit,
         'created_by' => 'System',
         'remember_token' => str_random(10),
     ];
@@ -262,6 +263,17 @@ $factory->define(App\Group::class, function(Faker\Generator $faker) {
       'id' => $faker->randomDigit,
       'groupname' => $faker->name,
       'groupdescription' => $faker->name,
+      'created_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+      'updated_by' => function() { return \App\User::inRandomOrder()->first()->name; },
+   ];
+});
+
+$factory->define(App\Competencyalpha::class, function(Faker\Generator $faker) {
+   return [
+      'id' => $faker->randomDigit,
+      'alphabet' => $faker->name,
+      'score' => $faker->name,
+      'description' => $faker->name,
       'created_by' => function() { return \App\User::inRandomOrder()->first()->name; },
       'updated_by' => function() { return \App\User::inRandomOrder()->first()->name; },
    ];

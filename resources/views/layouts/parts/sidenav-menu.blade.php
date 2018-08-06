@@ -10,6 +10,16 @@
       <span>Academics</span><span class="pull-right-container"><i class="fa fa-angle-left fa-fw pull-right"></i></span></a>
       <ul class="treeview-menu">
 
+          <li id="{{ Request::is('home/academics/import-students*') ? 'sub-menu' : '' }}"><a href="{{ route('importstudents.index') }}" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
+            Import Students</a>
+          </li>
+
+
+          <li id="{{ Request::is('home/academics/allocatestudents*') ? 'sub-menu' : '' }}"><a href="{{ route('allocatestudents.index') }}" title="Allocate Classroom - Student" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
+            Classroom - Student</a>
+          </li>
+
+
           <li id="{{ Request::is('home/academics/classrooms*') ? 'sub-menu' : '' }}"><a href="{{ route('classroomstudent.index') }}"><i class="fa fa-angle-right fa-fw"></i>
             Classrooms</a>
           </li>
@@ -38,11 +48,15 @@
     </li>
     @endcan
 
-    <li class="treeview {{ \Request::is('home/scorings/*') ? 'active' : null }}"><a href="#"><i class="fa fa-book fa-fw"></i>
-      <span>Scorings</span><span class="pull-right-container"><i class="fa fa-angle-left fa-fw pull-right"></i></span></a>
+    <li class="treeview {{ \Request::is('home/gradings/*') ? 'active' : null }}"><a href="#"><i class="fa fa-book fa-fw"></i>
+      <span>Gradings</span><span class="pull-right-container"><i class="fa fa-angle-left fa-fw pull-right"></i></span></a>
       <ul class="treeview-menu">
 
-          <li id="{{ Request::is('home/scorings/scoringsheets') ? 'sub-menu' : '' }}"><a href="{{route('scoringsheets.index')}}" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
+          <li id="{{ Request::is('home/gradings/competencies*') ? 'sub-menu' : '' }}"><a href="{{route('competencies.index')}}" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
+            Competencies</a>
+          </li>
+
+          <li id="{{ Request::is('home/gradings/scoringsheets*') ? 'sub-menu' : '' }}"><a href="{{route('scoringsheets.index')}}" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
             Scoringsheets</a>
           </li>
 
@@ -134,13 +148,8 @@
           </li>
         @endcan
 
-          <li id="{{ Request::is('home/settings/import-students*') ? 'sub-menu' : '' }}"><a href="{{ route('importstudents.index') }}" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
-            Import Students</a>
-          </li>
-
-
-          <li id="{{ Request::is('home/settings/allocatestudents*') ? 'sub-menu' : '' }}"><a href="{{ route('allocatestudents.index') }}" title="Allocate Classroom - Student" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
-            Classroom - Student</a>
+          <li id="{{ Request::is('home/settings/competencyalphas*') ? 'sub-menu' : '' }}"><a href="{{ route('competencyalphas.index') }}" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
+            Competencies</a>
           </li>
 
 
@@ -154,8 +163,13 @@
           </li>
 
 
-          <li id="{{ Request::is('home/settings/details*') ? 'sub-menu' : '' }}"><a href="{{ route('details.index') }}" title="Group Score" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
+          <li id="{{ Request::is('home/settings/details*') ? 'sub-menu' : '' }}"><a href="{{ route('details.index') }}" title="Detail Score" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
             Detail Score</a>
+          </li>
+
+
+          <li id="{{ Request::is('home/settings/gradings*') ? 'sub-menu' : '' }}"><a href="{{ route('gradings.index') }}" title="Gradings" class="load-menu"><i class="fa fa-angle-right fa-fw"></i>
+            Gradings</a>
           </li>
 
       </ul>
@@ -189,7 +203,7 @@
     </li>
     @endcan
     @can ('edit_users')
-      <li class="{{ \Request::is('home/users/change-password*') ? 'active' : null }}"><a href="{{ route('users.changePassword', Auth::user()->id) }}" class="load-menu"><i class="fa fa-unlock-alt fa-fw"></i><span> Change Password</span></a></li>
+      <li class="{{ \Request::is('home/users/change-password*') ? 'active' : null }}"><a href="{{ route('users.changePassword', Auth::user()->id) }}" class="load-menu"><i class="fa fa-unlock-alt fa-fw"></i> Change Password</a></li>
     @endcan
   </ul>
 @endif

@@ -15,12 +15,15 @@ class CreateCompetenciesTable extends Migration
     {
         Schema::create('competencies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('competencyname')->nullable();
-            $table->string('competencydescription')->nullable();
+            $table->integer('subjectgradeyear_id')->nullable();
+            $table->text('arrayscale')->nullable();
+            $table->text('arraycompetency')->nullable();
+            $table->text('arrayalphabet')->nullable();
+            $table->integer('type_id')->nullable();
+            $table->string('subject_id')->nullable();
+            $table->integer('grade_id')->nullable();
             $table->integer('year_id')->nullable();
             $table->integer('semester_id')->nullable();
-            $table->integer('grade_id')->nullable();
-            $table->integer('type_id')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

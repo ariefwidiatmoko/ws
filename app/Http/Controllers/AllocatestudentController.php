@@ -53,12 +53,12 @@ class AllocatestudentController extends Controller
 
         $request->flash();
 
-        $results = $students->where('studentactive', 1)->whereNull('classroom_id')->orderBy('noId')->paginate(50);
+        $results = $students->where('studentactive', 1)->whereNull('classroom_id')->orderBy('id')->paginate(50);
         $classrooms = $crs->where('classroomactive', 1)->orderBy('classroomname')->get();
 
-        return view('settings.allocatestudents.index', compact('results', 'students', 'request', 'crs', 'classrooms', 'years', 'grades'));
+        return view('academics.allocatestudents.index', compact('results', 'students', 'request', 'crs', 'classrooms', 'years', 'grades'));
     }
-
+    //Academics > Classroom - Student
     public function update() {
 
         $id = Input::get('id');
@@ -68,25 +68,23 @@ class AllocatestudentController extends Controller
         $cr = Input::get('classroom_id');
 
         $students = Studentyear::where('student_id', $sd)->where('year_id', $yr)->where('grade_id', $gr)->where('semester_id', '>=', 0)->get();
+        $student1 = $students->where('semester_id', 1)->first();
+        $student2 = $students->where('semester_id', 2)->first();
 
-        foreach ($students as $index => $student) {
-          $student->update([
-            'classroom_id' => $cr,
-            'sybatch_id' => $yr . $gr . $cr,
-          ]);
-        }
+        $student1->update([
+          'classroom_id' => $cr,
+          'yeargradeclassroom_id' => $yr . $gr . $cr,
+          'yearsemclassroom_id' => $yr . 1 . $cr,
+          'updated_by' => Auth::user()->name,
+        ]);
+
+        $student2->update([
+          'classroom_id' => $cr,
+          'yeargradeclassroom_id' => $yr . $gr . $cr,
+          'yearsemclassroom_id' => $yr . 2 . $cr,
+          'updated_by' => Auth::user()->name,
+        ]);
 
         return response()->json($students);
-    }
-
-    public function updateAllocate(Request $request, $id) {
-      $student = Studentyear::findOrFail($id);
-      $class = Classroom::where('classroomname', $request->classroomname)->first();
-
-      $student->classroom_id = $class->id;
-      $student->update();
-
-      return response()->json($student);
-
     }
 }

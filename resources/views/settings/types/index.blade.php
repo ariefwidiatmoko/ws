@@ -3,11 +3,12 @@
 @section('title', 'Type Score')
 
 @section('stylesheets')
-  
+
 @endsection
 
 @section('navmenu')
-  <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('home') }}" title="Dashboard"><i class="fa fa-home fa-fw"></i></a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a>Settings</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
   <a class="active">@yield('title')</a>
 @endsection
 
@@ -57,7 +58,7 @@
             @forelse ($result as $index => $item)
               <tr>
                 <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
-                <td style="text-align: center;">{{ ucfirst($item->typename) }}</td>
+                <td style="text-align: center;">KI-{{ ucfirst($item->typename) }}</td>
                 <td style="text-align: center;">{{ $item->typedescription }}</td>
                 <td style="text-align: center;">{{ ucwords($item->created_by) }}</td>
                 @can ('edit_positions', 'delete_positions')

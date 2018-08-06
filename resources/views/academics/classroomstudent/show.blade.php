@@ -4,10 +4,15 @@
 @section('stylesheets')
   <!-- icheck checkboxes -->
   <link rel="stylesheet" href="/src/iCheck/square/yellow.css">
+  <style media="screen">
+    tr>td { cursor: pointer; }
+    tr>td:hover { color: #458dd5; }
+  </style>
 @endsection
 
 @section('navmenu')
-  <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('home') }}" title="Dashboard"><i class="fa fa-home fa-fw"></i></a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a class="active">Academics</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
   <a class="active">@yield('title')</a>
 @endsection
 
@@ -54,7 +59,7 @@
               </thead>
               <tbody>
               @forelse ($result as $index => $item)
-                <tr>
+                <tr class="clickable-row" data-href="{{route('students.edit', $item->student_id)}}">
                   <td style="text-align: center;">{{ $index + $result->firstItem() }}</td>
                   <td>{{$item->noId}} / {{$item->noIdNational}}</td>
                   <td>{{ ucfirst($item->studentname) }}</td>
@@ -116,6 +121,12 @@
     <script type="text/javascript" src="/src/toastrjs/toastr.min.js"></script>
     @include('shared._part_notification')
     <script>
+          {{--clickable Row--}}
+          jQuery(document).ready(function($) {
+              $(".clickable-row").click(function() {
+                  window.location = $(this).data("href");
+              });
+          });
           // Edit Classroom
           $(document).on('click', '.edit-modal', function() {
               $('.modal-title').text('Edit');

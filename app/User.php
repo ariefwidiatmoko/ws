@@ -16,7 +16,7 @@ class User extends Authenticatable
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'name', 'email', 'password', 'created_by', 'updated_by'
+        'name', 'email', 'password', 'employee_id', 'created_by', 'updated_by'
     ];
 
     protected $hidden = [
@@ -24,7 +24,7 @@ class User extends Authenticatable
     ];
 
     public function employee() {
-        return $this->hasOne('App\Employee');
+        return $this->belongsTo('App\Employee');
     }
 
     public function subjects()

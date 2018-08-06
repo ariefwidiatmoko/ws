@@ -8,7 +8,7 @@ class Studentyear extends Model
 {
 
     protected $fillable = [
-        'student_id', 'sybatch_id', 'year_id', 'semester_id', 'grade_id', 'classroom_id', 'created_by', 'updated_by', 'user_id'
+        'student_id', 'yeargradeclassroom_id', 'yearsemclassroom_id', 'year_id', 'semester_id', 'grade_id', 'classroom_id', 'created_by', 'updated_by', 'user_id'
     ];
 
     public function student()

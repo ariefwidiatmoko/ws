@@ -52,12 +52,14 @@ class DatabaseSeeder extends Seeder
           'name' => 'superadmin',
           'email' => 'ariefwidiatmoko@gmail.com',
           'password' => 'secret',
+          'employee_id' => 1,
           'created_by' => 'System',
         ])->assignRole('Admin');
 
         factory(App\User::class)->create([
           'name' => 'superadmin2',
           'email' => 'superadmin2@gmail.com',
+          'employee_id' => 2,
           'password' => 'secret',
           'created_by' => 'System',
         ])->assignRole('Admin');
@@ -65,6 +67,7 @@ class DatabaseSeeder extends Seeder
         factory(App\User::class)->create([
           'name' => 'user',
           'password' => 'secret',
+          'employee_id' => 3,
           'created_by' => 'System',
         ])->assignRole('User');
 
@@ -660,15 +663,17 @@ class DatabaseSeeder extends Seeder
           'created_by' => 'System',
         ]);
         factory(\App\Semester::class)->create([
+          'id' => '1',
           'user_id' => '1',
           'semestername' => 'Semester 1',
-          'alias' => 'Sem 1',
+          'alias' => '1',
           'created_by' => 'System',
         ]);
         factory(\App\Semester::class)->create([
+          'id' => '2',
           'user_id' => '1',
           'semestername' => 'Semester 2',
-          'alias' => 'Sem 2',
+          'alias' => '2',
           'created_by' => 'System',
         ]);
         factory(\App\Yearactive::class)->create([
@@ -692,25 +697,25 @@ class DatabaseSeeder extends Seeder
         ]);
         factory(\App\Type::class)->create([
           'id' => '1',
-          'typename' => 'KI-1',
+          'typename' => '1',
           'typedescription' => 'Spiritual',
           'created_by' => 'System',
         ]);
         factory(\App\Type::class)->create([
           'id' => '2',
-          'typename' => 'KI-2',
+          'typename' => '2',
           'typedescription' => 'Sikap',
           'created_by' => 'System',
         ]);
         factory(\App\Type::class)->create([
           'id' => '3',
-          'typename' => 'KI-3',
+          'typename' => '3',
           'typedescription' => 'Pengetahuan',
           'created_by' => 'System',
         ]);
         factory(\App\Type::class)->create([
           'id' => '4',
-          'typename' => 'KI-4',
+          'typename' => '4',
           'typedescription' => 'Ketrampilan',
           'created_by' => 'System',
         ]);
@@ -724,114 +729,6 @@ class DatabaseSeeder extends Seeder
           'id' => '2',
           'groupname' => 'NA',
           'groupdescription' => 'Nilai Akhir',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '1',
-          'competencyname' => 'KD3.1',
-          'competencydescription' => 'KD3.1',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '2',
-          'competencyname' => 'KD3.2',
-          'competencydescription' => 'KD3.2',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '3',
-          'competencyname' => 'KD3.3',
-          'competencydescription' => 'KD3.3',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '4',
-          'competencyname' => 'KD3.4',
-          'competencydescription' => 'KD3.4',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '5',
-          'competencyname' => 'KD3.5',
-          'competencydescription' => 'KD3.5',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '6',
-          'competencyname' => 'KD3.6',
-          'competencydescription' => 'KD3.6',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '7',
-          'competencyname' => 'KD4.1',
-          'competencydescription' => 'KD4.1',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '8',
-          'competencyname' => 'KD4.2',
-          'competencydescription' => 'KD4.2',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '9',
-          'competencyname' => 'KD4.3',
-          'competencydescription' => 'KD4.3',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '10',
-          'competencyname' => 'KD4.4',
-          'competencydescription' => 'KD4.4',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '11',
-          'competencyname' => 'KD4.5',
-          'competencydescription' => 'KD4.5',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
-          'created_by' => 'System',
-        ]);
-        factory(\App\Competency::class)->create([
-          'id' => '12',
-          'competencyname' => 'KD4.6',
-          'competencydescription' => 'KD4.6',
-          'year_id' => '1',
-          'semester_id' => '1',
-          'grade_id' => '1',
           'created_by' => 'System',
         ]);
         factory(\App\Detail::class)->create([
@@ -868,6 +765,34 @@ class DatabaseSeeder extends Seeder
           'id' => '6',
           'detailname' => 'UP',
           'detaildescription' => 'Ujian Praktek',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competencyalpha::class)->create([
+          'id' => '1',
+          'alphabet' => 'A',
+          'score' => array(0 => 90, 1 => 100),
+          'description' => 'sangat mampu',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competencyalpha::class)->create([
+          'id' => '2',
+          'alphabet' => 'B',
+          'score' => array(0 => 80, 1 => 90),
+          'description' => 'mampu',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competencyalpha::class)->create([
+          'id' => '3',
+          'alphabet' => 'C',
+          'score' => array(0 => 70, 1 => 80),
+          'description' => 'cukup mampu',
+          'created_by' => 'System',
+        ]);
+        factory(\App\Competencyalpha::class)->create([
+          'id' => '4',
+          'alphabet' => 'D',
+          'score' => array(0 => 0, 1 => 70),
+          'description' => 'kurang mampu',
           'created_by' => 'System',
         ]);
         $this->command->info('Some Dummy Data are successfully seeded.');

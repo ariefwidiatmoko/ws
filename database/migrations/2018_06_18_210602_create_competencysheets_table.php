@@ -16,10 +16,10 @@ class CreateCompetencysheetsTable extends Migration
         Schema::create('competencysheets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('csbatch_id')->nullable();
-            $table->text('type_id')->nullable();
+            $table->integer('type_id')->nullable();
+            $table->text('arraycompetencyaverage')->nullable();
             $table->text('arraycompetencygrade')->nullable();
-            $table->text('arraycompetencyscore_avg')->nullable();
-            $table->text('arraycompetencyscore')->nullable();
+            $table->text('competencydescription')->nullable();
             $table->unsignedInteger('classsubject_id');
             $table->foreign('classsubject_id')
                   ->references('id')->on('classsubjects')

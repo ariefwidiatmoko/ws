@@ -34,7 +34,7 @@ class CreateStudentprofilesTable extends Migration
             $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('citizenship')->nullable();
-            $table->integer('siblings')->nullable();
+            $table->text('arraysibling')->nullable();
             $table->string('familystatus')->nullable();
             $table->string('childno')->nullable();
             $table->text('familiynote')->nullable();

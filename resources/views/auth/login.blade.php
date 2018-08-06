@@ -8,7 +8,7 @@
     <br><br><br><br><br><br>
   </div>
   <!-- /.login-logo -->
-  <div class="login-box-body" style="box-shadow: 0 8px 6px -6px grey;">
+  <div class="login-box-body" style="box-shadow: 0 8px 6px -6px gray;">
     <h3 class="login-box-msg"><img src="../favicon.ico" style="max-width: 34px; height: auto; margin-top: -5px;" alt=""> {{ config('app.name', 'Laravel') }}</h3>
     <form method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}

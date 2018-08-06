@@ -28,16 +28,18 @@ class ClassroomstudentController extends Controller
                         ->join('semesters', 'semesters.id', '=', 'studentyears.semester_id')
                         ->select('studentyears.id', 'studentyears.year_id', 'studentyears.grade_id', 'studentyears.semester_id', 'studentyears.classroom_id', 'classrooms.classroomname', 'years.yearname', 'grades.gradename');
 
+
+        //Default Index Classroom - Student showing Classroom - Student yearactive
+        if(!isset($request->year_id)) {
+            $students->where('year_id', 'like',  $yearactive->year_id);
+        }
+
         if(isset($request->search)) {
             $students->where('classroomname', 'like',  "%{$request->search}%");
         }
 
         if(isset($request->year_id)) {
             $students->where('year_id', 'like',  $request->year_id);
-        }
-
-        if(!isset($request->year_id)) {
-            $students->where('year_id', 'like',  $yearactive->year_id);
         }
 
         if(isset($request->grade_id)) {

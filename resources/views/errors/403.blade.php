@@ -8,7 +8,7 @@
 
       <div class="content">
           <div class="title m-b-md">
-              Access Denied - Error 403
+              Access Denied - @yield('error_title')
           </div>
 
           <div class="links">

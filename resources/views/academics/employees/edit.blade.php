@@ -12,8 +12,9 @@
 @endsection
 
 @section('navmenu')
-  <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
-  <a href="{{ route('employees.index') }}">Employees</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('home') }}" title="Dashboard"><i class="fa fa-home fa-fw"></i></a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a class="active">Academics</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('employees.index') }}">Employees</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
   <a class="active" style="color: grey;">@yield('title')</a>
 @endsection
 
@@ -75,7 +76,7 @@
             Date of Birth (Age)</b><a class="pull-right">{{ $employee->dob != null ? $employee->dob->format('d M Y') : '' }} ({{ $employee->dob != null ? $employee->dob->age : '' }} years old)</a>
           </li>
           <li class="list-group-item clearfix"><b>
-            Link to User</b>@if(empty($employee->user_id)) <a class="pull-right">Not Set</a> @else <a class="pull-right" href="{{route('users.edit', $employee->user->id)}}">{{ ucwords($employee->user->name) }} @endif</a>
+            Link to User</b>@if(empty($user->employee_id)) <a class="pull-right">Not Set</a> @else <a class="pull-right" href="{{route('users.edit', $user->id)}}">{{ ucwords($user->name) }} @endif</a>
           </li>
         </ul>
       </div>

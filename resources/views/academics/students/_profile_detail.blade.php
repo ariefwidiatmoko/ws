@@ -21,7 +21,15 @@
     <hr>
     <strong><i class="fa fa-users margin-r-5"></i>
     Siblings</strong>
-    <p class="text-muted">{{ucfirst($student->studentprofile->siblings)}}</p>
+    <p class="text-muted">
+      @if ($studentprofile->arraysibling)
+        @foreach ($studentprofile->arraysibling as $index => $item)
+          {{$item}}{{count($studentprofile->arraysibling) == $index + 1 ? '' : ', '}}
+        @endforeach
+      @else
+        No Sibling
+      @endif
+    </p>
     <hr>
     <strong><i class="fa fa-sitemap margin-r-5"></i>
     Family Status / Child No</strong>

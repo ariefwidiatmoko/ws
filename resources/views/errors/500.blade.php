@@ -8,7 +8,7 @@
 
       <div class="content">
           <div class="title m-b-md">
-              Webservice currently unavailable - Error 500
+              Webservice currently unavailable - @yield('error_title')
           </div>
 
           <div class="links">

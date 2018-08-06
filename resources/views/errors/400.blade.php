@@ -8,7 +8,7 @@
 
       <div class="content">
           <div class="title m-b-md">
-              Bad Request - Error 400
+              Bad Request - @yield('error_title')
           </div>
 
           <div class="links">

@@ -10,7 +10,8 @@
 @endsection
 
 @section('navmenu')
-  <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('home') }}" title="Dashboard"><i class="fa fa-home fa-fw"></i></a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a>Settings</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
   <a class="active">@yield('title')</a>
 @endsection
 
@@ -86,18 +87,13 @@
                       @can ('edit_classrooms', 'delete_classrooms')
                       <td>
                         <div class="row">
-                              <div class="btn-group" role="group">
-                                <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
-                                @can ('edit_classrooms', $item)
-                                  <a href="{{ route('classrooms.edit', $item->id) }}" class="btn btn-xs btn-info">Edit</a>
-                                @endcan
-                            </div>
+                          <div class="btn-group" role="group">
                             <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
-                                @can ('delete_classrooms', $item)
-                                  {!! Form::open( ['method' => 'delete', 'url' => route('classrooms.destroy', $item->id), 'onSubmit' => 'return confirm("Are you sure wanted to delete it?")']) !!}
-                                    <button type="submit" class="btn btn-xs btn-danger">Delete</button>
-                                  {!! Form::close() !!}
-                                @endcan
+                              @can ('delete_classrooms', $item)
+                              {!! Form::open( ['method' => 'delete', 'url' => route('classrooms.destroy', $item->id), 'onSubmit' => 'return confirm("Are you sure wanted to delete it?")']) !!}
+                                <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                              {!! Form::close() !!}
+                              @endcan
                             </div>
                           </div>
                         </div>

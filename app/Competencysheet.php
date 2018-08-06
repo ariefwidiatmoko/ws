@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Competencysheet extends Model
 {
     protected $fillable = [
-        'csbatch_id', 'type_id', 'arraycompetencygrade', 'arraycompetencyscore_avg', 'arraycompetencyscore', 'classsubject_id', 'created_by', 'updated_by'
+        'csbatch_id', 'type_id', 'arraycompetencyaverage', 'arraycompetencygrade', 'competencydescription', 'classsubject_id', 'created_by', 'updated_by'
     ];
 
     protected $casts = [
+        'arraycompetencyaverage' => 'array',
         'arraycompetencygrade' => 'array',
-        'arraycompetency_avg' => 'array',
-        'arraycompetencyscore' => 'array',
     ];
 
     public function classsubject()

@@ -15,7 +15,8 @@
 @endsection
 
 @section('navmenu')
-  <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('home') }}" title="Dashboard"><i class="fa fa-home fa-fw"></i></a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a>Settings</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
   <a class="active">@yield('title')</a>
 @endsection
 
@@ -95,7 +96,7 @@
                             </div>
                             <div class="col-xs-1 margin" style="margin: -1px 8px -1px 8px;">
                                 @can ('delete_years', $item)
-                                  {!! Form::open( ['method' => 'delete', 'url' => route('years.destroy', $item->id), 'onSubmit' => 'return confirm("Are yous sure wanted to delete it?")']) !!}
+                                  {!! Form::open( ['method' => 'delete', 'url' => route('years.destroy', $item->id), 'onSubmit' => 'return confirm("Are you sure wanted to delete it?")']) !!}
                                     <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                                   {!! Form::close() !!}
                                 @endcan

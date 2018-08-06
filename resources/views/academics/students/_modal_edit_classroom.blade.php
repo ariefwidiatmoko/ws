@@ -12,7 +12,6 @@
                         <label class="control-label col-sm-2" for="id">Classroom</label>
                         <div class="col-sm-10">
                             <input type="hidden" id="id_edit">
-                            <input type="hidden" id="index_edit">
                             <select class="form-control input-sm" id="classroomname_edit">
                               @foreach ($classrooms as $index => $item)
                                 <option value="{{ $item->classroomname }}">{{ ucfirst($item->classroomname) }}</option>

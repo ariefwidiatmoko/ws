@@ -86,8 +86,8 @@ return array(
             'paperSize'             => '9',
             'scale'                 => '100',
             'fitToPage'             => false,
-            'fitToHeight'           => true,
-            'fitToWidth'            => true,
+            'fitToHeight'           => false,
+            'fitToWidth'            => false,
             'columnsToRepeatAtLeft' => ['', ''],
             'rowsToRepeatAtTop'     => [0, 0],
             'horizontalCentered'    => false,
@@ -197,7 +197,7 @@ return array(
         | Auto set alignment on merged cells
         |--------------------------------------------------------------------------
         */
-        'merged_cell_alignment'       => 'left',
+        'merged_cell_alignment'       => 'center',
 
         /*
         |--------------------------------------------------------------------------
@@ -560,7 +560,7 @@ return array(
             'th'     => [
                 'font' => [
                     'bold' => true,
-                    'size' => 12,
+                    'size' => 11,
                 ]
             ],
 

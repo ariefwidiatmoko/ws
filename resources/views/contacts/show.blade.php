@@ -12,8 +12,8 @@
 @endsection
 
 @section('navmenu')
-  <li><a href="{{ route('home') }}"><i class="fa fa-home fa-fw"></i> Dashboard</a></li>
-  <li class="active"><a href="{{ route('messages.index') }}">Messages</a></li>
+  <a href="{{ route('home') }}" title="Dashboard"><i class="fa fa-home fa-fw"></i></a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('messages.index') }}">Messages</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
   <li class="active">@yield('title')</li>
 @endsection
 

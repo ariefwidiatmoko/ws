@@ -8,7 +8,7 @@
 
       <div class="content">
           <div class="title m-b-md">
-              Resource not found - Error 404
+              Resource not found - @yield('error_title')
           </div>
 
           <div class="links">

@@ -7,13 +7,15 @@
 @endsection
 
 @section('navmenu')
-  <a href="{{ route('home') }}">Dashboard</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
-  <a href="{{ route('classrooms.index') }}">Classrooms</a> <i class="fa fa-caret-right fa fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('home') }}" title="Dashboard"><i class="fa fa-home fa-fw"></i></a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a>Settings</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
+  <a href="{{ route('classrooms.index') }}">Classrooms</a> <i class="fa fa-angle-right fa-fw" style="color: #3c8dbc;"></i>
   <a class="active" style="color: grey;">@yield('title')</a>
 @endsection
 
 @section('button')
   <a href="{{ route('classrooms.index') }}" class="btn btn-xs btn-default">Back</a>
+  <a href="{{ route('classrooms.edit', $classroom->id) }}" class="btn btn-xs btn-info">Edit</a>
 @endsection
 
 @section('content')
